@@ -28,36 +28,28 @@ function decodeConfig(str) {
     return JSON.parse(json);
 }
 
-// JSONP helper to shorten URL anonymously via is.gd (CORS bypass)
+// Shorten URL anonymously via TinyURL using a public CORS proxy (corsproxy.io)
 function shortenUrl(longUrl, callback) {
-    const callbackName = 'isgd_callback_' + Math.round(Math.random() * 1000000);
+    const targetUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
     
-    window[callbackName] = function(data) {
-        if (data.shorturl) {
-            callback(data.shorturl);
-        } else {
-            console.warn("is.gd shortening failed:", data.errormessage || "unknown error");
+    fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`)
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            throw new Error("Shortener API failed");
+        })
+        .then(shortUrl => {
+            if (shortUrl && shortUrl.startsWith('http')) {
+                callback(shortUrl);
+            } else {
+                callback(null);
+            }
+        })
+        .catch(error => {
+            console.warn("URL shortening failed:", error);
             callback(null);
-        }
-        try {
-            document.body.removeChild(script);
-        } catch(e) {}
-        delete window[callbackName];
-    };
-
-    const script = document.createElement('script');
-    script.src = `https://is.gd/create.php?format=jsonp&callback=${callbackName}&url=${encodeURIComponent(longUrl)}`;
-    
-    script.onerror = function() {
-        console.warn("is.gd script load failed.");
-        callback(null);
-        try {
-            document.body.removeChild(script);
-        } catch(e) {}
-        delete window[callbackName];
-    };
-
-    document.body.appendChild(script);
+        });
 }
 
 // Preset images from Unsplash (curated high-res love/birthday theme)
