@@ -142,6 +142,7 @@
                                 <div class="theme-tabs">
                                     <button type="button" class="theme-tab-btn active" data-theme="birthday">🎉 Birthday Surprise</button>
                                     <button type="button" class="theme-tab-btn" data-theme="heartbeat">💓 3D Heartbeat</button>
+                                    <button type="button" class="theme-tab-btn" data-theme="rose">🌹 3D Blooming Rose</button>
                                 </div>
                             </div>
                         </div>
@@ -337,6 +338,20 @@
                                     <div class="mockup-hb-btn" id="prevHbBtn">Run heartbeat.js</div>
                                 </div>
                             </div>
+
+                            <!-- Preview 4: Rose Mockup -->
+                            <div class="mockup-view" id="view-prev-rose">
+                                <div class="mockup-rose-card">
+                                    <div class="mockup-rose-glow"></div>
+                                    <span class="mockup-rose-icon">🌹</span>
+                                    <h3 class="mockup-rose-title" id="prevRoseTitle">Love.css</h3>
+                                    <div class="mockup-rose-bar-container">
+                                        <div class="mockup-rose-bar" style="width: 70%"></div>
+                                    </div>
+                                    <p class="mockup-rose-status" id="prevRoseStatus">Ready to bloom...</p>
+                                    <div class="mockup-rose-btn" id="prevRoseBtn">Tap to Bloom</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -399,6 +414,64 @@
             <p class="m1" id="hbM1">I coded this heartbeat</p>
             <p class="m2" id="hbM2">for <span id="hbM2Span">you</span> 💗</p>
         </div>
+    </div>
+
+    <!-- Rose Theme View -->
+    <div id="roseContainer" class="rose-container hidden">
+        <div class="vignette"></div>
+        <div class="starfield" id="roseStarfield"></div>
+        <div class="spotlight"></div>
+        <div class="ambient-light" id="roseAmbientLight"></div>
+        <div class="sparkle-field" id="roseSparkleField"></div>
+
+        <div class="trigger-overlay" id="roseTriggerOverlay">
+            <div class="glass-card">
+                <div class="card-glow"></div>
+                <div class="rose-icon">🌹</div>
+                <h2 class="title" id="roseLoaderTitle">Love.css</h2>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="roseLoadingBar"></div>
+                </div>
+                <p class="status-text" id="roseStatusText">Ready to compile...</p>
+                <button class="start-button" id="roseStartButton" disabled>
+                    <span class="btn-text">Tap to Bloom</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="scene" id="roseScene">
+            <div class="rose-wrapper" id="roseWrapper">
+                <div class="stem-group">
+                    <div class="stem" id="roseStem">
+                        <div class="stem-highlight"></div>
+                    </div>
+                    <div class="thorn thorn-1" id="roseThorn1"></div>
+                    <div class="thorn thorn-2" id="roseThorn2"></div>
+                    <div class="leaf leaf-left" id="roseLeafLeft">
+                        <div class="leaf-vein"></div>
+                    </div>
+                    <div class="leaf leaf-right" id="roseLeafRight">
+                        <div class="leaf-vein"></div>
+                    </div>
+                </div>
+
+                <div class="calyx" id="roseCalyx"></div>
+
+                <div class="rose-head" id="roseHead">
+                    <div class="rose-glow"></div>
+                    <div class="rose-glow-inner"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="end-text" id="roseEndText">
+            <p class="tagline" id="roseTagline">i coded this for you</p>
+            <span class="rose-emoji">🌹</span>
+            <button class="replay-button" id="roseReplayButton">↺ Bloom Again</button>
+        </div>
+
+        <div id="roseFallingPetals"></div>
     </div>
 
     <script src="./script.js"></script>
