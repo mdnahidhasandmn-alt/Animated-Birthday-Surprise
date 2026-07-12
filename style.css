@@ -1790,3 +1790,467 @@ body.creator-mode {
     }
 }
 
+/* ==========================================================================
+   Surprise Theme Selector & Heartbeat Theme Styles
+   ========================================================================== */
+
+/* Theme Selector Tabs */
+.theme-tabs-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.theme-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 4px;
+    border-radius: 14px;
+    width: 100%;
+}
+
+.theme-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.theme-tab-btn:hover {
+    color: var(--text-light);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.theme-tab-btn.active {
+    background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(255, 51, 119, 0.35);
+}
+
+/* Phone Mockup Heartbeat Preview Styles */
+.mockup-heartbeat-card {
+    background: rgba(22, 8, 14, 0.7);
+    border: 1px solid rgba(255, 45, 85, 0.25);
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin: 30px auto;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.mockup-hb-glow {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 30, 80, 0.15) 0%, transparent 70%);
+    top: -20px;
+    left: -20px;
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+.mockup-hb-icon {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.mockup-hb-title {
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.mockup-hb-bar-container {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.mockup-hb-bar {
+    height: 100%;
+    background: linear-gradient(to right, #ff2d55, #9b72cf);
+    border-radius: 2px;
+}
+
+.mockup-hb-status {
+    font-family: 'Fira Code', monospace;
+    font-size: 9px;
+    color: #b5a2b0;
+    margin-bottom: 16px;
+}
+
+.mockup-hb-btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #ff2d55 0%, #d90429 100%);
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* 3D Heartbeat View Styles */
+.heartbeat-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #020005;
+    z-index: 100;
+    overflow: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #fff;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.heartbeat-container canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.heartbeat-container .vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(2, 0, 5, 0.9) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.heartbeat-container .glow-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    transform: translate(-50%, -50%) scale(1);
+    background: radial-gradient(circle, rgba(255, 30, 90, 0.12) 0%, rgba(196, 71, 245, 0.03) 50%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(40px);
+}
+
+.heartbeat-container .msg {
+    position: fixed;
+    bottom: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+}
+
+.heartbeat-container .m1 {
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.heartbeat-container .m2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    text-shadow: 0 0 15px rgba(255, 45, 85, 0.4);
+}
+
+.heartbeat-container .m2 span {
+    background: linear-gradient(135deg, #ff2d55, #ff6b9d, #c471f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 42px;
+}
+
+.heartbeat-container .msg.active .m1,
+.heartbeat-container .msg.active .m2 {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.heartbeat-container .start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 0, 5, 0.96);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+}
+
+.heartbeat-container .start-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.heartbeat-container .start-overlay.fade-out .glass-card {
+    transform: scale(0.85);
+}
+
+.heartbeat-container .glass-card {
+    position: relative;
+    width: min(85vw, 340px);
+    background: rgba(22, 8, 14, 0.55);
+    border: 1px solid rgba(255, 45, 85, 0.18);
+    border-radius: 24px;
+    padding: 35px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(255, 30, 80, 0.08);
+    transform: scale(1);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.heartbeat-container .card-glow {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 30, 80, 0.15) 0%, transparent 70%);
+    top: -40px;
+    left: -40px;
+    filter: blur(15px);
+    pointer-events: none;
+}
+
+.heartbeat-container .card-icon {
+    font-size: 54px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 12px rgba(255, 30, 80, 0.4));
+    animation: pulseIcon 2.5s ease-in-out infinite;
+}
+
+.heartbeat-container .card-title {
+    color: #fff;
+    font-family: 'Fira Code', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.heartbeat-container .loading-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.heartbeat-container .loading-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #ff2d55, #9b72cf);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+.heartbeat-container .status-text {
+    font-size: 12px;
+    color: #b5a2b0;
+    font-family: 'Fira Code', monospace;
+    margin-bottom: 26px;
+}
+
+.heartbeat-container .start-btn {
+    position: relative;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #ff2d55 0%, #d90429 100%);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
+    box-shadow: 0 5px 20px rgba(255, 45, 85, 0.3);
+}
+
+.heartbeat-container .start-btn:disabled {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none !important;
+}
+
+.heartbeat-container .start-btn:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 25px rgba(255, 45, 85, 0.5),
+        0 0 15px rgba(155, 114, 207, 0.3);
+}
+
+.heartbeat-container .start-btn:active {
+    transform: translateY(1px);
+}
+
+.heartbeat-container .btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: left 0.6s;
+}
+
+.heartbeat-container .start-btn:not(:disabled) .btn-shine {
+    animation: shineSweep 2.5s ease-in-out infinite;
+}
+
+.heartbeat-container .letter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 0, 5, 0.7);
+    z-index: 150;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.heartbeat-container .letter-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.heartbeat-container .letter-card {
+    position: relative;
+    width: min(90vw, 360px);
+    background: rgba(20, 10, 25, 0.85);
+    border: 1px solid rgba(255, 45, 85, 0.25);
+    border-radius: 20px;
+    padding: 35px 28px 30px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 45, 85, 0.1);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: left;
+}
+
+.heartbeat-container .letter-overlay.active .letter-card {
+    transform: translateY(0) scale(1);
+}
+
+.heartbeat-container .letter-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.heartbeat-container .letter-close:hover {
+    color: #ff2d55;
+}
+
+.heartbeat-container .letter-header {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ff2d55;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 45, 85, 0.15);
+    padding-bottom: 8px;
+}
+
+.heartbeat-container .letter-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    min-height: 100px;
+    margin-bottom: 24px;
+    white-space: pre-line;
+}
+
+.heartbeat-container .letter-sign {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: right;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+}
+
