@@ -938,10 +938,7 @@ body.creator-mode {
 }
 
 /* Creator Generator Styles */
-.wish-container.hidden {
-    display: none !important;
-}
-.creator-container.hidden {
+.hidden {
     display: none !important;
 }
 
