@@ -30,9 +30,9 @@ function decodeConfig(str) {
 
 // Shorten URL anonymously via TinyURL using a public CORS proxy (corsproxy.io)
 function shortenUrl(longUrl, callback) {
-    const targetUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
+    const targetUrl = `https://corsproxy.io/?https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
     
-    fetch(`https://corsproxy.io/?${encodeURIComponent(targetUrl)}`)
+    fetch(targetUrl)
         .then(response => {
             if (response.ok) {
                 return response.text();
@@ -41,7 +41,7 @@ function shortenUrl(longUrl, callback) {
         })
         .then(shortUrl => {
             if (shortUrl && shortUrl.startsWith('http')) {
-                callback(shortUrl);
+                callback(shortUrl.trim());
             } else {
                 callback(null);
             }
