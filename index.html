@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise For You 🎁</title>
+    <title>Surprise Lab - Custom Interactive Surprises 🎁</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;700&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -125,8 +125,8 @@
     <!-- Creator Generator View -->
     <div id="creatorContainer" class="creator-container">
         <header class="creator-header">
-            <h1 class="creator-logo">✨ Surprise Maker</h1>
-            <p class="creator-subtitle">Create a customized, animated birthday surprise with music, floating balloons, interactive polaroids, and hand-written letters. Generate a unique link to send to your special person!</p>
+            <h1 class="creator-logo">✨ Surprise Lab</h1>
+            <p class="creator-subtitle">Compile customized interactive surprises, 3D particle animations, and blooming roses. Customize any theme, add names & letters, and compile a unique link to send to your special person!</p>
         </header>
 
         <div class="creator-layout">
@@ -152,16 +152,16 @@
                     <div class="form-section active" data-section="general">
                         <h3 class="section-title"><span class="section-num">1</span> Occasion & Names</h3>
                         <div class="section-content">
-                            <div class="input-group">
+                            <div class="input-group" id="group-occasion">
                                 <label for="inputOccasion">Occasion Headline</label>
                                 <input type="text" id="inputOccasion" value="Happy Birthday, my love! 🎂" placeholder="e.g., Happy Birthday, Sophia! 🎂">
                             </div>
                             <div class="input-row">
-                                <div class="input-group">
+                                <div class="input-group" id="group-to">
                                     <label for="inputTo">To (Recipient)</label>
                                     <input type="text" id="inputTo" value="Sophia 💖" placeholder="e.g., Sophia 💖">
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group" id="group-from">
                                     <label for="inputFrom">From (Sender)</label>
                                     <input type="text" id="inputFrom" value="Alex ✍️" placeholder="e.g., Alex ✍️">
                                 </div>
@@ -173,12 +173,12 @@
                     <div class="form-section" data-section="card">
                         <h3 class="section-title"><span class="section-num">2</span> The Surprise Card</h3>
                         <div class="section-content">
-                            <div class="input-group">
+                            <div class="input-group" id="group-message">
                                 <label for="inputMessage">Typed Love Letter Message</label>
                                 <textarea id="inputMessage" rows="5" placeholder="Write your heartfelt message here..."></textarea>
                             </div>
                             
-                            <div class="input-group">
+                            <div class="input-group" id="group-card-photo">
                                 <label>Card Photo (Polaroid)</label>
                                 <div class="image-source-tabs">
                                     <button type="button" class="img-tab-btn active" data-tab="preset-main">Presets</button>
@@ -264,7 +264,7 @@
 
             <!-- Right Side: Live Interactive Device Preview -->
             <div class="creator-preview">
-                <div class="preview-tabs">
+                <div class="preview-tabs" id="mockup-tabs">
                     <button class="preview-tab-btn active" data-prev="card">Main Card</button>
                     <button class="preview-tab-btn" data-prev="letters">Envelope Letters</button>
                 </div>
@@ -474,6 +474,9 @@
         <div id="roseFallingPetals"></div>
     </div>
 
+    <script src="./themes/birthday.js"></script>
+    <script src="./themes/heartbeat.js"></script>
+    <script src="./themes/rose.js"></script>
     <script src="./script.js"></script>
 </body>
 
