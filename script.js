@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (SURPRISE_CONFIG.theme === 'rose') {
             document.getElementById('wishContainer').classList.add('hidden');
             document.getElementById('heartbeatContainer').classList.add('hidden');
+            document.getElementById('elementumContainer').classList.add('hidden');
             document.getElementById('roseContainer').classList.remove('hidden');
 
             // Populate Rose Viewer DOM
@@ -230,9 +231,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             initBackground();
             initRoseTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'elementum') {
+            document.getElementById('wishContainer').classList.add('hidden');
+            document.getElementById('heartbeatContainer').classList.add('hidden');
+            document.getElementById('roseContainer').classList.add('hidden');
+            document.getElementById('elementumContainer').classList.remove('hidden');
+
+            initBackground();
+            initElementumTheme(SURPRISE_CONFIG);
         } else {
             document.getElementById('heartbeatContainer').classList.add('hidden');
             document.getElementById('roseContainer').classList.add('hidden');
+            document.getElementById('elementumContainer').classList.add('hidden');
             document.getElementById('wishContainer').classList.remove('hidden');
 
             // Populate Viewer DOM
@@ -319,6 +329,13 @@ const THEME_REGISTRY = {
             'inputMessage': 'Rose Tagline Text'
         },
         preview: 'view-prev-rose',
+        showMockupTabs: false
+    },
+    elementum: {
+        name: "⚛️ Elementum Table",
+        desc: "Interactive 3D Periodic Table using Anime.js v4. Switch between Table, Sphere, Helix, Grid, and Orbit layouts.",
+        visibleFields: [],
+        preview: 'view-prev-elementum',
         showMockupTabs: false
     }
 };

@@ -2963,3 +2963,485 @@ body.creator-mode {
     }
 }
 
+/* ==========================================================================
+   ⚛️ ELEMENTUM - 3D PERIODIC TABLE THEME STYLES
+   ========================================================================== */
+
+#elementumContainer {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0d0a0d;
+    font-family: 'IoskeleyMono', monospace, sans-serif;
+    color: var(--fg-1);
+    perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* Loader */
+#elLoader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    background: radial-gradient(circle at 50% 40%, var(--bg-3), var(--bg-1) 70%);
+    transition: opacity .6s ease, visibility .6s ease;
+}
+#elLoader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+#elLoader .loader-ring { fill: none; stroke: var(--fg-4); stroke-width: 1; }
+#elLoader .loader-ring-2 { stroke: var(--red-4); }
+#elLoader .loader-nucleus { fill: var(--red-1); filter: drop-shadow(0 0 8px var(--red-1)); }
+#elLoader .loader-electron { fill: var(--sky-1); filter: drop-shadow(0 0 6px var(--sky-1)); transform-origin: 100px 100px; animation: el-orbit-spin 1.6s linear infinite; }
+#elLoader .loader-electron-2 { fill: var(--emerald-1); filter: drop-shadow(0 0 6px var(--emerald-1)); transform-origin: 100px 100px; animation: el-orbit-spin 2.4s linear infinite reverse; }
+
+@keyframes el-orbit-spin { to { transform: rotate(360deg); } }
+
+#elLoaderText {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .35em;
+    color: var(--fg-1);
+}
+#elLoaderSub { font-size: .7rem; color: var(--fg-3); letter-spacing: .1em; }
+
+/* Parallax Scene */
+#elScene {
+    position: absolute;
+    transform-style: preserve-3d;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: calc(var(--header-height) + var(--padding)) var(--padding) var(--padding);
+    padding: var(--header-height) var(--padding);
+}
+#elSceneContent {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+#elSceneContent[data-layout="table"] {
+    display: grid;
+    grid-template-columns: repeat(18, var(--w));
+    grid-auto-rows: var(--h);
+    gap: 0.25rem;
+    place-content: center;
+}
+
+/* Controls */
+#elementumContainer .controls.el-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-shrink: 1;
+    position: absolute;
+    z-index: 3;
+    top: 0px;
+    width: 100%;
+    height: var(--header-height);
+    padding: var(--padding);
+}
+#elementumContainer .controls-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    height: var(--header-height);
+    gap: calc(var(--padding) * .5);
+}
+#elementumContainer .controls button {
+    background-color: var(--bg-4);
+    color: var(--fg-1);
+    flex-shrink: 1;
+    width: 100%;
+    flex-shrink: .5;
+    border: none;
+    border-radius: var(--input-border-radius);
+    white-space: nowrap;
+    margin: 0;
+    height: 2rem;
+    padding: 0 .75rem;
+}
+#elementumContainer .controls button:hover {
+    background-color: var(--bg-5);
+}
+#elementumContainer .controls button.is-active {
+    background-color: var(--fg-1);
+    color: var(--bg-3);
+    box-shadow: 0 0 12px rgba(221, 220, 218, .25);
+}
+
+/* Brand mark */
+#elBrandMark {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: conic-gradient(from 0deg, var(--red-1), var(--sky-1), var(--emerald-1), var(--red-1));
+    box-shadow: 0 0 14px rgba(255, 75, 75, .5);
+    animation: el-orbit-spin 6s linear infinite;
+}
+#elBrandText { display: flex; flex-direction: column; line-height: 1.1; }
+#elBrandTitle { font-weight: 700; font-size: .85rem; letter-spacing: .05em; color: var(--fg-1); }
+#elBrandTag { font-size: .6rem; color: var(--fg-3); letter-spacing: .04em; }
+
+#elementumContainer .search-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: 0 .75rem;
+    min-width: 220px;
+    flex: 1 1 240px;
+    max-width: 340px;
+}
+#elSearch {
+    background: transparent;
+    border: none;
+    color: var(--fg-1);
+    height: 2rem;
+    width: 100%;
+    font-family: inherit;
+    font-size: .75rem;
+    letter-spacing: .03em;
+}
+#elSearch::placeholder { color: var(--fg-4); }
+#elSearch:focus { outline: none; }
+#elSearchCount {
+    font-size: .65rem;
+    color: var(--fg-3);
+    white-space: nowrap;
+    min-width: 3.2rem;
+    text-align: right;
+}
+
+/* Legend */
+#elLegend {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .4rem;
+    padding: .5rem var(--padding);
+    pointer-events: none;
+}
+#elLegend .legend-chip {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .25rem .6rem;
+    font-size: .58rem;
+    letter-spacing: .03em;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    color: var(--fg-2);
+    cursor: pointer;
+    transition: transform .15s ease, border-color .2s ease, opacity .2s ease;
+}
+#elLegend .legend-chip:hover { transform: translateY(-1px); border-color: var(--fg-3); }
+#elLegend .legend-chip.is-active { border-color: var(--color-1); color: var(--fg-1); }
+#elLegend .legend-dot {
+    width: .55rem;
+    height: .55rem;
+    border-radius: 50%;
+    background: var(--color-1);
+    box-shadow: 0 0 6px var(--color-1);
+}
+#elLegend.is-dim-others .legend-chip:not(.is-active) { opacity: .45; }
+
+/* Elements Layout CSS */
+#elementumContainer .element {
+    overflow: hidden;
+    pointer-events: auto;
+    --w: 3.5rem;
+    --h: 4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--color-3);
+    background-color: var(--color-5);
+    color: var(--color-1);
+    width: var(--w);
+    height: var(--h);
+    border-radius: .25rem;
+    padding: .25rem;
+    transform-style: preserve-3d;
+    z-index: 8;
+    cursor: pointer;
+    transition: transform .35s ease, filter .35s ease, opacity .35s ease, box-shadow .35s ease;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+#elementumContainer button.element:focus-visible,
+#elementumContainer button.element:hover {
+    border: 1px solid var(--color-1);
+    background-color: var(--color-4);
+    color: var(--color-1);
+    outline: none;
+}
+#elementumContainer .element-glow {
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle, var(--color-1) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+#elementumContainer button.element:hover .element-glow,
+#elementumContainer button.element:focus-visible .element-glow { opacity: .28; }
+#elementumContainer button.element:hover,
+#elementumContainer button.element:focus-visible {
+    box-shadow: 0 6px 24px rgba(0,0,0,.35), 0 0 16px var(--color-2);
+}
+
+#elementumContainer .element.is-expanded {
+    --w: 13rem;
+    --h: 13rem;
+    z-index: 10;
+    padding: 1rem;
+    align-items: flex-start;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5), 0 0 26px var(--color-2);
+    border: 1px solid var(--color-1);
+}
+#elementumContainer .element.is-search-match { box-shadow: 0 0 0 2px var(--color-1), 0 0 18px var(--color-1); }
+#elementumContainer .element.is-dimmed { opacity: .12; filter: saturate(.3); pointer-events: none; }
+
+#elementumContainer .element-description {
+    display: none;
+    transform-style: preserve-3d;
+    flex-direction: column;
+    gap: .25rem;
+    width: 100%;
+    font-size: .625rem;
+    text-transform: none;
+    color: var(--color-1);
+    justify-self: flex-end;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+#elementumContainer .element.is-expanded .element-description {
+    display: block;
+}
+#elementumContainer .element-symbol {
+    transform-style: preserve-3d;
+    margin-top: -.1rem;
+    margin-bottom: .2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+#elementumContainer .element.is-expanded .element-symbol {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1rem;
+    text-align: left;
+}
+#elementumContainer .element-title {
+    transform-style: preserve-3d;
+    font-size: .5rem;
+    font-weight: 700;
+    text-align: center;
+}
+#elementumContainer .element.is-expanded .element-title {
+    font-size: 1.5rem;
+    text-align: left;
+    margin-top: 1rem;
+}
+#elementumContainer .element-number {
+    transform-style: preserve-3d;
+    font-size: .5rem;
+    text-align: right;
+    align-self: flex-end;
+}
+#elementumContainer .element.is-expanded .element-number {
+    position: absolute;
+    font-size: 1rem;
+    top: 1rem;
+    right: 1rem;
+}
+
+#elSceneContent[data-layout="sphere"] .element,
+#elSceneContent[data-layout="helix"] .element,
+#elSceneContent[data-layout="grid"] .element,
+#elSceneContent[data-layout="orbit"] .element {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: calc(var(--w) * -.5);
+    margin-top: calc(var(--h) * -.5);
+}
+#elSceneContent[data-layout="table"] .element.is-expanded {
+    left: -1.625rem;
+    top: -1.25rem;
+    margin-left: calc(var(--w) * -.25);
+    margin-top: calc(var(--h) * -.25);
+    margin-right: calc(var(--w) * -.5);
+    margin-bottom: calc(var(--h) * -.5);
+}
+
+#elementumContainer .element-more {
+    display: none;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    padding: .35rem .5rem;
+    font-size: .55rem;
+    letter-spacing: .04em;
+    background-color: var(--color-4);
+    color: var(--color-1);
+    border: 1px solid var(--color-3);
+    cursor: pointer;
+}
+#elementumContainer .element-more:hover { background-color: var(--color-3); }
+#elementumContainer .element.is-expanded .element-more { display: block; }
+
+/* Full Detail Modal */
+#elDetailModal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 9, 9, .6);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+#elDetailModal.is-open { opacity: 1; visibility: visible; }
+#elDetailCard {
+    position: relative;
+    width: min(90vw, 380px);
+    padding: 1.75rem;
+    background: linear-gradient(160deg, var(--bg-3), var(--bg-2));
+    border: 1px solid var(--color-3, var(--fg-5));
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 40px var(--color-2, transparent);
+    transform: scale(.9) translateY(10px);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+}
+#elDetailModal.is-open #elDetailCard { transform: scale(1) translateY(0); }
+#elDetailClose {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    font-size: .7rem;
+    background-color: var(--bg-4);
+    color: var(--fg-2);
+    border: none;
+    border-radius: var(--input-border-radius);
+    cursor: pointer;
+}
+#elDetailClose:hover { background-color: var(--bg-5); }
+#elDetailHeader { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+#elDetailSymbol {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-1, var(--fg-1));
+    text-shadow: 0 0 20px var(--color-2, transparent);
+}
+#elDetailName { font-size: 1.1rem; font-weight: 700; color: var(--fg-1); }
+#elDetailNumber { font-size: .65rem; color: var(--fg-3); letter-spacing: .05em; }
+#elDetailBadges { display: flex; gap: .5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+#elDetailModal .badge {
+    font-size: .58rem;
+    letter-spacing: .04em;
+    padding: .3rem .6rem;
+    border-radius: 999px;
+    background-color: var(--color-4, var(--bg-4));
+    color: var(--color-1, var(--fg-2));
+    border: 1px solid var(--color-3, var(--fg-4));
+}
+#elDetailGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .9rem;
+}
+
+/* Phone Mockup Elementum Card Preview Styles */
+.mockup-elementum-card {
+    background: rgba(14, 11, 14, 0.7);
+    border: 1px solid rgba(255, 75, 75, 0.25);
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+.mockup-el-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--red-1), var(--sky-1), var(--emerald-1), var(--red-1));
+    box-shadow: 0 0 10px rgba(255, 75, 75, 0.4);
+    animation: el-orbit-spin 6s linear infinite;
+}
+.mockup-el-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+}
+.mockup-el-desc {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+.mockup-el-bar-container {
+    width: 100%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.mockup-el-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red-1) 0%, var(--sky-1) 100%);
+    border-radius: 3px;
+}
+.mockup-el-status {
+    font-size: 0.55rem;
+    color: var(--red-1);
+    letter-spacing: 0.05em;
+}
+.mockup-el-btn {
+    width: 100%;
+    padding: 8px 16px;
+    background: rgba(255, 75, 75, 0.12);
+    border: 1px solid rgba(255, 75, 75, 0.2);
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.7rem;
+    border-radius: 8px;
+    margin-top: 6px;
+}
+

@@ -143,6 +143,7 @@
                                     <button type="button" class="theme-tab-btn active" data-theme="birthday">🎉 Birthday Surprise</button>
                                     <button type="button" class="theme-tab-btn" data-theme="heartbeat">💓 3D Heartbeat</button>
                                     <button type="button" class="theme-tab-btn" data-theme="rose">🌹 3D Blooming Rose</button>
+                                    <button type="button" class="theme-tab-btn" data-theme="elementum">⚛️ Elementum Table</button>
                                 </div>
                             </div>
                         </div>
@@ -352,6 +353,20 @@
                                     <div class="mockup-rose-btn" id="prevRoseBtn">Tap to Bloom</div>
                                 </div>
                             </div>
+
+                            <!-- Preview 5: Elementum Mockup -->
+                            <div class="mockup-view" id="view-prev-elementum">
+                                <div class="mockup-elementum-card">
+                                    <div class="mockup-el-mark"></div>
+                                    <h3 class="mockup-el-title" id="prevElTitle">Elementum</h3>
+                                    <p class="mockup-el-desc">Interactive 3D Periodic Table Lab</p>
+                                    <div class="mockup-el-bar-container">
+                                        <div class="mockup-el-bar" style="width: 85%"></div>
+                                    </div>
+                                    <p class="mockup-el-status" id="prevElStatus">Loading periodic data...</p>
+                                    <div class="mockup-el-btn">Launch Periodic Table</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -474,9 +489,91 @@
         <div id="roseFallingPetals"></div>
     </div>
 
+    <!-- Elementum Viewer -->
+    <div id="elementumContainer" class="hidden">
+        <!-- Intro loader -->
+        <div id="elLoader">
+            <svg id="elLoaderOrbit" viewBox="0 0 200 200" width="120" height="120">
+                <circle class="loader-ring" cx="100" cy="100" r="70" />
+                <circle class="loader-ring loader-ring-2" cx="100" cy="100" r="46" />
+                <circle class="loader-nucleus" cx="100" cy="100" r="7" />
+                <circle class="loader-electron" cx="100" cy="30" r="4" />
+                <circle class="loader-electron loader-electron-2" cx="154" cy="100" r="4" />
+            </svg>
+            <div id="elLoaderText">ELEMENTUM</div>
+            <div id="elLoaderSub">Loading periodic data…</div>
+        </div>
+
+        <div class="controls el-controls">
+            <div class="controls-group brand">
+                <div id="elBrandMark"></div>
+                <div id="elBrandText">
+                    <span id="elBrandTitle">Elementum</span>
+                    <span id="elBrandTag">118 elements · interactive lab</span>
+                </div>
+            </div>
+
+            <div class="controls-group display br">
+                <button class="is-active toggle" id="el-table">table</button>
+                <button class="toggle" id="el-sphere">sphere</button>
+                <button class="toggle" id="el-helix">helix</button>
+                <button class="toggle" id="el-grid">grid</button>
+                <button class="toggle" id="el-orbit">orbit</button>
+            </div>
+
+            <div class="controls-group search-group br">
+                <input type="text" id="elSearch" placeholder="Search element or symbol…" autocomplete="off" spellcheck="false">
+                <span id="elSearchCount"></span>
+            </div>
+        </div>
+
+        <div id="elLegend" class="br"></div>
+
+        <div id="elScene">
+            <div id="elSceneContent" data-layout="table"></div>
+        </div>
+
+        <template id="elTemplate">
+            <button class="element" data-color="0">
+                <div class="element-glow"></div>
+                <div class="element-number"></div>
+                <div class="element-symbol"></div>
+                <div class="element-title"></div>
+                <div class="element-description"></div>
+                <span class="element-more" role="button" tabindex="0">Full details</span>
+            </button>
+        </template>
+
+        <!-- Full detail modal -->
+        <div id="elDetailModal">
+            <div id="elDetailCard" class="br">
+                <button id="elDetailClose" aria-label="Close">✕</button>
+                <div id="elDetailHeader">
+                    <div id="elDetailSymbol"></div>
+                    <div id="elDetailHeading">
+                        <div id="elDetailName"></div>
+                        <div id="elDetailNumber"></div>
+                    </div>
+                </div>
+                <div id="elDetailBadges">
+                    <span id="elDetailCategory" class="badge"></span>
+                    <span id="elDetailPhase" class="badge"></span>
+                </div>
+                <div id="elDetailGrid">
+                    <div class="detail-stat"><span class="detail-label">Atomic mass</span><span id="elDetailMass" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Density</span><span id="elDetailDensity" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Melting point</span><span id="elDetailMelting" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Boiling point</span><span id="elDetailBoiling" class="detail-value"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script>
     <script src="./themes/birthday.js"></script>
     <script src="./themes/heartbeat.js"></script>
     <script src="./themes/rose.js"></script>
+    <script src="./themes/elementum.js"></script>
     <script src="./script.js"></script>
 </body>
 
