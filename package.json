@@ -1,0 +1,16 @@
+{
+  "name": "animated-birthday-surprise",
+  "version": "1.0.0",
+  "description": "Interactive Surprise Lab - animated birthday and love surprise generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

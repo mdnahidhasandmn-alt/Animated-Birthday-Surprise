@@ -28,51 +28,25 @@ function decodeConfig(str) {
     return JSON.parse(json);
 }
 
-// Shorten URL via TinyURL — tries multiple CORS proxies in sequence until one works
+// Shorten URL via our own server-side proxy at /api/shorten (no CORS issues)
 function shortenUrl(longUrl, callback) {
-    const tinyApiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
-
-    // Proxy chain: try each in order, first success wins
-    const proxies = [
-        {
-            url: `https://api.allorigins.win/raw?url=${encodeURIComponent(tinyApiUrl)}`,
-            parse: (r) => r.text()
-        },
-        {
-            url: `https://corsproxy.io/?${encodeURIComponent(tinyApiUrl)}`,
-            parse: (r) => r.text()
-        },
-        {
-            url: `https://thingproxy.freeboard.io/fetch/${tinyApiUrl}`,
-            parse: (r) => r.text()
-        }
-    ];
-
-    let tried = 0;
-
-    function tryNext() {
-        if (tried >= proxies.length) {
+    const apiUrl = `/api/shorten?url=${encodeURIComponent(longUrl)}`;
+    fetch(apiUrl, { signal: AbortSignal.timeout(8000) })
+        .then(res => {
+            if (!res.ok) throw new Error('server error');
+            return res.json();
+        })
+        .then(data => {
+            if (data && data.shortUrl && data.shortUrl.startsWith('http')) {
+                callback(data.shortUrl);
+            } else {
+                callback(null);
+            }
+        })
+        .catch(err => {
+            console.warn('URL shortening failed:', err);
             callback(null);
-            return;
-        }
-        const proxy = proxies[tried++];
-        fetch(proxy.url, { signal: AbortSignal.timeout(6000) })
-            .then(res => {
-                if (!res.ok) throw new Error('not ok');
-                return proxy.parse(res);
-            })
-            .then(text => {
-                const trimmed = (text || '').trim();
-                if (trimmed.startsWith('http')) {
-                    callback(trimmed);
-                } else {
-                    tryNext(); // this proxy returned bad data, try next
-                }
-            })
-            .catch(() => tryNext()); // this proxy failed, try next
-    }
-
-    tryNext();
+        });
 }
 
 // Preset images from Unsplash (curated high-res love/birthday theme)
