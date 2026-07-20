@@ -28,28 +28,51 @@ function decodeConfig(str) {
     return JSON.parse(json);
 }
 
-// Shorten URL via TinyURL — tries direct fetch first, then falls back to allorigins proxy
+// Shorten URL via TinyURL — tries multiple CORS proxies in sequence until one works
 function shortenUrl(longUrl, callback) {
-    const tinyUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(tinyUrl)}`;
+    const tinyApiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
 
-    fetch(proxyUrl)
-        .then(response => {
-            if (response.ok) return response.json();
-            throw new Error('proxy failed');
-        })
-        .then(data => {
-            const shortUrl = data && data.contents && data.contents.trim();
-            if (shortUrl && shortUrl.startsWith('http')) {
-                callback(shortUrl);
-            } else {
-                callback(null);
-            }
-        })
-        .catch(error => {
-            console.warn('URL shortening failed:', error);
+    // Proxy chain: try each in order, first success wins
+    const proxies = [
+        {
+            url: `https://api.allorigins.win/raw?url=${encodeURIComponent(tinyApiUrl)}`,
+            parse: (r) => r.text()
+        },
+        {
+            url: `https://corsproxy.io/?${encodeURIComponent(tinyApiUrl)}`,
+            parse: (r) => r.text()
+        },
+        {
+            url: `https://thingproxy.freeboard.io/fetch/${tinyApiUrl}`,
+            parse: (r) => r.text()
+        }
+    ];
+
+    let tried = 0;
+
+    function tryNext() {
+        if (tried >= proxies.length) {
             callback(null);
-        });
+            return;
+        }
+        const proxy = proxies[tried++];
+        fetch(proxy.url, { signal: AbortSignal.timeout(6000) })
+            .then(res => {
+                if (!res.ok) throw new Error('not ok');
+                return proxy.parse(res);
+            })
+            .then(text => {
+                const trimmed = (text || '').trim();
+                if (trimmed.startsWith('http')) {
+                    callback(trimmed);
+                } else {
+                    tryNext(); // this proxy returned bad data, try next
+                }
+            })
+            .catch(() => tryNext()); // this proxy failed, try next
+    }
+
+    tryNext();
 }
 
 // Preset images from Unsplash (curated high-res love/birthday theme)
