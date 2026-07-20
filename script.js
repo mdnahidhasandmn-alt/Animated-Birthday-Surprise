@@ -28,26 +28,26 @@ function decodeConfig(str) {
     return JSON.parse(json);
 }
 
-// Shorten URL anonymously via TinyURL using a public CORS proxy (corsproxy.io)
+// Shorten URL via TinyURL — tries direct fetch first, then falls back to allorigins proxy
 function shortenUrl(longUrl, callback) {
-    const targetUrl = `https://corsproxy.io/?https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
-    
-    fetch(targetUrl)
+    const tinyUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(tinyUrl)}`;
+
+    fetch(proxyUrl)
         .then(response => {
-            if (response.ok) {
-                return response.text();
-            }
-            throw new Error("Shortener API failed");
+            if (response.ok) return response.json();
+            throw new Error('proxy failed');
         })
-        .then(shortUrl => {
+        .then(data => {
+            const shortUrl = data && data.contents && data.contents.trim();
             if (shortUrl && shortUrl.startsWith('http')) {
-                callback(shortUrl.trim());
+                callback(shortUrl);
             } else {
                 callback(null);
             }
         })
         .catch(error => {
-            console.warn("URL shortening failed:", error);
+            console.warn('URL shortening failed:', error);
             callback(null);
         });
 }
@@ -160,21 +160,19 @@ function processImageUpload(file, callback) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if configuration hash or search parameter is present
+    // Check if configuration is in hash (#w=) or query (?w=) — support both
     let hashData = "";
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('w')) {
-        hashData = urlParams.get('w');
-    } else if (window.location.hash.startsWith('#w=')) {
+    if (window.location.hash.startsWith('#w=')) {
         hashData = window.location.hash.substring(3);
+    } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('w')) {
+            hashData = urlParams.get('w');
+        }
     }
+    hashData = hashData.trim().replace(/\/+$/, '');
 
     if (hashData) {
-        // Clean up and decode query parameter string
-        try {
-            hashData = decodeURIComponent(hashData);
-        } catch (e) {}
-        hashData = hashData.trim().replace(/\/+$/, '');
 
         // --- VIEWER MODE ---
         try {
