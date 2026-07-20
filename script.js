@@ -170,6 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (hashData) {
+        // Clean up and decode query parameter string
+        try {
+            hashData = decodeURIComponent(hashData);
+        } catch (e) {}
+        hashData = hashData.trim().replace(/\/+$/, '');
+
         // --- VIEWER MODE ---
         try {
             const decoded = decodeConfig(hashData);
