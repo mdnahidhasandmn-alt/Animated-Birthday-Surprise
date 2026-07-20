@@ -160,13 +160,13 @@ function processImageUpload(file, callback) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if configuration hash is present
+    // Check if configuration hash or search parameter is present
     let hashData = "";
-    if (window.location.hash.startsWith('#w=')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('w')) {
+        hashData = urlParams.get('w');
+    } else if (window.location.hash.startsWith('#w=')) {
         hashData = window.location.hash.substring(3);
-    } else {
-        const urlParams = new URLSearchParams(window.location.search);
-        hashData = urlParams.get('w') || "";
     }
 
     if (hashData) {
@@ -651,8 +651,8 @@ function initCreator() {
         }
 
         const encoded = encodeConfig(config);
-        const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}#w=${encoded}`;
+        const baseUrl = window.location.href.split('#')[0].split('?')[0];
+        const shareUrl = `${baseUrl}?w=${encoded}`;
 
         // Set baseline values in the modal
         shareableLinkInput.value = shareUrl;
