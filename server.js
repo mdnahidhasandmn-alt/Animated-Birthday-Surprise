@@ -44,8 +44,11 @@ const server = http.createServer((req, res) => {
             return;
         }
 
+        const ulvisApiUrl = `https://ulvis.net/api.php?url=${encodeURIComponent(longUrl)}`;
         const tinyApiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
-        https.get(tinyApiUrl, (apiRes) => {
+
+        // Try ulvis.net first (no preview delays)
+        https.get(ulvisApiUrl, (apiRes) => {
             let data = '';
             apiRes.on('data', chunk => data += chunk);
             apiRes.on('end', () => {
@@ -54,14 +57,33 @@ const server = http.createServer((req, res) => {
                     res.writeHead(200, { 'Content-Type': 'application/json' });
                     res.end(JSON.stringify({ shortUrl }));
                 } else {
-                    res.writeHead(502, { 'Content-Type': 'application/json' });
-                    res.end(JSON.stringify({ error: 'Shortener returned invalid response' }));
+                    // Fallback to TinyURL
+                    fallbackToTiny();
                 }
             });
-        }).on('error', (err) => {
-            res.writeHead(502, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: err.message }));
+        }).on('error', () => {
+            fallbackToTiny();
         });
+
+        function fallbackToTiny() {
+            https.get(tinyApiUrl, (apiRes) => {
+                let data = '';
+                apiRes.on('data', chunk => data += chunk);
+                apiRes.on('end', () => {
+                    const shortUrl = data.trim();
+                    if (shortUrl.startsWith('http')) {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ shortUrl }));
+                    } else {
+                        res.writeHead(502, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ error: 'Shorteners returned invalid response' }));
+                    }
+                });
+            }).on('error', (err) => {
+                res.writeHead(502, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: err.message }));
+            });
+        }
         return;
     }
 
