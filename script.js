@@ -769,24 +769,22 @@ function initCreator() {
 
         // Add birthday theme custom fields specifically
         if (activeTheme === 'birthday') {
-            const mainImgTab = document.querySelector('[data-section="card"] .img-tab-btn.active').dataset.tab;
-            let mainPhoto = DEFAULT_CONFIG.p;
-            if (mainImgTab === 'preset-main') {
-                mainPhoto = selectedMainPhoto;
-            } else if (mainImgTab === 'upload-main') {
-                mainPhoto = uploadedMainPhoto || DEFAULT_CONFIG.p;
+            const mainImgTabEl = document.querySelector('[data-section="card"] .img-tab-btn.active');
+            const mainImgTab = mainImgTabEl ? mainImgTabEl.dataset.tab : 'preset-main';
+            let mainPhoto = selectedMainPhoto || DEFAULT_CONFIG.p;
+            if (mainImgTab === 'upload-main' || uploadedMainPhoto) {
+                mainPhoto = uploadedMainPhoto || mainPhoto;
             } else if (mainImgTab === 'url-main') {
-                mainPhoto = document.getElementById('inputMainPhotoUrl').value || DEFAULT_CONFIG.p;
+                mainPhoto = document.getElementById('inputMainPhotoUrl').value || mainPhoto;
             }
 
-            const envelopeImgTab = document.querySelector('[data-section="letters"] .img-tab-btn.active').dataset.tab;
-            let envelopePhoto = DEFAULT_CONFIG.li;
-            if (envelopeImgTab === 'preset-envelope') {
-                envelopePhoto = selectedEnvelopePhoto;
-            } else if (envelopeImgTab === 'upload-envelope') {
-                envelopePhoto = uploadedEnvelopePhoto || DEFAULT_CONFIG.li;
+            const envelopeImgTabEl = document.querySelector('[data-section="letters"] .img-tab-btn.active');
+            const envelopeImgTab = envelopeImgTabEl ? envelopeImgTabEl.dataset.tab : 'preset-envelope';
+            let envelopePhoto = selectedEnvelopePhoto || DEFAULT_CONFIG.li;
+            if (envelopeImgTab === 'upload-envelope' || uploadedEnvelopePhoto) {
+                envelopePhoto = uploadedEnvelopePhoto || envelopePhoto;
             } else if (envelopeImgTab === 'url-envelope') {
-                envelopePhoto = document.getElementById('inputEnvelopePhotoUrl').value || DEFAULT_CONFIG.li;
+                envelopePhoto = document.getElementById('inputEnvelopePhotoUrl').value || envelopePhoto;
             }
 
             config.p = mainPhoto;
