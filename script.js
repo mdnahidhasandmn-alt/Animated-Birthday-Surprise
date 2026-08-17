@@ -1012,23 +1012,52 @@ function initCreator() {
         }
     }
 
+    const openCreatorBtn = document.getElementById('openCreatorBtn');
+    const toggleLoginPass = document.getElementById('toggleLoginPass');
+    const loginPasswordInput = document.getElementById('loginPassword');
+
+    if (toggleLoginPass && loginPasswordInput) {
+        toggleLoginPass.addEventListener('click', () => {
+            if (loginPasswordInput.type === 'password') {
+                loginPasswordInput.type = 'text';
+                toggleLoginPass.innerText = '🙈';
+            } else {
+                loginPasswordInput.type = 'password';
+                toggleLoginPass.innerText = '👁️';
+            }
+        });
+    }
+
     function updateNavAuthState() {
         if (currentSession && currentSession.role === 'admin') {
             if (openLoginBtn) openLoginBtn.classList.add('hidden');
+            if (openCreatorBtn) openCreatorBtn.classList.remove('hidden');
             if (openAdminPanelBtn) openAdminPanelBtn.classList.remove('hidden');
             if (logoutBtn) logoutBtn.classList.remove('hidden');
         } else if (currentSession && currentSession.role === 'user') {
             if (openLoginBtn) openLoginBtn.classList.add('hidden');
+            if (openCreatorBtn) openCreatorBtn.classList.remove('hidden');
             if (openAdminPanelBtn) openAdminPanelBtn.classList.add('hidden');
             if (logoutBtn) logoutBtn.classList.remove('hidden');
         } else {
             if (openLoginBtn) openLoginBtn.classList.remove('hidden');
+            if (openCreatorBtn) openCreatorBtn.classList.add('hidden');
             if (openAdminPanelBtn) openAdminPanelBtn.classList.add('hidden');
             if (logoutBtn) logoutBtn.classList.add('hidden');
         }
     }
 
     checkMandatoryAuth();
+
+    if (openCreatorBtn) {
+        openCreatorBtn.addEventListener('click', () => {
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (successContainer) successContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 
     if (openLoginBtn) {
         openLoginBtn.addEventListener('click', () => {

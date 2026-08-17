@@ -134,7 +134,8 @@
             <span>⚡ Zero-Ad Instant Direct Links</span>
         </div>
         <div class="nav-auth-controls" id="navAuthControls">
-            <button type="button" id="openLoginBtn" class="nav-auth-btn">🔑 Admin Login</button>
+            <button type="button" id="openLoginBtn" class="nav-auth-btn">🔑 System Login</button>
+            <button type="button" id="openCreatorBtn" class="nav-auth-btn hidden">🎨 Surprise Creator</button>
             <button type="button" id="openAdminPanelBtn" class="nav-admin-btn hidden">👑 Admin Panel</button>
             <button type="button" id="logoutBtn" class="nav-logout-btn hidden">🚪 Logout</button>
         </div>
@@ -463,7 +464,7 @@
                         <div class="input-box animation" style="--D:2; --S:23">
                             <input type="password" id="loginPassword" required autocomplete="off">
                             <label for="loginPassword">Password</label>
-                            <span class="box-icon-span">🔑</span>
+                            <span class="box-icon-span" id="toggleLoginPass" style="cursor: pointer;" title="Toggle Password Visibility">👁️</span>
                         </div>
 
                         <p id="loginMsg" class="tcw-status-msg animation" style="--D:2.5; --S:23.5"></p>
