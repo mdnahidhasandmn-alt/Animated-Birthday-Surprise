@@ -443,30 +443,33 @@ body.creator-mode {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 16px auto 22px;
+    margin: 16px auto 24px;
     perspective: 1000px;
 }
 .polaroid-image {
-    background: #ffffff;
-    padding: 10px 10px 24px 10px;
-    border-radius: 8px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 42, 117, 0.3);
-    transform: rotate(-2deg);
+    background: #ffffff !important;
+    padding: 10px 10px 34px 10px !important;
+    border-radius: 4px !important;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.55), 0 0 25px rgba(255, 42, 117, 0.25) !important;
+    transform: rotate(-2.5deg);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    max-width: 250px;
+    width: 230px !important;
+    max-width: 230px !important;
+    box-sizing: border-box !important;
     margin: 0 auto;
 }
 .polaroid-image:hover {
     transform: rotate(0deg) scale(1.05);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), 0 0 35px rgba(255, 42, 117, 0.45);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 42, 117, 0.4) !important;
 }
 .polaroid-image img, #mainCardPhoto {
-    width: 100%;
-    max-width: 230px;
-    height: 185px;
-    object-fit: cover;
-    border-radius: 4px;
-    display: block;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 185px !important;
+    object-fit: cover !important;
+    border-radius: 2px !important;
+    display: block !important;
+    margin: 0 !important;
 }
 .typed-text-container {
     min-height: 80px; 
