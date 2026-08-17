@@ -594,13 +594,15 @@ body.creator-mode {
         font-size: 1.5rem;
     }
     .polaroid-frame {
-        width: 140px;
-        padding: 8px 8px 20px 8px;
-        margin: 12px auto;
+        width: 175px !important;
+        max-width: 175px !important;
+        padding: 8px 8px 24px 8px !important;
+        margin: 12px auto !important;
+        display: block !important;
     }
     .polaroid-image {
-        width: 122px;
-        height: 122px;
+        width: 100% !important;
+        height: 145px !important;
     }
     .photo-heart {
         width: 26px;
@@ -675,7 +677,8 @@ body.creator-mode {
         padding-bottom: 20px;
     }
     .polaroid-frame {
-        display: none; 
+        display: block !important;
+        margin: 10px auto !important;
     }
     .card {
         padding: 24px 20px;
