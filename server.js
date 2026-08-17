@@ -303,7 +303,7 @@ const server = http.createServer((req, res) => {
     }
 
     // --- Direct Short Link Route: /s/:code (Serves index.html directly to prevent HTTP 431 header overflow) ---
-    if (pathname.startsWith('/s/')) {
+    if (pathname.startsWith('/s/') && !pathname.includes('.')) {
         const code = pathname.substring(3).trim();
         if (urlStore[code]) {
             fs.readFile(path.join(__dirname, 'index.html'), (err, indexContent) => {
