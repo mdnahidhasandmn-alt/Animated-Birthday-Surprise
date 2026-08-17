@@ -28,8 +28,10 @@ function initAnimator() {
     const loadedImages = [];
     imageSources.forEach(src => {
         const img = new Image();
+        if (src && !src.startsWith('data:')) {
+            img.crossOrigin = "anonymous";
+        }
         img.src = src;
-        img.crossOrigin = "anonymous";
         loadedImages.push(img);
     });
 

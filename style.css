@@ -434,6 +434,35 @@ body.creator-mode {
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 10px var(--accent-pink-glow));
 }
+.polaroid-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px auto 22px;
+    perspective: 1000px;
+}
+.polaroid-image {
+    background: #ffffff;
+    padding: 10px 10px 24px 10px;
+    border-radius: 8px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 42, 117, 0.3);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 250px;
+    margin: 0 auto;
+}
+.polaroid-image:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), 0 0 35px rgba(255, 42, 117, 0.45);
+}
+.polaroid-image img, #mainCardPhoto {
+    width: 100%;
+    max-width: 230px;
+    height: 185px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
 .typed-text-container {
     min-height: 80px; 
     margin-bottom: 24px;
