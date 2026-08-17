@@ -962,6 +962,110 @@ function initCreator() {
 
     let currentSession = JSON.parse(sessionStorage.getItem('lab_session') || 'null');
 
+    function loadWishSurpriseConfig(configData) {
+        let config = configData;
+        if (typeof configData === 'string') {
+            try {
+                config = decodeConfig(configData);
+            } catch (e) {
+                console.error("Failed to decode wish config:", e);
+                config = {};
+            }
+        }
+
+        SURPRISE_CONFIG = {
+            theme: config.theme || 'birthday',
+            occasionText: config.o || DEFAULT_CONFIG.o,
+            partnerName: config.t || DEFAULT_CONFIG.t,
+            senderName: config.f || DEFAULT_CONFIG.f,
+            message: config.m || DEFAULT_CONFIG.m,
+            photoUrl: config.p || DEFAULT_CONFIG.p,
+            letter1: config.l1 || DEFAULT_CONFIG.l1,
+            letter2: config.l2 || DEFAULT_CONFIG.l2,
+            letter3: config.l3 || DEFAULT_CONFIG.l3,
+            envelopePhotoText: config.lp || DEFAULT_CONFIG.lp,
+            envelopePhotoUrl: config.li || DEFAULT_CONFIG.li
+        };
+
+        document.body.classList.add('wish-mode');
+        if (creatorContainer) creatorContainer.classList.add('hidden');
+        if (loginContainer) loginContainer.classList.add('hidden');
+        if (adminContainer) adminContainer.classList.add('hidden');
+        if (successContainer) successContainer.classList.add('hidden');
+
+        if (SURPRISE_CONFIG.theme === 'heartbeat') {
+            document.getElementById('wishContainer').classList.add('hidden');
+            document.getElementById('roseContainer').classList.add('hidden');
+            document.getElementById('heartbeatContainer').classList.remove('hidden');
+
+            const hbTitle = document.querySelector('#heartbeatContainer .card-title');
+            if (hbTitle) hbTitle.innerText = SURPRISE_CONFIG.occasionText;
+            const hbM1 = document.getElementById('hbM1');
+            if (hbM1) hbM1.innerText = SURPRISE_CONFIG.occasionText;
+            const hbM2 = document.getElementById('hbM2');
+            if (hbM2) hbM2.innerHTML = `for <span id="hbM2Span">${SURPRISE_CONFIG.partnerName}</span> 💗`;
+            const hbSign = document.getElementById('hbLetterSign');
+            if (hbSign) hbSign.innerText = `— coded with love by ${SURPRISE_CONFIG.senderName}`;
+
+            initBackground();
+            if (window.initHeartbeatTheme) initHeartbeatTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'rose') {
+            document.getElementById('wishContainer').classList.add('hidden');
+            document.getElementById('heartbeatContainer').classList.add('hidden');
+            document.getElementById('elementumContainer').classList.add('hidden');
+            document.getElementById('roseContainer').classList.remove('hidden');
+
+            const roseTitle = document.getElementById('roseLoaderTitle');
+            if (roseTitle) roseTitle.innerText = SURPRISE_CONFIG.occasionText;
+            const roseTag = document.getElementById('roseTagline');
+            if (roseTag) roseTag.innerHTML = `${SURPRISE_CONFIG.message || 'i coded this for you'}`;
+
+            initBackground();
+            if (window.initRoseTheme) initRoseTheme(SURPRISE_CONFIG);
+        } else {
+            // Birthday Theme (Default)
+            document.getElementById('heartbeatContainer').classList.add('hidden');
+            document.getElementById('roseContainer').classList.add('hidden');
+            document.getElementById('elementumContainer').classList.add('hidden');
+            document.getElementById('wishContainer').classList.remove('hidden');
+
+            const occEl = document.getElementById('occasionText');
+            if (occEl) occEl.innerText = SURPRISE_CONFIG.occasionText;
+            const pNameEl = document.getElementById('partnerName');
+            if (pNameEl) pNameEl.innerText = SURPRISE_CONFIG.partnerName;
+            const sNameEl = document.getElementById('senderName');
+            if (sNameEl) sNameEl.innerText = SURPRISE_CONFIG.senderName;
+            const msgEl = document.getElementById('customMessage');
+            if (msgEl) msgEl.innerText = SURPRISE_CONFIG.message;
+            
+            const mainCardPhotoEl = document.getElementById('mainCardPhoto');
+            if (mainCardPhotoEl) mainCardPhotoEl.src = SURPRISE_CONFIG.photoUrl;
+
+            const l1Text = document.getElementById('letter1Text');
+            if (l1Text) l1Text.innerText = SURPRISE_CONFIG.letter1;
+            const l1Sig = document.getElementById('letter1Sig');
+            if (l1Sig) l1Sig.innerText = SURPRISE_CONFIG.senderName;
+            
+            const l2Text = document.getElementById('letter2Text');
+            if (l2Text) l2Text.innerText = SURPRISE_CONFIG.letter2;
+            const l2Sig = document.getElementById('letter2Sig');
+            if (l2Sig) l2Sig.innerText = SURPRISE_CONFIG.senderName;
+            
+            const l3Text = document.getElementById('letter3Text');
+            if (l3Text) l3Text.innerText = SURPRISE_CONFIG.letter3;
+            const l3Sig = document.getElementById('letter3Sig');
+            if (l3Sig) l3Sig.innerText = SURPRISE_CONFIG.senderName;
+
+            const envText = document.getElementById('envelopePhotoText');
+            if (envText) envText.innerText = SURPRISE_CONFIG.envelopePhotoText;
+            const envelopePhotoEl = document.getElementById('envelopePhoto');
+            if (envelopePhotoEl) envelopePhotoEl.src = SURPRISE_CONFIG.envelopePhotoUrl;
+
+            initBackground();
+            if (window.initBirthdayTheme) initBirthdayTheme(SURPRISE_CONFIG);
+        }
+    }
+
     function checkMandatoryAuth() {
         const pathname = window.location.pathname;
         const urlParams = new URLSearchParams(window.location.search);
@@ -974,16 +1078,7 @@ function initCreator() {
                     .then(res => res.json())
                     .then(data => {
                         if (data && data.config) {
-                            if (typeof data.config === 'object') {
-                                renderSurprise(data.config);
-                            } else if (typeof data.config === 'string') {
-                                try {
-                                    const config = decodeConfig(data.config);
-                                    renderSurprise(config);
-                                } catch (e) {
-                                    console.error('Error decoding config string:', e);
-                                }
-                            }
+                            loadWishSurpriseConfig(data.config);
                         }
                     })
                     .catch(err => {
