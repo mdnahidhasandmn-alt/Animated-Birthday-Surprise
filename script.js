@@ -26,6 +26,8 @@ function decodeConfig(str) {
     }
     const json = new TextDecoder().decode(bytes);
     return JSON.parse(json);
+}
+
 // High-performance client-side Canvas Image Resizer & Compressor for PC/Mobile uploads
 function processImageUpload(file, callback) {
     if (!file) return;
@@ -1280,4 +1282,10 @@ function initCreator() {
 
     // Initialize display with default theme
     applyThemeFields(activeTheme);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCreator);
+} else {
+    initCreator();
 }
