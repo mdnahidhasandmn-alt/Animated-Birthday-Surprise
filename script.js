@@ -860,6 +860,265 @@ function initCreator() {
             });
     });
 
+    // --- Auth & Admin Management UI Logic ---
+    const openLoginBtn = document.getElementById('openLoginBtn');
+    const openAdminPanelBtn = document.getElementById('openAdminPanelBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const closeLoginBtn = document.getElementById('closeLoginBtn');
+    const closeAdminBtn = document.getElementById('closeAdminBtn');
+
+    const loginContainer = document.getElementById('loginContainer');
+    const adminContainer = document.getElementById('adminContainer');
+
+    const loginForm = document.getElementById('loginForm');
+    const loginMsg = document.getElementById('loginMsg');
+
+    const changeAdminPassForm = document.getElementById('changeAdminPassForm');
+    const changePassMsg = document.getElementById('changePassMsg');
+
+    const createUserForm = document.getElementById('createUserForm');
+    const createUserMsg = document.getElementById('createUserMsg');
+    const usersListTable = document.getElementById('usersListTable');
+
+    let currentSession = JSON.parse(sessionStorage.getItem('lab_session') || 'null');
+
+    function updateNavAuthState() {
+        if (currentSession && currentSession.role === 'admin') {
+            if (openLoginBtn) openLoginBtn.classList.add('hidden');
+            if (openAdminPanelBtn) openAdminPanelBtn.classList.remove('hidden');
+            if (logoutBtn) logoutBtn.classList.remove('hidden');
+        } else if (currentSession && currentSession.role === 'user') {
+            if (openLoginBtn) openLoginBtn.classList.add('hidden');
+            if (openAdminPanelBtn) openAdminPanelBtn.classList.add('hidden');
+            if (logoutBtn) logoutBtn.classList.remove('hidden');
+        } else {
+            if (openLoginBtn) openLoginBtn.classList.remove('hidden');
+            if (openAdminPanelBtn) openAdminPanelBtn.classList.add('hidden');
+            if (logoutBtn) logoutBtn.classList.add('hidden');
+        }
+    }
+    updateNavAuthState();
+
+    if (openLoginBtn) {
+        openLoginBtn.addEventListener('click', () => {
+            if (creatorContainer) creatorContainer.classList.add('hidden');
+            if (successContainer) successContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (closeLoginBtn) {
+        closeLoginBtn.addEventListener('click', () => {
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                loginMsg.innerText = '⚠️ Please enter both username and password';
+                loginMsg.style.color = '#ff4b4b';
+                return;
+            }
+
+            loginMsg.innerText = '⚡ Authenticating...';
+            loginMsg.style.color = 'var(--accent-cyan)';
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    currentSession = { role: data.role, username: data.username };
+                    sessionStorage.setItem('lab_session', JSON.stringify(currentSession));
+                    updateNavAuthState();
+
+                    if (data.role === 'admin') {
+                        loginMsg.innerText = '✅ Admin Login Successful!';
+                        loginMsg.style.color = 'var(--accent-gold)';
+                        setTimeout(() => {
+                            if (loginContainer) loginContainer.classList.add('hidden');
+                            if (adminContainer) adminContainer.classList.remove('hidden');
+                            loadAdminUsersList();
+                        }, 500);
+                    } else {
+                        loginMsg.innerText = '✅ User Login Successful!';
+                        loginMsg.style.color = 'var(--accent-gold)';
+                        setTimeout(() => {
+                            if (loginContainer) loginContainer.classList.add('hidden');
+                            if (creatorContainer) creatorContainer.classList.remove('hidden');
+                        }, 500);
+                    }
+                } else {
+                    loginMsg.innerText = `⚠️ ${data.error || 'Invalid credentials'}`;
+                    loginMsg.style.color = '#ff4b4b';
+                }
+            })
+            .catch(err => {
+                loginMsg.innerText = '⚠️ Login connection error';
+                loginMsg.style.color = '#ff4b4b';
+            });
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            currentSession = null;
+            sessionStorage.removeItem('lab_session');
+            updateNavAuthState();
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (openAdminPanelBtn) {
+        openAdminPanelBtn.addEventListener('click', () => {
+            if (creatorContainer) creatorContainer.classList.add('hidden');
+            if (successContainer) successContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.remove('hidden');
+            loadAdminUsersList();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (closeAdminBtn) {
+        closeAdminBtn.addEventListener('click', () => {
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Change Admin Password
+    if (changeAdminPassForm) {
+        changeAdminPassForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currAdminPass').value;
+            const newPassword = document.getElementById('newAdminPass').value;
+
+            if (!currentPassword || !newPassword) {
+                changePassMsg.innerText = '⚠️ Both current & new passwords are required';
+                changePassMsg.style.color = '#ff4b4b';
+                return;
+            }
+
+            fetch('/api/auth/admin/change-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentPassword, newPassword })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    changePassMsg.innerText = '✅ Admin Password Changed Successfully!';
+                    changePassMsg.style.color = 'var(--accent-gold)';
+                    document.getElementById('currAdminPass').value = '';
+                    document.getElementById('newAdminPass').value = '';
+                } else {
+                    changePassMsg.innerText = `⚠️ ${data.error || 'Failed to change password'}`;
+                    changePassMsg.style.color = '#ff4b4b';
+                }
+            })
+            .catch(err => {
+                changePassMsg.innerText = '⚠️ Password update error';
+                changePassMsg.style.color = '#ff4b4b';
+            });
+        });
+    }
+
+    // Create New User
+    if (createUserForm) {
+        createUserForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('newUserName').value;
+            const password = document.getElementById('newUserPass').value;
+
+            if (!username || !password) {
+                createUserMsg.innerText = '⚠️ Username and password required';
+                createUserMsg.style.color = '#ff4b4b';
+                return;
+            }
+
+            fetch('/api/auth/admin/create-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    createUserMsg.innerText = `✅ User '${username}' created successfully!`;
+                    createUserMsg.style.color = 'var(--accent-gold)';
+                    document.getElementById('newUserName').value = '';
+                    document.getElementById('newUserPass').value = '';
+                    loadAdminUsersList();
+                } else {
+                    createUserMsg.innerText = `⚠️ ${data.error || 'Failed to create user'}`;
+                    createUserMsg.style.color = '#ff4b4b';
+                }
+            })
+            .catch(err => {
+                createUserMsg.innerText = '⚠️ User creation error';
+                createUserMsg.style.color = '#ff4b4b';
+            });
+        });
+    }
+
+    // Load Admin Users List
+    function loadAdminUsersList() {
+        if (!usersListTable) return;
+        fetch('/api/auth/admin/users')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.users || data.users.length === 0) {
+                usersListTable.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No user accounts created yet. Use the form above to add users!</p>`;
+                return;
+            }
+
+            let html = '';
+            data.users.forEach(u => {
+                const dateStr = u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '';
+                html += `
+                    <div class="user-item-row">
+                        <div class="user-name-tag">👤 ${u.username} <span class="user-date-tag">(${dateStr})</span></div>
+                        <button class="delete-user-btn" onclick="deleteUserAccount('${u.username}')">🗑️ Delete User</button>
+                    </div>
+                `;
+            });
+            usersListTable.innerHTML = html;
+        })
+        .catch(err => {
+            usersListTable.innerHTML = `<p style="color: #ff4b4b;">Error loading users list.</p>`;
+        });
+    }
+
+    window.deleteUserAccount = function(username) {
+        if (!confirm(`Are you sure you want to delete user '${username}'?`)) return;
+        fetch('/api/auth/admin/delete-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        })
+        .then(res => res.json())
+        .then(data => {
+            loadAdminUsersList();
+        });
+    };
+
     // Initialize display with default theme
     applyThemeFields(activeTheme);
 }

@@ -133,6 +133,11 @@
             <span class="pulse-dot"></span>
             <span>⚡ Zero-Ad Instant Direct Links</span>
         </div>
+        <div class="nav-auth-controls" id="navAuthControls">
+            <button type="button" id="openLoginBtn" class="nav-auth-btn">🔑 Admin Login</button>
+            <button type="button" id="openAdminPanelBtn" class="nav-admin-btn hidden">👑 Admin Panel</button>
+            <button type="button" id="logoutBtn" class="nav-logout-btn hidden">🚪 Logout</button>
+        </div>
     </nav>
 
     <!-- Creator Generator View -->
@@ -433,6 +438,95 @@
                 <div class="success-actions">
                     <a href="" id="previewLinkBtn" target="_blank" class="preview-btn">🚀 Preview My Wish</a>
                     <button id="backToEditBtn" class="back-edit-btn">⬅️ Back to Edit Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Login Screen -->
+        <div id="loginContainer" class="admin-container hidden">
+            <div class="admin-card" style="max-width: 480px;">
+                <div class="success-icon">🔑</div>
+                <h2 class="admin-title">System Login</h2>
+                <p class="success-subtitle" style="font-size: 0.9rem; margin-bottom: 20px;">Enter Admin or User credentials to log in.</p>
+                
+                <form id="loginForm" onsubmit="return false;">
+                    <div class="input-group">
+                        <label for="loginUsername">Username / Admin ID</label>
+                        <input type="text" id="loginUsername" placeholder="e.g. admin or Nahid">
+                    </div>
+                    <div class="input-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter password (Default: Nahid@123)">
+                    </div>
+                    <p id="loginMsg" style="font-size: 0.88rem; min-height: 20px; color: var(--accent-gold); margin: 6px 0 16px;"></p>
+                    
+                    <div class="admin-actions">
+                        <button type="submit" id="submitLoginBtn" class="create-wish-btn" style="margin-top: 0;">🔓 Login</button>
+                        <button type="button" id="closeLoginBtn" class="back-edit-btn" style="width: 100%; justify-content: center; margin-top: 10px;">⬅️ Back to App</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Control Panel View -->
+        <div id="adminContainer" class="admin-container hidden">
+            <div class="admin-card" style="max-width: 900px; text-align: left;">
+                <div class="admin-header-row">
+                    <div>
+                        <h2 class="admin-title" style="margin: 0;">👑 Admin Control Panel</h2>
+                        <p style="color: var(--accent-pink); font-size: 0.85rem; margin-top: 4px; font-weight: 700;">Active Admin Session: Nahid (Master Admin)</p>
+                    </div>
+                    <button id="closeAdminBtn" class="back-edit-btn">⬅️ Exit Admin Panel</button>
+                </div>
+
+                <div class="admin-grid">
+                    <!-- Section A: Change Admin Password -->
+                    <div class="form-section active" style="margin: 0;">
+                        <h3 class="section-title">🔒 Change Admin Password</h3>
+                        <div class="section-content">
+                            <form id="changeAdminPassForm" onsubmit="return false;">
+                                <div class="input-group">
+                                    <label for="currAdminPass">Current Admin Password</label>
+                                    <input type="password" id="currAdminPass" placeholder="Current password (Default: Nahid@123)">
+                                </div>
+                                <div class="input-group">
+                                    <label for="newAdminPass">New Admin Password</label>
+                                    <input type="password" id="newAdminPass" placeholder="Enter new password...">
+                                </div>
+                                <p id="changePassMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
+                                <button type="submit" id="saveAdminPassBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Update Admin Password</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Create New User -->
+                    <div class="form-section active" style="margin: 0;">
+                        <h3 class="section-title">➕ Create New User Account</h3>
+                        <div class="section-content">
+                            <form id="createUserForm" onsubmit="return false;">
+                                <div class="input-group">
+                                    <label for="newUserName">New User ID / Username</label>
+                                    <input type="text" id="newUserName" placeholder="e.g. User01">
+                                </div>
+                                <div class="input-group">
+                                    <label for="newUserPass">User Password</label>
+                                    <input type="password" id="newUserPass" placeholder="Set password for user...">
+                                </div>
+                                <p id="createUserMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
+                                <button type="submit" id="submitCreateUserBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Create User</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section C: User Accounts List -->
+                <div class="form-section active" style="margin-top: 24px;">
+                    <h3 class="section-title">👥 Active User Accounts List</h3>
+                    <div class="section-content">
+                        <div id="usersListTable" class="users-list-box">
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Loading user accounts...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -6,10 +6,10 @@ const url = require('url');
 
 const PORT = process.env.PORT || 3000;
 const DB_FILE = path.join(__dirname, 'urls.json');
+const USERS_FILE = path.join(__dirname, 'users.json');
 
 // Persistent URL Store (loads from urls.json on startup)
 let urlStore = {};
-
 if (fs.existsSync(DB_FILE)) {
     try {
         const raw = fs.readFileSync(DB_FILE, 'utf8');
@@ -25,6 +25,36 @@ function saveStore() {
         fs.writeFileSync(DB_FILE, JSON.stringify(urlStore, null, 2), 'utf8');
     } catch (e) {
         console.error('Failed to save urls.json:', e);
+    }
+}
+
+// Persistent Users & Admin Store (loads from users.json on startup)
+let authStore = {
+    admin: {
+        username: "admin",
+        password: "Nahid@123"
+    },
+    users: []
+};
+
+if (fs.existsSync(USERS_FILE)) {
+    try {
+        const rawUsers = fs.readFileSync(USERS_FILE, 'utf8');
+        authStore = JSON.parse(rawUsers);
+        if (!authStore.admin) authStore.admin = { username: "admin", password: "Nahid@123" };
+        if (!authStore.users) authStore.users = [];
+    } catch (e) {
+        console.error('Could not load users.json:', e);
+    }
+} else {
+    saveAuthStore();
+}
+
+function saveAuthStore() {
+    try {
+        fs.writeFileSync(USERS_FILE, JSON.stringify(authStore, null, 2), 'utf8');
+    } catch (e) {
+        console.error('Failed to save users.json:', e);
     }
 }
 
@@ -58,12 +88,139 @@ const server = http.createServer((req, res) => {
 
     // CORS headers for all responses
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
         res.end();
+        return;
+    }
+
+    // Helper to parse JSON body
+    function getJsonBody(req, cb) {
+        let body = '';
+        req.on('data', chunk => body += chunk);
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                cb(null, data);
+            } catch (e) {
+                cb(e, null);
+            }
+        });
+    }
+
+    // --- Authentication & Admin API Routes ---
+    if (pathname === '/api/auth/login' && req.method === 'POST') {
+        getJsonBody(req, (err, data) => {
+            if (err || !data || !data.username || !data.password) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Username and password required' }));
+                return;
+            }
+
+            const inputUser = String(data.username).trim();
+            const inputPass = String(data.password).trim();
+
+            // Check Admin login
+            if ((inputUser.toLowerCase() === authStore.admin.username.toLowerCase() || inputUser.toLowerCase() === 'nahid') && inputPass === authStore.admin.password) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, role: 'admin', username: authStore.admin.username }));
+                return;
+            }
+
+            // Check created Users login
+            const matchedUser = authStore.users.find(u => u.username.toLowerCase() === inputUser.toLowerCase() && u.password === inputPass);
+            if (matchedUser) {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: true, role: 'user', username: matchedUser.username }));
+                return;
+            }
+
+            res.writeHead(401, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: false, error: 'Invalid username or password' }));
+        });
+        return;
+    }
+
+    if (pathname === '/api/auth/admin/change-password' && req.method === 'POST') {
+        getJsonBody(req, (err, data) => {
+            if (err || !data || !data.currentPassword || !data.newPassword) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Current and new password required' }));
+                return;
+            }
+
+            if (String(data.currentPassword).trim() !== authStore.admin.password) {
+                res.writeHead(401, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Current admin password incorrect' }));
+                return;
+            }
+
+            authStore.admin.password = String(data.newPassword).trim();
+            saveAuthStore();
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, message: 'Admin password updated successfully!' }));
+        });
+        return;
+    }
+
+    if (pathname === '/api/auth/admin/create-user' && req.method === 'POST') {
+        getJsonBody(req, (err, data) => {
+            if (err || !data || !data.username || !data.password) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Username and password required' }));
+                return;
+            }
+
+            const newUser = String(data.username).trim();
+            const newPass = String(data.password).trim();
+
+            if (authStore.users.some(u => u.username.toLowerCase() === newUser.toLowerCase())) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Username already exists' }));
+                return;
+            }
+
+            authStore.users.push({
+                username: newUser,
+                password: newPass,
+                createdAt: new Date().toISOString()
+            });
+            saveAuthStore();
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, message: `User '${newUser}' created successfully!` }));
+        });
+        return;
+    }
+
+    if (pathname === '/api/auth/admin/users' && req.method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+            adminUsername: authStore.admin.username,
+            users: authStore.users.map(u => ({ username: u.username, createdAt: u.createdAt }))
+        }));
+        return;
+    }
+
+    if (pathname === '/api/auth/admin/delete-user' && req.method === 'POST') {
+        getJsonBody(req, (err, data) => {
+            if (err || !data || !data.username) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ success: false, error: 'Username required' }));
+                return;
+            }
+
+            const targetUser = String(data.username).trim();
+            authStore.users = authStore.users.filter(u => u.username.toLowerCase() !== targetUser.toLowerCase());
+            saveAuthStore();
+
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ success: true, message: `User '${targetUser}' deleted!` }));
+        });
         return;
     }
 
