@@ -882,6 +882,35 @@ function initCreator() {
 
     let currentSession = JSON.parse(sessionStorage.getItem('lab_session') || 'null');
 
+    function checkMandatoryAuth() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isViewerMode = urlParams.has('w');
+
+        // If viewing a shared wish, bypass authentication wall for recipient
+        if (isViewerMode) return;
+
+        updateNavAuthState();
+
+        if (currentSession && (currentSession.role === 'admin' || currentSession.role === 'user')) {
+            // Logged in: show Creator Generator
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            if (closeLoginBtn) closeLoginBtn.classList.remove('hidden');
+        } else {
+            // Unauthenticated: hide Creator Generator & force Login Gate
+            if (creatorContainer) creatorContainer.classList.add('hidden');
+            if (successContainer) successContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.remove('hidden');
+            if (closeLoginBtn) closeLoginBtn.classList.add('hidden');
+            
+            if (loginMsg) {
+                loginMsg.innerText = '🔒 Access Restricted. Please log in with Admin or User credentials.';
+                loginMsg.style.color = 'var(--accent-gold)';
+            }
+        }
+    }
+
     function updateNavAuthState() {
         if (currentSession && currentSession.role === 'admin') {
             if (openLoginBtn) openLoginBtn.classList.add('hidden');
@@ -897,7 +926,8 @@ function initCreator() {
             if (logoutBtn) logoutBtn.classList.add('hidden');
         }
     }
-    updateNavAuthState();
+
+    checkMandatoryAuth();
 
     if (openLoginBtn) {
         openLoginBtn.addEventListener('click', () => {
@@ -911,9 +941,11 @@ function initCreator() {
 
     if (closeLoginBtn) {
         closeLoginBtn.addEventListener('click', () => {
-            if (loginContainer) loginContainer.classList.add('hidden');
-            if (creatorContainer) creatorContainer.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (currentSession) {
+                if (loginContainer) loginContainer.classList.add('hidden');
+                if (creatorContainer) creatorContainer.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         });
     }
 
@@ -976,10 +1008,7 @@ function initCreator() {
         logoutBtn.addEventListener('click', () => {
             currentSession = null;
             sessionStorage.removeItem('lab_session');
-            updateNavAuthState();
-            if (adminContainer) adminContainer.classList.add('hidden');
-            if (loginContainer) loginContainer.classList.add('hidden');
-            if (creatorContainer) creatorContainer.classList.remove('hidden');
+            checkMandatoryAuth();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
