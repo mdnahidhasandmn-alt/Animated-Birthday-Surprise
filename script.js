@@ -873,6 +873,25 @@ function initCreator() {
     const loginForm = document.getElementById('loginForm');
     const loginMsg = document.getElementById('loginMsg');
 
+    // TCW Dual-Slide Animation Toggle
+    const tcwContainer = document.getElementById('tcwContainer');
+    const signUpLink = document.getElementById('SignUpLink');
+    const signInLink = document.getElementById('SignInLink');
+
+    if (signUpLink && tcwContainer) {
+        signUpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            tcwContainer.classList.add('active');
+        });
+    }
+
+    if (signInLink && tcwContainer) {
+        signInLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            tcwContainer.classList.remove('active');
+        });
+    }
+
     const changeAdminPassForm = document.getElementById('changeAdminPassForm');
     const changePassMsg = document.getElementById('changePassMsg');
 

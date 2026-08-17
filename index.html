@@ -443,42 +443,67 @@
             </div>
         </div>
 
-        <!-- System Login Screen (Ultra-Premium Glassmorphic Gateway) -->
-        <div id="loginContainer" class="login-page-container hidden">
-            <div class="login-card-glass">
-                <div class="login-badge-pill">🔒 NAHID'S LAB PORTAL</div>
-                <h1 class="login-card-title">Welcome Back</h1>
-                <p class="login-card-subtitle">Authenticate with your Admin or User account to access Nahid's Lab.</p>
-                
-                <form id="loginForm" onsubmit="return false;" class="login-form-body">
-                    <div class="input-group">
-                        <label for="loginUsername">Username / Admin ID</label>
-                        <div class="input-icon-wrapper">
-                            <span class="field-icon">👤</span>
-                            <input type="text" id="loginUsername" placeholder="e.g. admin or Nahid">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="loginPassword">Password</label>
-                        <div class="input-icon-wrapper">
-                            <span class="field-icon">🔑</span>
-                            <input type="password" id="loginPassword" placeholder="Enter password (e.g. Nahid@123)">
-                        </div>
-                    </div>
-                    <p id="loginMsg" class="login-status-msg"></p>
-                    
-                    <button type="submit" id="submitLoginBtn" class="create-wish-btn login-action-btn">
-                        <span class="btn-sparkle">⚡</span> Log In to Portal
-                    </button>
+        <!-- System Login Screen (Animated Curved-Shape Dual-Slide Portal) -->
+        <div id="loginContainer" class="tcw-login-wrapper hidden">
+            <div class="tcw-container" id="tcwContainer">
+                <div class="curved-shape"></div>
+                <div class="curved-shape2"></div>
 
-                    <button type="button" id="closeLoginBtn" class="back-edit-btn login-back-btn">
-                        ⬅️ Back to Application
-                    </button>
-                </form>
+                <!-- Login Form Box -->
+                <div class="form-box Login">
+                    <h2 class="animation" style="--D:0; --S:21">Login</h2>
+                    <form id="loginForm" onsubmit="return false;">
+                        <div class="input-box animation" style="--D:1; --S:22">
+                            <input type="text" id="loginUsername" required autocomplete="off">
+                            <label for="loginUsername">Username / Admin ID</label>
+                            <span class="box-icon-span">👤</span>
+                        </div>
 
-                <div class="login-demo-hint">
-                    <span>👑 Admin Default: <strong>admin</strong> / <strong>Nahid@123</strong></span>
+                        <div class="input-box animation" style="--D:2; --S:23">
+                            <input type="password" id="loginPassword" required autocomplete="off">
+                            <label for="loginPassword">Password</label>
+                            <span class="box-icon-span">🔑</span>
+                        </div>
+
+                        <p id="loginMsg" class="tcw-status-msg animation" style="--D:2.5; --S:23.5"></p>
+
+                        <div class="input-box animation" style="--D:3; --S:24">
+                            <button class="tcw-btn" type="submit" id="submitLoginBtn">Log In to Portal</button>
+                        </div>
+
+                        <div class="regi-link animation" style="--D:4; --S:25">
+                            <p>Need Admin Credentials? <br> <a href="#" id="SignUpLink" class="SignUpLink">View System Info</a></p>
+                        </div>
+                    </form>
                 </div>
+
+                <!-- Welcome Info Content (Login Side) -->
+                <div class="info-content Login">
+                    <h2 class="animation" style="--D:0; --S:20">WELCOME BACK!</h2>
+                    <p class="animation" style="--D:1; --S:21">Authenticate with your Admin or User account to access Nahid's Lab portal & surprise generator.</p>
+                </div>
+
+                <!-- Credentials Info Content (Register Side) -->
+                <div class="form-box Register">
+                    <h2 class="animation" style="--li:17; --S:0">System Access</h2>
+                    <div class="tcw-info-card animation" style="--li:18; --S:1">
+                        <p style="font-weight: 700; color: var(--accent-gold); margin-bottom: 6px;">👑 Default Admin Credentials:</p>
+                        <p style="font-size: 0.88rem; color: #ffffff;">ID: <strong style="color: var(--accent-pink);">admin</strong> (or <strong>Nahid</strong>)</p>
+                        <p style="font-size: 0.88rem; color: #ffffff; margin-bottom: 10px;">Pass: <strong style="color: var(--accent-gold);">Nahid@123</strong></p>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.4;">Only authenticated Admin or User accounts created in Admin Panel can access creator.</p>
+                    </div>
+
+                    <div class="regi-link animation" style="--li:21; --S:5">
+                        <p>Ready to log in? <br> <a href="#" id="SignInLink" class="SignInLink">Back to Login Form</a></p>
+                    </div>
+                </div>
+
+                <!-- Info Side Welcome -->
+                <div class="info-content Register">
+                    <h2 class="animation" style="--li:17; --S:0">NAHID'S LAB</h2>
+                    <p class="animation" style="--li:18; --S:1">Ultra-Premium Interactive Birthday & Surprise Link Generator.</p>
+                </div>
+
             </div>
         </div>
 
