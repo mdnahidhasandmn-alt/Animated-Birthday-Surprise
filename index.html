@@ -443,29 +443,42 @@
             </div>
         </div>
 
-        <!-- System Login Screen -->
-        <div id="loginContainer" class="admin-container hidden">
-            <div class="admin-card" style="max-width: 480px;">
-                <div class="success-icon">🔑</div>
-                <h2 class="admin-title">System Login</h2>
-                <p class="success-subtitle" style="font-size: 0.9rem; margin-bottom: 20px;">Enter Admin or User credentials to log in.</p>
+        <!-- System Login Screen (Ultra-Premium Glassmorphic Gateway) -->
+        <div id="loginContainer" class="login-page-container hidden">
+            <div class="login-card-glass">
+                <div class="login-badge-pill">🔒 NAHID'S LAB PORTAL</div>
+                <h1 class="login-card-title">Welcome Back</h1>
+                <p class="login-card-subtitle">Authenticate with your Admin or User account to access Nahid's Lab.</p>
                 
-                <form id="loginForm" onsubmit="return false;">
+                <form id="loginForm" onsubmit="return false;" class="login-form-body">
                     <div class="input-group">
                         <label for="loginUsername">Username / Admin ID</label>
-                        <input type="text" id="loginUsername" placeholder="e.g. admin or Nahid">
+                        <div class="input-icon-wrapper">
+                            <span class="field-icon">👤</span>
+                            <input type="text" id="loginUsername" placeholder="e.g. admin or Nahid">
+                        </div>
                     </div>
                     <div class="input-group">
                         <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter password (Default: Nahid@123)">
+                        <div class="input-icon-wrapper">
+                            <span class="field-icon">🔑</span>
+                            <input type="password" id="loginPassword" placeholder="Enter password (e.g. Nahid@123)">
+                        </div>
                     </div>
-                    <p id="loginMsg" style="font-size: 0.88rem; min-height: 20px; color: var(--accent-gold); margin: 6px 0 16px;"></p>
+                    <p id="loginMsg" class="login-status-msg"></p>
                     
-                    <div class="admin-actions">
-                        <button type="submit" id="submitLoginBtn" class="create-wish-btn" style="margin-top: 0;">🔓 Login</button>
-                        <button type="button" id="closeLoginBtn" class="back-edit-btn" style="width: 100%; justify-content: center; margin-top: 10px;">⬅️ Back to App</button>
-                    </div>
+                    <button type="submit" id="submitLoginBtn" class="create-wish-btn login-action-btn">
+                        <span class="btn-sparkle">⚡</span> Log In to Portal
+                    </button>
+
+                    <button type="button" id="closeLoginBtn" class="back-edit-btn login-back-btn">
+                        ⬅️ Back to Application
+                    </button>
                 </form>
+
+                <div class="login-demo-hint">
+                    <span>👑 Admin Default: <strong>admin</strong> / <strong>Nahid@123</strong></span>
+                </div>
             </div>
         </div>
 

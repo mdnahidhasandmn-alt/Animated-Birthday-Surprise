@@ -3927,6 +3927,154 @@ body.creator-mode {
     transform: scale(1.05);
 }
 
+/* Ultra-Premium Glassmorphic Login Gateway */
+.login-page-container {
+    width: 100%;
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    z-index: 10;
+    position: relative;
+    animation: fadeIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.login-card-glass {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(12, 5, 26, 0.88);
+    border: 1px solid rgba(255, 42, 117, 0.25);
+    border-radius: 36px;
+    padding: 48px 40px;
+    text-align: center;
+    backdrop-filter: blur(35px);
+    -webkit-backdrop-filter: blur(35px);
+    box-shadow: 0 35px 90px rgba(0, 0, 0, 0.75), 
+                0 0 50px rgba(255, 42, 117, 0.15),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-card-glass::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255, 42, 117, 0.35) 0%, rgba(168, 85, 247, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.login-badge-pill {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    background: rgba(255, 42, 117, 0.12);
+    border: 1px solid rgba(255, 42, 117, 0.35);
+    color: var(--accent-pink);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(255, 42, 117, 0.2);
+}
+
+.login-card-title {
+    position: relative;
+    z-index: 1;
+    font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff 0%, #ff85c0 50%, #ffc107 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.login-card-subtitle {
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 28px;
+}
+
+.login-form-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-icon-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.field-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.input-icon-wrapper input {
+    padding-left: 48px !important;
+}
+
+.login-status-msg {
+    font-size: 0.88rem;
+    min-height: 22px;
+    color: var(--accent-gold);
+    margin: 8px 0 18px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.login-action-btn {
+    margin-top: 4px;
+    padding: 16px 24px;
+    font-size: 1.05rem;
+    border-radius: 18px;
+}
+
+.login-back-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    border-radius: 16px;
+}
+
+.login-demo-hint {
+    position: relative;
+    z-index: 1;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.login-demo-hint strong {
+    color: var(--accent-gold);
+}
+
+
 
 
 
