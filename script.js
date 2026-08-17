@@ -766,36 +766,62 @@ function initCreator() {
 
         // Reset info message
         const linkInfoMsg = document.getElementById('linkInfoMsg');
-        linkInfoMsg.innerText = "";
-        linkInfoMsg.style.color = "var(--accent-gold)";
+        linkInfoMsg.innerText = "⚡ Creating instant zero-ad direct link...";
+        linkInfoMsg.style.color = "var(--accent-cyan)";
 
         // Show Modal
         modalOverlay.classList.remove('hidden');
         setTimeout(() => modalOverlay.classList.add('show'), 50);
 
-        // Attempt to shorten the link
-        const isLocal = shareUrl.includes('localhost') || shareUrl.includes('127.0.0.1') || shareUrl.startsWith('file:');
+        function updateSocialLinks(finalUrl) {
+            shareableLinkInput.value = finalUrl;
+            previewLinkBtn.href = finalUrl;
 
-        if (isLocal) {
-            linkInfoMsg.innerText = "ℹ️ Localhost link detected. Shortener only works on live websites. Once hosted online, it will shorten automatically!";
-            linkInfoMsg.style.color = "var(--text-muted)";
-        } else if (shareUrl.length < 4000) {
-            linkInfoMsg.innerText = "⚡ Shortening your link for mobile sharing...";
-            shortenUrl(shareUrl, (shortUrl) => {
-                if (shortUrl) {
-                    shareableLinkInput.value = shortUrl;
-                    linkInfoMsg.innerText = "✅ Link successfully shortened! Ready to share.";
-                    linkInfoMsg.style.color = "var(--accent-gold)";
-                } else {
-                    linkInfoMsg.innerText = "⚠️ Shortener API failed. You can copy the full URL below; it works perfectly!";
-                    linkInfoMsg.style.color = "var(--text-muted)";
-                }
-            });
-        } else {
-            linkInfoMsg.innerText = "⚠️ Custom image size is large. Full URL copied below will work, but you can also shorten it manually on freeurlshortener.net";
-            linkInfoMsg.style.color = "var(--text-muted)";
+            const waBtn = document.getElementById('shareWaBtn');
+            if (waBtn) waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent('🎁 I created a special interactive surprise for you! Open it here: ' + finalUrl)}`;
+
+            const fbBtn = document.getElementById('shareFbBtn');
+            if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(finalUrl)}`;
+
+            const tgBtn = document.getElementById('shareTgBtn');
+            if (tgBtn) tgBtn.href = `https://t.me/share/url?url=${encodeURIComponent(finalUrl)}&text=${encodeURIComponent('🎁 Open your special surprise!')}`;
+
+            const qrImg = document.getElementById('qrImg');
+            if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(finalUrl)}`;
         }
+
+        updateSocialLinks(shareUrl);
+
+        // Call native server shortener (0 ads, instant domain redirect)
+        fetch('/api/shorten', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: shareUrl })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.shortUrl) {
+                updateSocialLinks(data.shortUrl);
+                linkInfoMsg.innerText = "✅ Instant direct link created! (0 Ads · Direct Domain Redirect)";
+                linkInfoMsg.style.color = "var(--accent-gold)";
+            } else {
+                linkInfoMsg.innerText = "✅ Direct link ready!";
+                linkInfoMsg.style.color = "var(--text-muted)";
+            }
+        })
+        .catch(err => {
+            console.warn('Native shortener request error:', err);
+            linkInfoMsg.innerText = "✅ Direct link ready!";
+        });
     });
+
+    const toggleQrBtn = document.getElementById('toggleQrBtn');
+    const qrBox = document.getElementById('qrBox');
+    if (toggleQrBtn && qrBox) {
+        toggleQrBtn.addEventListener('click', () => {
+            qrBox.classList.toggle('hidden');
+        });
+    }
 
     closeModalBtn.addEventListener('click', () => {
         modalOverlay.classList.remove('show');
