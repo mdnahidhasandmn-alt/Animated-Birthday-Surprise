@@ -69,7 +69,7 @@ const DEFAULT_CONFIG = {
     theme: "birthday",
     o: "Happy Birthday, my love! 🎂",
     t: "Sophia 💖",
-    f: "Alex ✍️",
+    f: "Nahid ✍️",
     m: "On your special day, I just want you to know how much you mean to me. ❤️ You are my happiness, my comfort, and my favorite person in the world. Thank you for filling my life with love, laughter, and beautiful memories. Happy Birthday, my love. 🎂",
     p: IMAGE_PRESETS_MAIN[0],
     l1: "From the moment our paths intertwined, you filled my days with laughter and my nights with sweet dreams. Your love is a constant melody that plays softly in my heart.",
