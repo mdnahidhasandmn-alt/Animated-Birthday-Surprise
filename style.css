@@ -441,22 +441,24 @@ body.creator-mode {
 }
 .polaroid-frame {
     background: #ffffff !important;
-    padding: 12px 12px 28px 12px !important;
+    padding: 10px 10px 30px 10px !important;
     border-radius: 4px !important;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
-    width: 170px !important;
-    margin: 20px auto !important;
-    transform: rotate(-3deg) !important;
-    transition: transform 0.4s ease !important;
-    border: 1px solid rgba(0,0,0,0.05) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45) !important;
+    width: 210px !important;
+    max-width: 210px !important;
+    margin: 18px auto !important;
+    transform: rotate(-2.5deg) !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
     box-sizing: border-box !important;
+    border: none !important;
 }
 .polaroid-frame:hover {
-    transform: rotate(1deg) scale(1.05) !important;
+    transform: rotate(0deg) scale(1.04) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
 }
 .polaroid-image {
-    width: 146px !important;
-    height: 146px !important;
+    width: 100% !important;
+    height: 175px !important;
     background: #0f0b18 !important;
     border-radius: 2px !important;
     overflow: hidden !important;
