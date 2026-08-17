@@ -282,18 +282,52 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ shortUrl, code }));
     }
 
-    // --- Direct Instant Short Link Redirect Route: /s/:code ---
+    // --- Wish config lookup API: /api/wish/:code ---
+    if (pathname.startsWith('/api/wish/')) {
+        const code = pathname.substring(10).trim();
+        const storedItem = urlStore[code];
+
+        if (!storedItem) {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Wish not found' }));
+            return;
+        }
+
+        let config = null;
+        if (typeof storedItem === 'object') {
+            config = storedItem;
+        } else if (typeof storedItem === 'string' && storedItem.includes('?w=')) {
+            const rawW = storedItem.split('?w=')[1];
+            try {
+                const jsonStr = Buffer.from(decodeURIComponent(rawW), 'base64').toString('utf8');
+                config = JSON.parse(jsonStr);
+            } catch (e) {
+                config = { rawUrl: storedItem };
+            }
+        } else {
+            config = { rawUrl: storedItem };
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, config, code }));
+        return;
+    }
+
+    // --- Direct Short Link Route: /s/:code (Serves index.html directly to prevent HTTP 431 header overflow) ---
     if (pathname.startsWith('/s/')) {
         const code = pathname.substring(3).trim();
-        const targetUrl = urlStore[code];
-
-        if (targetUrl) {
-            // Instant HTTP 302 Redirect with zero ads or delays
-            res.writeHead(302, { 'Location': targetUrl });
-            res.end();
+        if (urlStore[code]) {
+            fs.readFile(path.join(__dirname, 'index.html'), (err, indexContent) => {
+                if (err) {
+                    res.writeHead(500);
+                    res.end('Server Error');
+                } else {
+                    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                    res.end(indexContent);
+                }
+            });
             return;
         } else {
-            // Fallback to index if code not found
             res.writeHead(302, { 'Location': '/' });
             res.end();
             return;

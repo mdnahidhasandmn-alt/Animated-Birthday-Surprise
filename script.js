@@ -902,10 +902,38 @@ function initCreator() {
     let currentSession = JSON.parse(sessionStorage.getItem('lab_session') || 'null');
 
     function checkMandatoryAuth() {
+        const pathname = window.location.pathname;
         const urlParams = new URLSearchParams(window.location.search);
-        const isViewerMode = urlParams.has('w');
 
-        // If viewing a shared wish, bypass authentication wall for recipient
+        // If viewing a direct short link /s/:code, fetch wish config and render surprise
+        if (pathname.startsWith('/s/')) {
+            const code = pathname.substring(3).trim();
+            if (code) {
+                fetch(`/api/wish/${code}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.config) {
+                            if (typeof data.config === 'object') {
+                                renderSurprise(data.config);
+                            } else if (typeof data.config === 'string') {
+                                try {
+                                    const config = decodeConfig(data.config);
+                                    renderSurprise(config);
+                                } catch (e) {
+                                    console.error('Error decoding config string:', e);
+                                }
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error loading wish payload:', err);
+                    });
+                return; // Viewer mode: bypass login gate for wish recipient
+            }
+        }
+
+        // If viewing legacy ?w=... link, bypass login gate for recipient
+        const isViewerMode = urlParams.has('w');
         if (isViewerMode) return;
 
         updateNavAuthState();
@@ -922,11 +950,6 @@ function initCreator() {
             if (adminContainer) adminContainer.classList.add('hidden');
             if (loginContainer) loginContainer.classList.remove('hidden');
             if (closeLoginBtn) closeLoginBtn.classList.add('hidden');
-            
-            if (loginMsg) {
-                loginMsg.innerText = '🔒 Access Restricted. Please log in with Admin or User credentials.';
-                loginMsg.style.color = 'var(--accent-gold)';
-            }
         }
     }
 

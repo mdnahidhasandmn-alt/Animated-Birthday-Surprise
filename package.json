@@ -4,8 +4,8 @@
   "description": "Interactive Surprise Lab - animated birthday and love surprise generator",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node --max-http-header-size=1048576 server.js",
+    "dev": "node --max-http-header-size=1048576 server.js"
   },
   "engines": {
     "node": ">=18.0.0"
