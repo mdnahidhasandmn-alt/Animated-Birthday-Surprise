@@ -769,9 +769,15 @@ function initCreator() {
         linkInfoMsg.innerText = "⚡ Creating instant zero-ad direct link...";
         linkInfoMsg.style.color = "var(--accent-cyan)";
 
-        // Show Modal
-        modalOverlay.classList.remove('hidden');
-        setTimeout(() => modalOverlay.classList.add('show'), 50);
+        const creatorContainer = document.getElementById('creatorContainer');
+        const successContainer = document.getElementById('successContainer');
+
+        // Transition from Editor page to Dedicated Success Page
+        if (creatorContainer && successContainer) {
+            creatorContainer.classList.add('hidden');
+            successContainer.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         function updateSocialLinks(finalUrl) {
             shareableLinkInput.value = finalUrl;
@@ -823,10 +829,18 @@ function initCreator() {
         });
     }
 
-    closeModalBtn.addEventListener('click', () => {
-        modalOverlay.classList.remove('show');
-        setTimeout(() => modalOverlay.classList.add('hidden'), 400);
-    });
+    const backToEditBtn = document.getElementById('backToEditBtn') || document.getElementById('closeModalBtn');
+    if (backToEditBtn) {
+        backToEditBtn.addEventListener('click', () => {
+            const creatorContainer = document.getElementById('creatorContainer');
+            const successContainer = document.getElementById('successContainer');
+            if (successContainer && creatorContainer) {
+                successContainer.classList.add('hidden');
+                creatorContainer.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
 
     copyBtn.addEventListener('click', () => {
         shareableLinkInput.select();

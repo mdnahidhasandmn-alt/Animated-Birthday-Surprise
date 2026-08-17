@@ -401,12 +401,12 @@
             </div>
         </div>
 
-        <!-- Premium Success Link Modal -->
-        <div class="modal-overlay hidden" id="modalOverlay">
-            <div class="modal-card">
-                <div class="modal-icon">🎁</div>
-                <h2>Your Wish Link is Ready!</h2>
-                <p>Copy your clean direct link or share directly to your loved one. Zero ads, instant load!</p>
+        <!-- Dedicated Success Link View / Page -->
+        <div id="successContainer" class="success-container hidden">
+            <div class="success-card">
+                <div class="success-icon">🎉</div>
+                <h1 class="success-title">Your Wish Link is Ready!</h1>
+                <p class="success-subtitle">Copy your clean direct link below or share directly via WhatsApp, Facebook, or Telegram. Zero ads, instant load!</p>
                 
                 <div class="link-badge">⚡ 0 Ads · Instant Direct Load</div>
 
@@ -414,25 +414,25 @@
                     <input type="text" id="shareableLink" readonly>
                     <button id="copyBtn" class="copy-btn">📋 Copy Link</button>
                 </div>
-                <p id="linkInfoMsg" style="font-size: 0.85rem; margin-top: -12px; margin-bottom: 20px; color: var(--accent-gold); min-height: 18px; line-height: 1.4;"></p>
+                <p id="linkInfoMsg" style="font-size: 0.9rem; margin-top: -8px; margin-bottom: 24px; color: var(--accent-gold); min-height: 20px; line-height: 1.4;"></p>
                 
                 <!-- Social Share Buttons -->
                 <div class="social-share-row">
-                    <a href="#" id="shareWaBtn" target="_blank" class="social-btn wa-btn">🟢 WhatsApp</a>
-                    <a href="#" id="shareFbBtn" target="_blank" class="social-btn fb-btn">🔵 Facebook</a>
-                    <a href="#" id="shareTgBtn" target="_blank" class="social-btn tg-btn">✈️ Telegram</a>
-                    <button id="toggleQrBtn" class="social-btn qr-btn">🔳 QR Code</button>
+                    <a href="#" id="shareWaBtn" target="_blank" class="social-btn wa-btn">🟢 Share on WhatsApp</a>
+                    <a href="#" id="shareFbBtn" target="_blank" class="social-btn fb-btn">🔵 Share on Facebook</a>
+                    <a href="#" id="shareTgBtn" target="_blank" class="social-btn tg-btn">✈️ Share on Telegram</a>
+                    <button id="toggleQrBtn" class="social-btn qr-btn">🔳 Toggle QR Code</button>
                 </div>
 
                 <!-- QR Code Box -->
                 <div id="qrBox" class="qr-box hidden">
                     <img id="qrImg" src="" alt="Surprise QR Code">
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">Scan with phone camera to open surprise!</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">Scan with phone camera to open surprise!</p>
                 </div>
 
-                <div class="modal-actions" style="margin-top: 20px;">
+                <div class="success-actions">
                     <a href="" id="previewLinkBtn" target="_blank" class="preview-btn">🚀 Preview My Wish</a>
-                    <button id="closeModalBtn" class="close-modal-btn">✏️ Edit Details</button>
+                    <button id="backToEditBtn" class="back-edit-btn">⬅️ Back to Edit Details</button>
                 </div>
             </div>
         </div>
