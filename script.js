@@ -92,10 +92,10 @@ function shortenUrl(longUrl, callback) {
 
 // Preset images from Unsplash (curated high-res love/birthday theme)
 const IMAGE_PRESETS_MAIN = [
-    "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=350&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1513272795190-0b7c527757ed?w=350&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1494972308805-463bc619b34e?w=350&auto=format&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=350&auto=format&fit=crop&q=80"
+    "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=600&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&auto=format&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&auto=format&fit=crop&q=80"
 ];
 
 const IMAGE_PRESETS_ENVELOPE = [
