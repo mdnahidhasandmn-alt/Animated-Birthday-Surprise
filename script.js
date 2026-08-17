@@ -26,6 +26,45 @@ function decodeConfig(str) {
     }
     const json = new TextDecoder().decode(bytes);
     return JSON.parse(json);
+// High-performance client-side Canvas Image Resizer & Compressor for PC/Mobile uploads
+function processImageUpload(file, callback) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const maxDim = 600; // Resize to max 600px width/height for fast loading & compact payload
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxDim) {
+                    height = Math.round((height * maxDim) / width);
+                    width = maxDim;
+                }
+            } else {
+                if (height > maxDim) {
+                    width = Math.round((width * maxDim) / height);
+                    height = maxDim;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Compress to 0.72 quality JPEG (~30KB-60KB Base64 data URL)
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
+            callback(compressedBase64);
+        };
+        img.onerror = () => {
+            callback(e.target.result);
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
 }
 
 // Shorten URL via our own server-side proxy at /api/shorten (no CORS issues)
@@ -802,7 +841,7 @@ function initCreator() {
         fetch('/api/shorten', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url: shareUrl })
+            body: JSON.stringify({ url: shareUrl, config: config })
         })
         .then(res => res.json())
         .then(data => {
@@ -830,15 +869,35 @@ function initCreator() {
     }
 
     const backToEditBtn = document.getElementById('backToEditBtn') || document.getElementById('closeModalBtn');
-    if (backToEditBtn) {
-        backToEditBtn.addEventListener('click', () => {
-            const creatorContainer = document.getElementById('creatorContainer');
-            const successContainer = document.getElementById('successContainer');
-            if (successContainer && creatorContainer) {
-                successContainer.classList.add('hidden');
-                creatorContainer.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+    const homeBackBtn = document.getElementById('homeBackBtn');
+    const navLogo = document.getElementById('navLogo');
+
+    function returnToCreatorHome() {
+        const creatorContainer = document.getElementById('creatorContainer');
+        const successContainer = document.getElementById('successContainer');
+        const adminContainer = document.getElementById('adminContainer');
+        const loginContainer = document.getElementById('loginContainer');
+
+        if (currentSession) {
+            if (successContainer) successContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.add('hidden');
+            if (creatorContainer) creatorContainer.classList.remove('hidden');
+        } else {
+            if (creatorContainer) creatorContainer.classList.add('hidden');
+            if (successContainer) successContainer.classList.add('hidden');
+            if (adminContainer) adminContainer.classList.add('hidden');
+            if (loginContainer) loginContainer.classList.remove('hidden');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (backToEditBtn) backToEditBtn.addEventListener('click', returnToCreatorHome);
+    if (homeBackBtn) homeBackBtn.addEventListener('click', returnToCreatorHome);
+    if (navLogo) {
+        navLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            returnToCreatorHome();
         });
     }
 

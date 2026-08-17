@@ -224,11 +224,11 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // --- Native Clean Shortener API: /api/shorten?url=<longUrl> ---
+    // --- Native Clean Shortener API: /api/shorten ---
     if (pathname === '/api/shorten') {
         let longUrl = parsed.query.url;
+        let payloadConfig = null;
 
-        // Support POST body as well
         if (req.method === 'POST') {
             let body = '';
             req.on('data', chunk => body += chunk);
@@ -236,33 +236,22 @@ const server = http.createServer((req, res) => {
                 try {
                     const data = JSON.parse(body);
                     if (data && data.url) longUrl = data.url;
+                    if (data && data.config) payloadConfig = data.config;
                 } catch (e) {}
-                handleShorten(longUrl, req, res);
+                handleShorten(longUrl, payloadConfig, req, res);
             });
             return;
         } else {
-            handleShorten(longUrl, req, res);
+            handleShorten(longUrl, null, req, res);
             return;
         }
     }
 
-    function handleShorten(longUrl, req, res) {
-        if (!longUrl) {
+    function handleShorten(longUrl, payloadConfig, req, res) {
+        if (!longUrl && !payloadConfig) {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Missing url parameter' }));
+            res.end(JSON.stringify({ error: 'Missing url or config payload' }));
             return;
-        }
-
-        // Check if longUrl is already in urlStore
-        for (const [code, target] of Object.entries(urlStore)) {
-            if (target === longUrl) {
-                const host = req.headers.host || `localhost:${PORT}`;
-                const protocol = req.headers['x-forwarded-proto'] || 'http';
-                const shortUrl = `${protocol}://${host}/s/${code}`;
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ shortUrl, code }));
-                return;
-            }
         }
 
         // Create new clean short code
@@ -271,7 +260,7 @@ const server = http.createServer((req, res) => {
             code = generateShortCode(6);
         }
 
-        urlStore[code] = longUrl;
+        urlStore[code] = payloadConfig || longUrl;
         saveStore();
 
         const host = req.headers.host || `localhost:${PORT}`;
