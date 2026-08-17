@@ -19,6 +19,11 @@
     display: none !important;
 }
 
+body.wish-mode .top-navbar,
+body.wish-mode #topNavbar {
+    display: none !important;
+}
+
 * {
     margin: 0;
     padding: 0;

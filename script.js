@@ -988,6 +988,9 @@ function initCreator() {
         };
 
         document.body.classList.add('wish-mode');
+        const topNavbar = document.getElementById('topNavbar');
+        if (topNavbar) topNavbar.classList.add('hidden');
+
         if (creatorContainer) creatorContainer.classList.add('hidden');
         if (loginContainer) loginContainer.classList.add('hidden');
         if (adminContainer) adminContainer.classList.add('hidden');
@@ -1088,9 +1091,13 @@ function initCreator() {
             }
         }
 
-        // If viewing legacy ?w=... link, bypass login gate for recipient
+        // If viewing legacy ?w=... link, bypass login gate for recipient and render wish
         const isViewerMode = urlParams.has('w');
-        if (isViewerMode) return;
+        if (isViewerMode) {
+            const rawW = urlParams.get('w');
+            if (rawW) loadWishSurpriseConfig(rawW);
+            return;
+        }
 
         updateNavAuthState();
 
