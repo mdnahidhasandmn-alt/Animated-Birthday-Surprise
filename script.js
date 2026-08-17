@@ -240,6 +240,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
             initBackground();
             initElementumTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'hearttunnel') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initHearttunnelTheme) initHearttunnelTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'fireworks') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initFireworksTheme) initFireworksTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'crystalheart') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initCrystalheartTheme) initCrystalheartTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'coloravalanche') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initColoravalancheTheme) initColoravalancheTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'cube') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initCubeTheme) initCubeTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'nightgarden') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initNightgardenTheme) initNightgardenTheme(SURPRISE_CONFIG);
+        } else if (SURPRISE_CONFIG.theme === 'birthdaycake') {
+            document.getElementById('wishContainer').classList.remove('hidden');
+            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+            initBackground();
+            if (window.initBirthdaycakeTheme) initBirthdaycakeTheme(SURPRISE_CONFIG);
         } else {
             document.getElementById('heartbeatContainer').classList.add('hidden');
             document.getElementById('roseContainer').classList.add('hidden');
@@ -337,6 +393,55 @@ const THEME_REGISTRY = {
         desc: "Interactive 3D Periodic Table using Anime.js v4. Switch between Table, Sphere, Helix, Grid, and Orbit layouts.",
         visibleFields: [],
         preview: 'view-prev-elementum',
+        showMockupTabs: false
+    },
+    hearttunnel: {
+        name: "🌌 3D Heart Tunnel",
+        desc: "Cinematic 3D neon heart tunnel with glowing speed particles.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    fireworks: {
+        name: "🎆 Fireworks Show",
+        desc: "Interactive fireworks launcher with colorful particle bursts.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    crystalheart: {
+        name: "💎 Crystal Heart",
+        desc: "Interactive 3D crystal heart made of sparkling diamond facets.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    coloravalanche: {
+        name: "🌈 Color Avalanche",
+        desc: "Cascade of colorful glowing particles with interactive physics.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    cube: {
+        name: "🧊 3D Cube",
+        desc: "Interactive 3D wireframe matrix cube with rotation effects.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    nightgarden: {
+        name: "🌸 Night Garden",
+        desc: "Enchanted night garden with glowing fireflies and blooming night flowers.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
+        showMockupTabs: false
+    },
+    birthdaycake: {
+        name: "🎂 Birthday Cake",
+        desc: "Interactive birthday cake with glowing candle lights and golden sparkles.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
+        preview: 'view-prev-card',
         showMockupTabs: false
     }
 };
