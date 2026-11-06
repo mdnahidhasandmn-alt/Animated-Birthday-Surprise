@@ -1102,17 +1102,25 @@ function initCreator() {
     const openCreatorBtn = document.getElementById('openCreatorBtn');
     const toggleLoginPass = document.getElementById('toggleLoginPass');
     const loginPasswordInput = document.getElementById('loginPassword');
+    const eyeOpenIcon = document.getElementById('eyeOpenIcon');
+    const eyeClosedIcon = document.getElementById('eyeClosedIcon');
 
     if (toggleLoginPass && loginPasswordInput) {
-        toggleLoginPass.addEventListener('click', () => {
+        toggleLoginPass.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             if (loginPasswordInput.type === 'password') {
                 loginPasswordInput.type = 'text';
-                toggleLoginPass.innerText = '🙈';
+                toggleLoginPass.classList.add('showing');
+                if (eyeOpenIcon) eyeOpenIcon.classList.add('hidden');
+                if (eyeClosedIcon) eyeClosedIcon.classList.remove('hidden');
             } else {
                 loginPasswordInput.type = 'password';
-                toggleLoginPass.innerText = '👁️';
+                toggleLoginPass.classList.remove('showing');
+                if (eyeOpenIcon) eyeOpenIcon.classList.remove('hidden');
+                if (eyeClosedIcon) eyeClosedIcon.classList.add('hidden');
             }
-        });
+        };
     }
 
     function updateNavAuthState() {
@@ -1367,10 +1375,4 @@ function initCreator() {
 
     // Initialize display with default theme
     applyThemeFields(activeTheme);
-}
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCreator);
-} else {
-    initCreator();
 }
