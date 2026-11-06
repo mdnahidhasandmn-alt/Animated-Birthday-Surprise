@@ -4087,66 +4087,126 @@ body.creator-mode {
 .tcw-container .input-box {
     position: relative;
     width: 100%;
-    height: 50px;
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
-.tcw-container .input-box input {
+.tcw-container .input-box.premium-field {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tcw-container .premium-field-label {
+    position: static !important;
+    transform: none !important;
+    display: block;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #ff4d8d !important;
+    margin-left: 4px;
+    pointer-events: auto;
+}
+
+.tcw-container .premium-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(145deg, rgba(22, 10, 42, 0.92), rgba(12, 5, 26, 0.96));
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45), 0 4px 14px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.tcw-container .premium-input-wrap:focus-within {
+    border-color: var(--accent-pink);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 18px rgba(255, 42, 117, 0.35);
+    transform: translateY(-1px);
+}
+
+.tcw-container .premium-input-wrap input {
     width: 100% !important;
     height: 100% !important;
     background: transparent !important;
     border: none !important;
     outline: none !important;
-    font-size: 15px !important;
-    color: #fff !important;
+    font-size: 0.95rem !important;
+    color: #ffffff !important;
     font-weight: 600 !important;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
-    padding-right: 35px !important;
-    padding-left: 0 !important;
-    border-radius: 0 !important;
+    padding: 0 44px 0 16px !important;
+    border-radius: 14px !important;
     box-shadow: none !important;
-    transition: .4s !important;
+    transition: all 0.3s ease !important;
 }
 
-.tcw-container .input-box input:focus,
-.tcw-container .input-box input:valid {
-    border-bottom: 2px solid var(--accent-pink) !important;
+.tcw-container .premium-input-wrap input::placeholder {
+    color: rgba(255, 255, 255, 0.38);
+    font-weight: 400;
+    font-size: 0.88rem;
 }
 
-.tcw-container .input-box label {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    pointer-events: none;
-    transition: .4s;
-    font-weight: 500;
-    text-transform: none;
-    margin-bottom: 0;
-}
-
-.tcw-container .input-box input:focus ~ label,
-.tcw-container .input-box input:valid ~ label {
-    top: -4px;
-    color: var(--accent-pink);
-    font-size: 12px;
-    font-weight: 700;
+/* Prevent white/blue browser autofill box from ruining dark glass aesthetic */
+.tcw-container .premium-input-wrap input:-webkit-autofill,
+.tcw-container .premium-input-wrap input:-webkit-autofill:hover,
+.tcw-container .premium-input-wrap input:-webkit-autofill:focus,
+.tcw-container .premium-input-wrap input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #150928 inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff !important;
+    transition: background-color 5000s ease-in-out 0s;
 }
 
 .tcw-container .box-icon-span {
     position: absolute;
     top: 50%;
-    right: 0;
-    font-size: 18px;
+    right: 14px;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.6);
-    transition: .4s;
+    color: rgba(255, 255, 255, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: color 0.3s ease;
 }
 
-.tcw-container .input-box input:focus ~ .box-icon-span,
-.tcw-container .input-box input:valid ~ .box-icon-span {
+.tcw-container .premium-input-wrap:focus-within .box-icon-span {
+    color: var(--accent-pink);
+}
+
+.tcw-container .box-icon-btn {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.25s ease;
+}
+
+.tcw-container .box-icon-btn:hover {
+    background: rgba(255, 42, 117, 0.2);
+    border-color: rgba(255, 42, 117, 0.45);
+    color: #ffffff;
+}
+
+.tcw-container .box-icon-btn.showing {
+    background: rgba(255, 42, 117, 0.25);
+    border-color: rgba(255, 42, 117, 0.55);
     color: var(--accent-pink);
 }
 
