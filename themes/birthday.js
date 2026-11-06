@@ -4,6 +4,9 @@
 function initBirthdayTheme(config) {
     // Bind config globally to allow interior references to resolve correctly
     SURPRISE_CONFIG = config;
+    if (typeof startFireworksAnimation === 'function') {
+        startFireworksAnimation(config);
+    }
     initAnimator();
 }
 
@@ -474,6 +477,16 @@ function initAnimator() {
         if (giftBox.classList.contains('open')) return;
         playChime();
         giftBox.classList.add('open');
+
+        // Stop first-page background fireworks bloom once gift box is opened
+        const fwCanvas = document.getElementById('fwCanvas');
+        if (fwCanvas) {
+            fwCanvas.setAttribute('data-stopped', 'true');
+            if (window.__fwAutoTimer) clearInterval(window.__fwAutoTimer);
+            fwCanvas.style.opacity = '0';
+            setTimeout(() => { fwCanvas.style.display = 'none'; }, 600);
+        }
+
         const boxGlow = document.getElementById('boxGlow');
         boxGlow.classList.add('active');
         canvas.style.pointerEvents = 'auto';
