@@ -277,11 +277,11 @@ body.creator-mode {
 .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    border-radius: 28px;
-    padding: 36px 28px;
+    border-radius: 26px;
+    padding: 20px 24px;
     width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 94vh;
+    overflow: hidden;
     scrollbar-width: none;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45),
                 0 0 0 1px rgba(255, 255, 255, 0.05),
@@ -421,16 +421,16 @@ body.creator-mode {
 .eyebrow {
     display: block;
     font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
+    font-size: 1.55rem;
     color: var(--accent-gold);
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     text-shadow: 0 0 10px rgba(255, 183, 3, 0.25);
     text-align: center;
 }
 .title {
-    font-size: 2.1rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 .title .accent {
@@ -441,12 +441,12 @@ body.creator-mode {
 }
 .polaroid-frame {
     background: #ffffff !important;
-    padding: 10px 10px 30px 10px !important;
+    padding: 8px 8px 20px 8px !important;
     border-radius: 4px !important;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45) !important;
-    width: 210px !important;
-    max-width: 210px !important;
-    margin: 18px auto !important;
+    width: 175px !important;
+    max-width: 175px !important;
+    margin: 10px auto !important;
     transform: rotate(-2.5deg) !important;
     transition: transform 0.4s ease, box-shadow 0.4s ease !important;
     box-sizing: border-box !important;
@@ -458,7 +458,7 @@ body.creator-mode {
 }
 .polaroid-image {
     width: 100% !important;
-    height: 175px !important;
+    height: 140px !important;
     background: #0f0b18 !important;
     border-radius: 2px !important;
     overflow: hidden !important;
@@ -480,14 +480,14 @@ body.creator-mode {
     border: none !important;
 }
 .typed-text-container {
-    min-height: 80px; 
-    margin-bottom: 24px;
+    min-height: 56px; 
+    margin-bottom: 12px;
     position: relative;
 }
 .typed-text {
-    font-size: 0.98rem;
+    font-size: 0.92rem;
     color: var(--text-light);
-    line-height: 1.6;
+    line-height: 1.5;
     text-align: center;
     opacity: 0;
     transform: translateY(5px);
@@ -514,8 +514,8 @@ body.creator-mode {
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 16px;
-    margin-top: 16px;
+    padding-top: 12px;
+    margin-top: 8px;
 }
 .signature {
     text-align: right;
