@@ -28,7 +28,7 @@ function decodeConfig(str) {
     return JSON.parse(json);
 }
 
-// High-performance client-side Canvas Image Resizer & Compressor for PC/Mobile uploads
+// High-definition client-side Canvas Image Processor for PC/Mobile uploads
 function processImageUpload(file, callback) {
     if (!file) return;
     const reader = new FileReader();
@@ -36,7 +36,7 @@ function processImageUpload(file, callback) {
         const img = new Image();
         img.onload = () => {
             const canvas = document.createElement('canvas');
-            const maxDim = 600; // Resize to max 600px width/height for fast loading & compact payload
+            const maxDim = 1400; // Keep HD resolution (up to 1400px) for crisp display
             let width = img.width;
             let height = img.height;
 
@@ -55,11 +55,13 @@ function processImageUpload(file, callback) {
             canvas.width = width;
             canvas.height = height;
             const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(img, 0, 0, width, height);
 
-            // Compress to 0.72 quality JPEG (~30KB-60KB Base64 data URL)
-            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.72);
-            callback(compressedBase64);
+            // Preserve high quality JPEG (0.92 quality for sharp HD photos)
+            const hdBase64 = canvas.toDataURL('image/jpeg', 0.92);
+            callback(hdBase64);
         };
         img.onerror = () => {
             callback(e.target.result);
@@ -155,46 +157,6 @@ function createParticle(bgParticles, initial = false) {
     p.style.boxShadow = isPink ? '0 0 10px rgba(255, 51, 119, 0.4)' : '0 0 10px rgba(255, 183, 3, 0.4)';
     bgParticles.appendChild(p);
     setTimeout(() => p.remove(), (duration + delay) * 1000);
-}
-
-// Client-side image compression using canvas
-function processImageUpload(file, callback) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Limit image dimensions to max 250px to keep URL size small
-            const maxDim = 250;
-            let width = img.width;
-            let height = img.height;
-            
-            if (width > height) {
-                if (width > maxDim) {
-                    height = Math.round((height * maxDim) / width);
-                    width = maxDim;
-                }
-            } else {
-                if (height > maxDim) {
-                    width = Math.round((width * maxDim) / height);
-                    height = maxDim;
-                }
-            }
-            
-            canvas.width = width;
-            canvas.height = height;
-            ctx.drawImage(img, 0, 0, width, height);
-            
-            // Compress quality as JPEG (0.65 quality gives tiny base64 sizes)
-            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.65);
-            callback(compressedBase64);
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
 }
 
 function renderViewerFromDecoded(decodedData) {
@@ -834,7 +796,7 @@ function initCreator() {
 
         const encoded = encodeConfig(config);
         const baseUrl = window.location.href.split('#')[0].split('?')[0];
-        const shareUrl = `${baseUrl}?w=${encoded}`;
+        const shareUrl = `${baseUrl}#w=${encoded}`;
 
         // Set baseline values in the modal
         shareableLinkInput.value = shareUrl;
