@@ -119,7 +119,19 @@ const DEFAULT_CONFIG = {
     l2: "Every shared glance and whispered secret adds another verse to our endless love song. You make even the simplest moments sparkle with joy and wonder.",
     l3: "In your arms, I find both comfort and adventure. You are the calm in my storm and the spark that ignites my passion, turning every day into a delightful escapade.",
     lp: "For You 💖",
-    li: IMAGE_PRESETS_ENVELOPE[0]
+    li: IMAGE_PRESETS_ENVELOPE[0],
+    chTkTitle: "স্পেশাল সালামি ও চকলেট গিফট 💸🍫",
+    tk1000: 2,
+    tk500: 2,
+    tk200: 1,
+    tk100: 0,
+    tkCustom: "",
+    chChocs: [
+        "Cadbury Dairy Milk Silk 🍫 x2",
+        "Ferrero Rocher Gold Box ✨ x1",
+        "KitKat Love Edition ❤️ x3",
+        "Dark Chocolate Truffle 🍬 x2"
+    ]
 };
 
 // Global surprise configuration
@@ -181,7 +193,14 @@ function renderViewerFromDecoded(decodedData) {
         letter2: decoded.l2 || DEFAULT_CONFIG.l2,
         letter3: decoded.l3 || DEFAULT_CONFIG.l3,
         envelopePhotoText: decoded.lp || DEFAULT_CONFIG.lp,
-        envelopePhotoUrl: decoded.li || DEFAULT_CONFIG.li
+        envelopePhotoUrl: decoded.li || DEFAULT_CONFIG.li,
+        chTkTitle: decoded.chTkTitle !== undefined ? decoded.chTkTitle : DEFAULT_CONFIG.chTkTitle,
+        tk1000: decoded.tk1000 !== undefined ? Number(decoded.tk1000) : DEFAULT_CONFIG.tk1000,
+        tk500: decoded.tk500 !== undefined ? Number(decoded.tk500) : DEFAULT_CONFIG.tk500,
+        tk200: decoded.tk200 !== undefined ? Number(decoded.tk200) : DEFAULT_CONFIG.tk200,
+        tk100: decoded.tk100 !== undefined ? Number(decoded.tk100) : DEFAULT_CONFIG.tk100,
+        tkCustom: decoded.tkCustom !== undefined ? decoded.tkCustom : DEFAULT_CONFIG.tkCustom,
+        chChocs: Array.isArray(decoded.chChocs) ? decoded.chChocs : DEFAULT_CONFIG.chChocs
     };
 
     document.documentElement.classList.add('wish-route');
@@ -254,6 +273,10 @@ function renderViewerFromDecoded(decodedData) {
         document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
         document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
         document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        const mainCardPhotoEl = document.getElementById('mainCardPhoto');
+        if (mainCardPhotoEl && SURPRISE_CONFIG.photoUrl) {
+            mainCardPhotoEl.src = SURPRISE_CONFIG.photoUrl;
+        }
         initBackground();
         if (window.initCrystalheartTheme) initCrystalheartTheme(SURPRISE_CONFIG);
     } else if (SURPRISE_CONFIG.theme === 'coloravalanche') {
@@ -451,9 +474,12 @@ const THEME_REGISTRY = {
     },
     crystalheart: {
         name: "💎 Crystal Heart",
-        desc: "Interactive 3D crystal heart made of sparkling diamond facets.",
-        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message'],
-        preview: 'view-prev-card',
+        desc: "Luxury acrylic red rose heart box that opens to reveal customizable Bangladeshi Taka (৳) salami notes & chocolates.",
+        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message', 'group-card-photo', 'crystalheart-gifts'],
+        labels: {
+            'inputMessage': 'Typed Love Letter / Wish Message'
+        },
+        preview: 'view-prev-crystalheart',
         showMockupTabs: false
     },
     coloravalanche: {
@@ -511,7 +537,8 @@ function initCreator() {
             'group-from',
             'group-message',
             'group-card-photo',
-            'letters'
+            'letters',
+            'crystalheart-gifts'
         ];
         
         allWrappers.forEach(id => {
@@ -604,6 +631,42 @@ function initCreator() {
     document.getElementById('inputLetter2').value = DEFAULT_CONFIG.l2;
     document.getElementById('inputLetter3').value = DEFAULT_CONFIG.l3;
     document.getElementById('inputPolaroidText').value = DEFAULT_CONFIG.lp;
+
+    // Pre-populate Crystal Heart Taka & Chocolate fields
+    const chTkTitleEl = document.getElementById('inputChTkTitle');
+    if (chTkTitleEl) chTkTitleEl.value = DEFAULT_CONFIG.chTkTitle;
+    const chTk1000El = document.getElementById('inputChTk1000');
+    if (chTk1000El) chTk1000El.value = DEFAULT_CONFIG.tk1000;
+    const chTk500El = document.getElementById('inputChTk500');
+    if (chTk500El) chTk500El.value = DEFAULT_CONFIG.tk500;
+    const chTk200El = document.getElementById('inputChTk200');
+    if (chTk200El) chTk200El.value = DEFAULT_CONFIG.tk200;
+    const chTk100El = document.getElementById('inputChTk100');
+    if (chTk100El) chTk100El.value = DEFAULT_CONFIG.tk100;
+    const chTkCustomEl = document.getElementById('inputChTkCustom');
+    if (chTkCustomEl) chTkCustomEl.value = DEFAULT_CONFIG.tkCustom;
+    ['inputChChoc1', 'inputChChoc2', 'inputChChoc3', 'inputChChoc4'].forEach((id, idx) => {
+        const el = document.getElementById(id);
+        if (el) el.value = DEFAULT_CONFIG.chChocs[idx] || '';
+    });
+
+    // Quick-add chocolate preset chips
+    let nextChocSlot = 0;
+    document.querySelectorAll('.ch-preset-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const val = chip.dataset.choc;
+            const slotIds = ['inputChChoc1', 'inputChChoc2', 'inputChChoc3', 'inputChChoc4'];
+            let targetInput = slotIds.map(id => document.getElementById(id)).find(el => el && !el.value.trim());
+            if (!targetInput) {
+                targetInput = document.getElementById(slotIds[nextChocSlot % slotIds.length]);
+                nextChocSlot++;
+            }
+            if (targetInput) {
+                targetInput.value = val;
+                updatePreview();
+            }
+        });
+    });
 
     // Preset Selectors State
     let selectedMainPhoto = DEFAULT_CONFIG.p;
@@ -735,13 +798,55 @@ function initCreator() {
         if (prevRoseTitleEl) prevRoseTitleEl.innerText = occasionVal;
         const prevRoseStatusEl = document.getElementById('prevRoseStatus');
         if (prevRoseStatusEl) prevRoseStatusEl.innerText = `Ready to compile for ${toVal}...`;
+
+        // Apply to Crystal Heart Taka & Chocolate preview
+        const tkTitleVal = (document.getElementById('inputChTkTitle') && document.getElementById('inputChTkTitle').value) || DEFAULT_CONFIG.chTkTitle;
+        const n1000 = Math.max(0, parseInt((document.getElementById('inputChTk1000') || {}).value || 0, 10) || 0);
+        const n500 = Math.max(0, parseInt((document.getElementById('inputChTk500') || {}).value || 0, 10) || 0);
+        const n200 = Math.max(0, parseInt((document.getElementById('inputChTk200') || {}).value || 0, 10) || 0);
+        const n100 = Math.max(0, parseInt((document.getElementById('inputChTk100') || {}).value || 0, 10) || 0);
+        const customTkStr = ((document.getElementById('inputChTkCustom') || {}).value || '').trim();
+        const customTkNums = customTkStr
+            ? customTkStr.split(',').map(s => parseInt(s.replace(/[^\d]/g, ''), 10)).filter(n => !isNaN(n) && n > 0)
+            : [];
+        const totalTk = (n1000 * 1000) + (n500 * 500) + (n200 * 200) + (n100 * 100) + customTkNums.reduce((a, b) => a + b, 0);
+
+        const chTotalTkBadgeEl = document.getElementById('chTotalTkBadge');
+        if (chTotalTkBadgeEl) {
+            chTotalTkBadgeEl.innerText = `Total: ৳${totalTk.toLocaleString('en-IN')} টাকা`;
+        }
+        const prevChToEl = document.getElementById('prevChTo');
+        if (prevChToEl) prevChToEl.innerText = toVal;
+        const prevChTkTitleEl = document.getElementById('prevChTkTitle');
+        if (prevChTkTitleEl) prevChTkTitleEl.innerText = `${tkTitleVal} (৳${totalTk.toLocaleString('en-IN')})`;
+
+        const prevChTkPillsEl = document.getElementById('prevChTkPills');
+        if (prevChTkPillsEl) {
+            const pills = [];
+            if (n1000 > 0) pills.push(`<span class="prev-tk-pill">৳১০০০ ×${n1000}</span>`);
+            if (n500 > 0) pills.push(`<span class="prev-tk-pill">৳৫০০ ×${n500}</span>`);
+            if (n200 > 0) pills.push(`<span class="prev-tk-pill">৳২০০ ×${n200}</span>`);
+            if (n100 > 0) pills.push(`<span class="prev-tk-pill">৳১০০ ×${n100}</span>`);
+            customTkNums.forEach(c => pills.push(`<span class="prev-tk-pill">৳${c}</span>`));
+            prevChTkPillsEl.innerHTML = pills.length ? pills.join('') : '<span class="prev-tk-pill">৳0</span>';
+        }
+
+        const prevChChocListEl = document.getElementById('prevChChocList');
+        if (prevChChocListEl) {
+            const chocs = ['inputChChoc1', 'inputChChoc2', 'inputChChoc3', 'inputChChoc4']
+                .map(id => (document.getElementById(id) ? document.getElementById(id).value.trim() : ''))
+                .filter(Boolean);
+            prevChChocListEl.innerHTML = chocs.map(c => `<span>${c}</span>`).join('');
+        }
     }
 
     // Set listeners for all text inputs to trigger real-time updates
     const previewInputs = [
         'inputOccasion', 'inputTo', 'inputFrom', 'inputMessage',
         'inputLetter1', 'inputLetter2', 'inputLetter3', 'inputPolaroidText',
-        'inputMainPhotoUrl', 'inputEnvelopePhotoUrl'
+        'inputMainPhotoUrl', 'inputEnvelopePhotoUrl',
+        'inputChTkTitle', 'inputChTk1000', 'inputChTk500', 'inputChTk200', 'inputChTk100', 'inputChTkCustom',
+        'inputChChoc1', 'inputChChoc2', 'inputChChoc3', 'inputChChoc4'
     ];
     previewInputs.forEach(id => {
         const el = document.getElementById(id);
@@ -792,6 +897,25 @@ function initCreator() {
             config.l3 = document.getElementById('inputLetter3').value || DEFAULT_CONFIG.l3;
             config.lp = document.getElementById('inputPolaroidText').value || DEFAULT_CONFIG.lp;
             config.li = envelopePhoto;
+        } else if (activeTheme === 'crystalheart') {
+            const mainImgTabEl = document.querySelector('[data-section="card"] .img-tab-btn.active');
+            const mainImgTab = mainImgTabEl ? mainImgTabEl.dataset.tab : 'preset-main';
+            let mainPhoto = selectedMainPhoto || DEFAULT_CONFIG.p;
+            if (mainImgTab === 'upload-main' || uploadedMainPhoto) {
+                mainPhoto = uploadedMainPhoto || mainPhoto;
+            } else if (mainImgTab === 'url-main') {
+                mainPhoto = document.getElementById('inputMainPhotoUrl').value || mainPhoto;
+            }
+            config.p = mainPhoto;
+            config.chTkTitle = (document.getElementById('inputChTkTitle') || {}).value || DEFAULT_CONFIG.chTkTitle;
+            config.tk1000 = Math.max(0, parseInt((document.getElementById('inputChTk1000') || {}).value || 0, 10) || 0);
+            config.tk500 = Math.max(0, parseInt((document.getElementById('inputChTk500') || {}).value || 0, 10) || 0);
+            config.tk200 = Math.max(0, parseInt((document.getElementById('inputChTk200') || {}).value || 0, 10) || 0);
+            config.tk100 = Math.max(0, parseInt((document.getElementById('inputChTk100') || {}).value || 0, 10) || 0);
+            config.tkCustom = ((document.getElementById('inputChTkCustom') || {}).value || '').trim();
+            config.chChocs = ['inputChChoc1', 'inputChChoc2', 'inputChChoc3', 'inputChChoc4']
+                .map(id => (document.getElementById(id) ? document.getElementById(id).value.trim() : ''))
+                .filter(Boolean);
         }
 
         const encoded = encodeConfig(config);
