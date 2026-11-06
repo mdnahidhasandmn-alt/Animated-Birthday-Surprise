@@ -7,9 +7,13 @@
     <title>Lab's - Custom Interactive Surprises 🎁</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700[...]
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .hidden { display: none !important; }
+        body { background-color: #06020e; color: #f8f6fe; margin: 0; }
+    </style>
     <!-- Cache bust to avoid Render CDN issues after redeploy -->
-    <link rel="stylesheet" href="/style.css?v=4">
+    <link rel="stylesheet" href="/style.css?v=5">
 </head>
 
 <body>
@@ -50,15 +54,15 @@
                     <span class="eyebrow" id="occasionText">Happy Birthday, my love! 🎂</span>
                     <h1 class="title">To: <span class="accent" id="partnerName">Sophia 💖</span></h1>
 
-                    <div class="polaroid-frame" style="background: #ffffff; padding: 10px 10px 30px 10px; border-radius: 4px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); width: 210px; margin: 18px a[...]
-                        <div class="polaroid-image" style="width: 100%; height: 175px; background: #0f0b18; border-radius: 2px; overflow: hidden; display: flex; justify-content: center; align-item[...]
-                            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop&q=80" alt="Romantic Memory" class="couple-photo" id="mainCardPhoto" st[...]
+                    <div class="polaroid-frame" style="background: #ffffff; padding: 10px 10px 30px 10px; border-radius: 4px; box-shadow: 0 12px 30px rgba(0,0,0,0.45); width: 210px; margin: 18px auto; transform: rotate(-2.5deg); box-sizing: border-box;">
+                        <div class="polaroid-image" style="width: 100%; height: 175px; background: #0f0b18; border-radius: 2px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop&q=80" alt="Romantic Memory" class="couple-photo" id="mainCardPhoto" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                         </div>
                     </div>
 
                     <div class="typed-text-container">
                         <p class="typed-text" id="customMessage">
-                            On your special day, I just want you to know how much you mean to me. ❤️ You are my happiness, my comfort, and my favorite person in the world. Thank you for fillin[...]
+                            On your special day, I just want you to know how much you mean to me. ❤️ You are my happiness, my comfort, and my favorite person in the world. Thank you for filling my life with love, laughter, and beautiful memories. Happy Birthday, my love. 🎂
                         </p>
                     </div>
                 </div>
@@ -95,19 +99,19 @@
                 <div class="letters-container" id="lettersContainer">
                     <blockquote class="letter center draggable-item" id="letter1" tabindex="0">
                         <button class="closeLetter" title="Close Letter">✕</button>
-                        <p id="letter1Text">From the moment our paths intertwined, you filled my days with laughter and my nights with sweet dreams. Your love is a constant melody that plays softl[...]
+                        <p id="letter1Text">From the moment our paths intertwined, you filled my days with laughter and my nights with sweet dreams. Your love is a constant melody that plays softly in my heart.</p>
                         <cite id="letter1Sig">Nahid ✍️</cite>
                     </blockquote>
 
                     <blockquote class="letter center draggable-item" id="letter2" tabindex="0">
                         <button class="closeLetter" title="Close Letter">✕</button>
-                        <p id="letter2Text">Every shared glance and whispered secret adds another verse to our endless love song. You make even the simplest moments sparkle with joy and wonder.</[...]
+                        <p id="letter2Text">Every shared glance and whispered secret adds another verse to our endless love song. You make even the simplest moments sparkle with joy and wonder.</p>
                         <cite id="letter2Sig">Nahid ✍️</cite>
                     </blockquote>
 
                     <blockquote class="letter center draggable-item" id="letter3" tabindex="0">
                         <button class="closeLetter" title="Close Letter">✕</button>
-                        <p id="letter3Text">In your arms, I find both comfort and adventure. You are the calm in my storm and the spark that ignites my passion, turning every day into a delightfu[...]
+                        <p id="letter3Text">In your arms, I find both comfort and adventure. You are the calm in my storm and the spark that ignites my passion, turning every day into a delightful escapade.</p>
                         <cite id="letter3Sig">Nahid ✍️</cite>
                     </blockquote>
 
@@ -146,7 +150,7 @@
         <header class="creator-header">
             <div class="header-pill">🎁 11 Interactive 3D & Particle Themes</div>
             <h1 class="creator-logo">Create Your Animated Surprise</h1>
-            <p class="creator-subtitle">Design customized interactive gifts, 3D heart tunnels, blooming roses, and fireworks. Personalize names, love letters, and compile an instant direct link f[...]</p>
+            <p class="creator-subtitle">Design customized interactive gifts, 3D heart tunnels, blooming roses, and fireworks. Personalize names, love letters, and compile an instant direct link for your special person!</p>
         </header>
 
         <div class="creator-layout">
@@ -443,307 +447,307 @@
                     <button id="homeBackBtn" class="back-edit-btn">🏠 Back to Creator Home</button>
                 </div>
             </div>
-         </div>
+        </div>
 
-         <!-- System Login Screen (Animated Curved-Shape Dual-Slide Portal) -->
-         <div id="loginContainer" class="tcw-login-wrapper hidden">
-             <div class="tcw-container" id="tcwContainer">
-                 <div class="curved-shape"></div>
-                 <div class="curved-shape2"></div>
+        <!-- System Login Screen (Animated Curved-Shape Dual-Slide Portal) -->
+        <div id="loginContainer" class="tcw-login-wrapper hidden">
+            <div class="tcw-container" id="tcwContainer">
+                <div class="curved-shape"></div>
+                <div class="curved-shape2"></div>
 
-                 <!-- Login Form Box -->
-                 <div class="form-box Login">
-                     <h2 class="animation" style="--D:0; --S:21">Login</h2>
-                     <form id="loginForm" onsubmit="return false;">
-                         <div class="input-box animation" style="--D:1; --S:22">
-                             <input type="text" id="loginUsername" required autocomplete="off">
-                             <label for="loginUsername">Username / Admin ID</label>
-                             <span class="box-icon-span">👤</span>
-                         </div>
+                <!-- Login Form Box -->
+                <div class="form-box Login">
+                    <h2 class="animation" style="--D:0; --S:21">Login</h2>
+                    <form id="loginForm" onsubmit="return false;">
+                        <div class="input-box animation" style="--D:1; --S:22">
+                            <input type="text" id="loginUsername" required autocomplete="off">
+                            <label for="loginUsername">Username / Admin ID</label>
+                            <span class="box-icon-span">👤</span>
+                        </div>
 
-                         <div class="input-box animation" style="--D:2; --S:23">
-                             <input type="password" id="loginPassword" required autocomplete="off">
-                             <label for="loginPassword">Password</label>
-                             <span class="box-icon-span" id="toggleLoginPass" style="cursor: pointer;" title="Toggle Password Visibility">👁️</span>
-                         </div>
+                        <div class="input-box animation" style="--D:2; --S:23">
+                            <input type="password" id="loginPassword" required autocomplete="off">
+                            <label for="loginPassword">Password</label>
+                            <span class="box-icon-span" id="toggleLoginPass" style="cursor: pointer;" title="Toggle Password Visibility">👁️</span>
+                        </div>
 
-                         <p id="loginMsg" class="tcw-status-msg animation" style="--D:2.5; --S:23.5"></p>
+                        <p id="loginMsg" class="tcw-status-msg animation" style="--D:2.5; --S:23.5"></p>
 
-                         <div class="input-box animation" style="--D:3; --S:24">
-                             <button class="tcw-btn" type="submit" id="submitLoginBtn">Log In to Portal</button>
-                         </div>
+                        <div class="input-box animation" style="--D:3; --S:24">
+                            <button class="tcw-btn" type="submit" id="submitLoginBtn">Log In to Portal</button>
+                        </div>
 
-                         <div class="regi-link animation" style="--D:4; --S:25">
-                             <p>Need Admin Credentials? <br> <a href="#" id="SignUpLink" class="SignUpLink">View System Info</a></p>
-                         </div>
-                     </form>
-                 </div>
+                        <div class="regi-link animation" style="--D:4; --S:25">
+                            <p>Need Admin Credentials? <br> <a href="#" id="SignUpLink" class="SignUpLink">View System Info</a></p>
+                        </div>
+                    </form>
+                </div>
 
-                 <!-- Welcome Info Content (Login Side) -->
-                 <div class="info-content Login">
-                     <h2 class="animation" style="--D:0; --S:20">WELCOME BACK!</h2>
-                     <p class="animation" style="--D:1; --S:21">Authenticate with your Admin or User account to access Lab's portal & surprise generator.</p>
-                 </div>
+                <!-- Welcome Info Content (Login Side) -->
+                <div class="info-content Login">
+                    <h2 class="animation" style="--D:0; --S:20">WELCOME BACK!</h2>
+                    <p class="animation" style="--D:1; --S:21">Authenticate with your Admin or User account to access Lab's portal & surprise generator.</p>
+                </div>
 
-                 <!-- Portal Overview Content (Register Side) -->
-                 <div class="form-box Register">
-                     <h2 class="animation" style="--li:17; --S:0">System Access</h2>
-                     <div class="tcw-info-card animation" style="--li:18; --S:1">
-                         <p style="font-weight: 700; color: var(--accent-gold); margin-bottom: 6px;">🔒 Authorized Access Only</p>
-                         <p style="font-size: 0.85rem; color: #ffffff; line-height: 1.5;">Please authenticate using your Admin or User account to access Lab's surprise generator.</p>
-                     </div>
+                <!-- Portal Overview Content (Register Side) -->
+                <div class="form-box Register">
+                    <h2 class="animation" style="--li:17; --S:0">System Access</h2>
+                    <div class="tcw-info-card animation" style="--li:18; --S:1">
+                        <p style="font-weight: 700; color: var(--accent-gold); margin-bottom: 6px;">🔒 Authorized Access Only</p>
+                        <p style="font-size: 0.85rem; color: #ffffff; line-height: 1.5;">Please authenticate using your Admin or User account to access Lab's surprise generator.</p>
+                    </div>
 
-                     <div class="regi-link animation" style="--li:21; --S:5">
-                         <p>Ready to log in? <br> <a href="#" id="SignInLink" class="SignInLink">Back to Login Form</a></p>
-                     </div>
-                 </div>
+                    <div class="regi-link animation" style="--li:21; --S:5">
+                        <p>Ready to log in? <br> <a href="#" id="SignInLink" class="SignInLink">Back to Login Form</a></p>
+                    </div>
+                </div>
 
-                 <!-- Info Side Welcome -->
-                 <div class="info-content Register">
-                     <h2 class="animation" style="--li:17; --S:0">LAB'S</h2>
-                     <p class="animation" style="--li:18; --S:1">Ultra-Premium Interactive Birthday & Surprise Link Generator.</p>
-                 </div>
+                <!-- Info Side Welcome -->
+                <div class="info-content Register">
+                    <h2 class="animation" style="--li:17; --S:0">LAB'S</h2>
+                    <p class="animation" style="--li:18; --S:1">Ultra-Premium Interactive Birthday & Surprise Link Generator.</p>
+                </div>
 
-             </div>
-         </div>
+            </div>
+        </div>
 
-         <!-- Admin Control Panel View -->
-         <div id="adminContainer" class="admin-container hidden">
-             <div class="admin-card" style="max-width: 900px; text-align: left;">
-                 <div class="admin-header-row">
-                     <div>
-                         <h2 class="admin-title" style="margin: 0;">👑 Admin Control Panel</h2>
-                         <p style="color: var(--accent-pink); font-size: 0.85rem; margin-top: 4px; font-weight: 700;">Active Admin Session: Nahid (Master Admin)</p>
-                     </div>
-                     <button id="closeAdminBtn" class="back-edit-btn">⬅️ Exit Admin Panel</button>
-                 </div>
+        <!-- Admin Control Panel View -->
+        <div id="adminContainer" class="admin-container hidden">
+            <div class="admin-card" style="max-width: 900px; text-align: left;">
+                <div class="admin-header-row">
+                    <div>
+                        <h2 class="admin-title" style="margin: 0;">👑 Admin Control Panel</h2>
+                        <p style="color: var(--accent-pink); font-size: 0.85rem; margin-top: 4px; font-weight: 700;">Active Admin Session: Nahid (Master Admin)</p>
+                    </div>
+                    <button id="closeAdminBtn" class="back-edit-btn">⬅️ Exit Admin Panel</button>
+                </div>
 
-                 <div class="admin-grid">
-                     <!-- Section A: Change Admin Password -->
-                     <div class="form-section active" style="margin: 0;">
-                         <h3 class="section-title">🔒 Change Admin Password</h3>
-                         <div class="section-content">
-                             <form id="changeAdminPassForm" onsubmit="return false;">
-                                 <div class="input-group">
-                                     <label for="currAdminPass">Current Admin Password</label>
-                                     <input type="password" id="currAdminPass" placeholder="Current password (Default: Nahid@123)">
-                                 </div>
-                                 <div class="input-group">
-                                     <label for="newAdminPass">New Admin Password</label>
-                                     <input type="password" id="newAdminPass" placeholder="Enter new password...">
-                                 </div>
-                                 <p id="changePassMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
-                                 <button type="submit" id="saveAdminPassBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Update Admin Password</button>
-                             </form>
-                         </div>
-                     </div>
+                <div class="admin-grid">
+                    <!-- Section A: Change Admin Password -->
+                    <div class="form-section active" style="margin: 0;">
+                        <h3 class="section-title">🔒 Change Admin Password</h3>
+                        <div class="section-content">
+                            <form id="changeAdminPassForm" onsubmit="return false;">
+                                <div class="input-group">
+                                    <label for="currAdminPass">Current Admin Password</label>
+                                    <input type="password" id="currAdminPass" placeholder="Current password (Default: Nahid@123)">
+                                </div>
+                                <div class="input-group">
+                                    <label for="newAdminPass">New Admin Password</label>
+                                    <input type="password" id="newAdminPass" placeholder="Enter new password...">
+                                </div>
+                                <p id="changePassMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
+                                <button type="submit" id="saveAdminPassBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Update Admin Password</button>
+                            </form>
+                        </div>
+                    </div>
 
-                     <!-- Section B: Create New User -->
-                     <div class="form-section active" style="margin: 0;">
-                         <h3 class="section-title">➕ Create New User Account</h3>
-                         <div class="section-content">
-                             <form id="createUserForm" onsubmit="return false;">
-                                 <div class="input-group">
-                                     <label for="newUserName">New User ID / Username</label>
-                                     <input type="text" id="newUserName" placeholder="e.g. User01">
-                                 </div>
-                                 <div class="input-group">
-                                     <label for="newUserPass">User Password</label>
-                                     <input type="password" id="newUserPass" placeholder="Set password for user...">
-                                 </div>
-                                 <p id="createUserMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
-                                 <button type="submit" id="submitCreateUserBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Create User</button>
-                             </form>
-                         </div>
-                     </div>
-                 </div>
+                    <!-- Section B: Create New User -->
+                    <div class="form-section active" style="margin: 0;">
+                        <h3 class="section-title">➕ Create New User Account</h3>
+                        <div class="section-content">
+                            <form id="createUserForm" onsubmit="return false;">
+                                <div class="input-group">
+                                    <label for="newUserName">New User ID / Username</label>
+                                    <input type="text" id="newUserName" placeholder="e.g. User01">
+                                </div>
+                                <div class="input-group">
+                                    <label for="newUserPass">User Password</label>
+                                    <input type="password" id="newUserPass" placeholder="Set password for user...">
+                                </div>
+                                <p id="createUserMsg" style="font-size: 0.85rem; min-height: 18px; color: var(--accent-gold); margin: 4px 0 12px;"></p>
+                                <button type="submit" id="submitCreateUserBtn" class="create-wish-btn" style="margin-top: 6px; padding: 12px 20px; font-size: 0.95rem;">Create User</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                 <!-- Section C: User Accounts List -->
-                 <div class="form-section active" style="margin-top: 24px;">
-                     <h3 class="section-title">👥 Active User Accounts List</h3>
-                     <div class="section-content">
-                         <div id="usersListTable" class="users-list-box">
-                             <p style="color: var(--text-muted); font-size: 0.9rem;">Loading user accounts...</p>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
+                <!-- Section C: User Accounts List -->
+                <div class="form-section active" style="margin-top: 24px;">
+                    <h3 class="section-title">👥 Active User Accounts List</h3>
+                    <div class="section-content">
+                        <div id="usersListTable" class="users-list-box">
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Loading user accounts...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-     <!-- Heartbeat Theme View -->
-     <div id="heartbeatContainer" class="heartbeat-container hidden">
-         <div class="vignette"></div>
-         <div class="glow-overlay"></div>
-         <div class="start-overlay" id="hbStartOverlay">
-             <div class="glass-card">
-                 <div class="card-glow"></div>
-                 <div class="card-icon">💓</div>
-                 <h2 class="card-title">heartbeat.js</h2>
-                 <div class="loading-bar-container">
-                     <div class="loading-bar" id="hbLoadingBar"></div>
-                 </div>
-                 <p class="status-text" id="hbStatusText">Ready to compile...</p>
-                 <button class="start-btn" id="hbStartBtn" disabled>
-                     <span class="btn-text">Run heartbeat.js</span>
-                     <span class="btn-shine"></span>
-                 </button>
-             </div>
-         </div>
+    <!-- Heartbeat Theme View -->
+    <div id="heartbeatContainer" class="heartbeat-container hidden">
+        <div class="vignette"></div>
+        <div class="glow-overlay"></div>
+        <div class="start-overlay" id="hbStartOverlay">
+            <div class="glass-card">
+                <div class="card-glow"></div>
+                <div class="card-icon">💓</div>
+                <h2 class="card-title">heartbeat.js</h2>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="hbLoadingBar"></div>
+                </div>
+                <p class="status-text" id="hbStatusText">Ready to compile...</p>
+                <button class="start-btn" id="hbStartBtn" disabled>
+                    <span class="btn-text">Run heartbeat.js</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </div>
 
-         <canvas id="hbCanvas"></canvas>
+        <canvas id="hbCanvas"></canvas>
 
-         <div class="letter-overlay" id="hbLetterOverlay">
-             <div class="letter-card">
-                 <button class="letter-close" id="hbLetterClose">&times;</button>
-                 <div class="letter-header">for you</div>
-                 <div class="letter-body" id="hbLetterBody"></div>
-                 <div class="letter-sign" id="hbLetterSign">— coded with love by Nahid</div>
-             </div>
-         </div>
+        <div class="letter-overlay" id="hbLetterOverlay">
+            <div class="letter-card">
+                <button class="letter-close" id="hbLetterClose">&times;</button>
+                <div class="letter-header">for you</div>
+                <div class="letter-body" id="hbLetterBody"></div>
+                <div class="letter-sign" id="hbLetterSign">— coded with love by Nahid</div>
+            </div>
+        </div>
 
-         <div class="msg" id="hbMsg">
-             <p class="m1" id="hbM1">I coded this heartbeat</p>
-             <p class="m2" id="hbM2">for <span id="hbM2Span">you</span> 💗</p>
-         </div>
-     </div>
+        <div class="msg" id="hbMsg">
+            <p class="m1" id="hbM1">I coded this heartbeat</p>
+            <p class="m2" id="hbM2">for <span id="hbM2Span">you</span> 💗</p>
+        </div>
+    </div>
 
-     <!-- Rose Theme View -->
-     <div id="roseContainer" class="rose-container hidden">
-         <div class="vignette"></div>
-         <div class="starfield" id="roseStarfield"></div>
-         <div class="spotlight"></div>
-         <div class="ambient-light" id="roseAmbientLight"></div>
-         <div class="sparkle-field" id="roseSparkleField"></div>
+    <!-- Rose Theme View -->
+    <div id="roseContainer" class="rose-container hidden">
+        <div class="vignette"></div>
+        <div class="starfield" id="roseStarfield"></div>
+        <div class="spotlight"></div>
+        <div class="ambient-light" id="roseAmbientLight"></div>
+        <div class="sparkle-field" id="roseSparkleField"></div>
 
-         <div class="trigger-overlay" id="roseTriggerOverlay">
-             <div class="glass-card">
-                 <div class="card-glow"></div>
-                 <div class="rose-icon">🌹</div>
-                 <h2 class="title" id="roseLoaderTitle">Love.css</h2>
-                 <div class="loading-bar-container">
-                     <div class="loading-bar" id="roseLoadingBar"></div>
-                 </div>
-                 <p class="status-text" id="roseStatusText">Ready to compile...</p>
-                 <button class="start-button" id="roseStartButton" disabled>
-                     <span class="btn-text">Tap to Bloom</span>
-                     <span class="btn-shine"></span>
-                 </button>
-             </div>
-         </div>
+        <div class="trigger-overlay" id="roseTriggerOverlay">
+            <div class="glass-card">
+                <div class="card-glow"></div>
+                <div class="rose-icon">🌹</div>
+                <h2 class="title" id="roseLoaderTitle">Love.css</h2>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="roseLoadingBar"></div>
+                </div>
+                <p class="status-text" id="roseStatusText">Ready to compile...</p>
+                <button class="start-button" id="roseStartButton" disabled>
+                    <span class="btn-text">Tap to Bloom</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </div>
 
-         <div class="scene" id="roseScene">
-             <div class="rose-wrapper" id="roseWrapper">
-                 <div class="stem-group">
-                     <div class="stem" id="roseStem">
-                         <div class="stem-highlight"></div>
-                     </div>
-                     <div class="thorn thorn-1" id="roseThorn1"></div>
-                     <div class="thorn thorn-2" id="roseThorn2"></div>
-                     <div class="leaf leaf-left" id="roseLeafLeft">
-                         <div class="leaf-vein"></div>
-                     </div>
-                     <div class="leaf leaf-right" id="roseLeafRight">
-                         <div class="leaf-vein"></div>
-                     </div>
-                 </div>
+        <div class="scene" id="roseScene">
+            <div class="rose-wrapper" id="roseWrapper">
+                <div class="stem-group">
+                    <div class="stem" id="roseStem">
+                        <div class="stem-highlight"></div>
+                    </div>
+                    <div class="thorn thorn-1" id="roseThorn1"></div>
+                    <div class="thorn thorn-2" id="roseThorn2"></div>
+                    <div class="leaf leaf-left" id="roseLeafLeft">
+                        <div class="leaf-vein"></div>
+                    </div>
+                    <div class="leaf leaf-right" id="roseLeafRight">
+                        <div class="leaf-vein"></div>
+                    </div>
+                </div>
 
-                 <div class="calyx" id="roseCalyx"></div>
+                <div class="calyx" id="roseCalyx"></div>
 
-                 <div class="rose-head" id="roseHead">
-                     <div class="rose-glow"></div>
-                     <div class="rose-glow-inner"></div>
-                 </div>
-             </div>
-         </div>
+                <div class="rose-head" id="roseHead">
+                    <div class="rose-glow"></div>
+                    <div class="rose-glow-inner"></div>
+                </div>
+            </div>
+        </div>
 
-         <div class="end-text" id="roseEndText">
-             <p class="tagline" id="roseTagline">i coded this for you</p>
-             <span class="rose-emoji">🌹</span>
-             <button class="replay-button" id="roseReplayButton">↺ Bloom Again</button>
-         </div>
+        <div class="end-text" id="roseEndText">
+            <p class="tagline" id="roseTagline">i coded this for you</p>
+            <span class="rose-emoji">🌹</span>
+            <button class="replay-button" id="roseReplayButton">↺ Bloom Again</button>
+        </div>
 
-         <div id="roseFallingPetals"></div>
-     </div>
+        <div id="roseFallingPetals"></div>
+    </div>
 
-     <!-- Elementum Viewer -->
-     <div id="elementumContainer" class="hidden">
-         <!-- Intro loader -->
-         <div id="elLoader">
-             <svg id="elLoaderOrbit" viewBox="0 0 200 200" width="120" height="120">
-                 <circle class="loader-ring" cx="100" cy="100" r="70" />
-                 <circle class="loader-ring loader-ring-2" cx="100" cy="100" r="46" />
-                 <circle class="loader-nucleus" cx="100" cy="100" r="7" />
-                 <circle class="loader-electron" cx="100" cy="30" r="4" />
-                 <circle class="loader-electron loader-electron-2" cx="154" cy="100" r="4" />
-             </svg>
-             <div id="elLoaderText">ELEMENTUM</div>
-             <div id="elLoaderSub">Loading periodic data…</div>
-         </div>
+    <!-- Elementum Viewer -->
+    <div id="elementumContainer" class="hidden">
+        <!-- Intro loader -->
+        <div id="elLoader">
+            <svg id="elLoaderOrbit" viewBox="0 0 200 200" width="120" height="120">
+                <circle class="loader-ring" cx="100" cy="100" r="70" />
+                <circle class="loader-ring loader-ring-2" cx="100" cy="100" r="46" />
+                <circle class="loader-nucleus" cx="100" cy="100" r="7" />
+                <circle class="loader-electron" cx="100" cy="30" r="4" />
+                <circle class="loader-electron loader-electron-2" cx="154" cy="100" r="4" />
+            </svg>
+            <div id="elLoaderText">ELEMENTUM</div>
+            <div id="elLoaderSub">Loading periodic data…</div>
+        </div>
 
-         <div class="controls el-controls">
-             <div class="controls-group brand">
-                 <div id="elBrandMark"></div>
-                 <div id="elBrandText">
-                     <span id="elBrandTitle">Elementum</span>
-                     <span id="elBrandTag">118 elements · interactive lab</span>
-                 </div>
-             </div>
+        <div class="controls el-controls">
+            <div class="controls-group brand">
+                <div id="elBrandMark"></div>
+                <div id="elBrandText">
+                    <span id="elBrandTitle">Elementum</span>
+                    <span id="elBrandTag">118 elements · interactive lab</span>
+                </div>
+            </div>
 
-             <div class="controls-group display br">
-                 <button class="is-active toggle" id="el-table">table</button>
-                 <button class="toggle" id="el-sphere">sphere</button>
-                 <button class="toggle" id="el-helix">helix</button>
-                 <button class="toggle" id="el-grid">grid</button>
-                 <button class="toggle" id="el-orbit">orbit</button>
-             </div>
+            <div class="controls-group display br">
+                <button class="is-active toggle" id="el-table">table</button>
+                <button class="toggle" id="el-sphere">sphere</button>
+                <button class="toggle" id="el-helix">helix</button>
+                <button class="toggle" id="el-grid">grid</button>
+                <button class="toggle" id="el-orbit">orbit</button>
+            </div>
 
-             <div class="controls-group search-group br">
-                 <input type="text" id="elSearch" placeholder="Search element or symbol…" autocomplete="off" spellcheck="false">
-                 <span id="elSearchCount"></span>
-             </div>
-         </div>
+            <div class="controls-group search-group br">
+                <input type="text" id="elSearch" placeholder="Search element or symbol…" autocomplete="off" spellcheck="false">
+                <span id="elSearchCount"></span>
+            </div>
+        </div>
 
-         <div id="elLegend" class="br"></div>
+        <div id="elLegend" class="br"></div>
 
-         <div id="elScene">
-             <div id="elSceneContent" data-layout="table"></div>
-         </div>
+        <div id="elScene">
+            <div id="elSceneContent" data-layout="table"></div>
+        </div>
 
-         <template id="elTemplate">
-             <button class="element" data-color="0">
-                 <div class="element-glow"></div>
-                 <div class="element-number"></div>
-                 <div class="element-symbol"></div>
-                 <div class="element-title"></div>
-                 <div class="element-description"></div>
-                 <span class="element-more" role="button" tabindex="0">Full details</span>
-             </button>
-         </template>
+        <template id="elTemplate">
+            <button class="element" data-color="0">
+                <div class="element-glow"></div>
+                <div class="element-number"></div>
+                <div class="element-symbol"></div>
+                <div class="element-title"></div>
+                <div class="element-description"></div>
+                <span class="element-more" role="button" tabindex="0">Full details</span>
+            </button>
+        </template>
 
-         <!-- Full detail modal -->
-         <div id="elDetailModal">
-             <div id="elDetailCard" class="br">
-                 <button id="elDetailClose" aria-label="Close">✕</button>
-                 <div id="elDetailHeader">
-                     <div id="elDetailSymbol"></div>
-                     <div id="elDetailHeading">
-                         <div id="elDetailName"></div>
-                         <div id="elDetailNumber"></div>
-                     </div>
-                 </div>
-                 <div id="elDetailBadges">
-                     <span id="elDetailCategory" class="badge"></span>
-                     <span id="elDetailPhase" class="badge"></span>
-                 </div>
-                 <div id="elDetailGrid">
-                     <div class="detail-stat"><span class="detail-label">Atomic mass</span><span id="elDetailMass" class="detail-value"></span></div>
-                     <div class="detail-stat"><span class="detail-label">Density</span><span id="elDetailDensity" class="detail-value"></span></div>
-                     <div class="detail-stat"><span class="detail-label">Melting point</span><span id="elDetailMelting" class="detail-value"></span></div>
-                     <div class="detail-stat"><span class="detail-label">Boiling point</span><span id="elDetailBoiling" class="detail-value"></span></div>
-                 </div>
-             </div>
-         </div>
-     </div>
+        <!-- Full detail modal -->
+        <div id="elDetailModal">
+            <div id="elDetailCard" class="br">
+                <button id="elDetailClose" aria-label="Close">✕</button>
+                <div id="elDetailHeader">
+                    <div id="elDetailSymbol"></div>
+                    <div id="elDetailHeading">
+                        <div id="elDetailName"></div>
+                        <div id="elDetailNumber"></div>
+                    </div>
+                </div>
+                <div id="elDetailBadges">
+                    <span id="elDetailCategory" class="badge"></span>
+                    <span id="elDetailPhase" class="badge"></span>
+                </div>
+                <div id="elDetailGrid">
+                    <div class="detail-stat"><span class="detail-label">Atomic mass</span><span id="elDetailMass" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Density</span><span id="elDetailDensity" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Melting point</span><span id="elDetailMelting" class="detail-value"></span></div>
+                    <div class="detail-stat"><span class="detail-label">Boiling point</span><span id="elDetailBoiling" class="detail-value"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/animejs/dist/bundles/anime.umd.min.js"></script>
     <script src="/themes/birthday.js"></script>
@@ -758,7 +762,7 @@
     <script src="/themes/nightgarden.js"></script>
     <script src="/themes/birthdaycake.js"></script>
     <script src="/cursorFx.js"></script>
-    <script src="/script.js?v=4"></script>
+    <script src="/script.js?v=5"></script>
 </body>
 
 </html>
