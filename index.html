@@ -25,7 +25,7 @@
         }
     </script>
     <!-- Cache bust to avoid Render CDN issues after redeploy -->
-    <link rel="stylesheet" href="/style.css?v=6">
+    <link rel="stylesheet" href="/style.css?v=7">
 </head>
 
 <body>
@@ -141,7 +141,7 @@
 
     <!-- Top Floating Navbar -->
     <nav class="top-navbar" id="topNavbar">
-        <div class="nav-brand">
+        <div class="nav-brand" id="navLogo" style="cursor: pointer;" title="Back to Creator Home">
             <span class="nav-logo">✨ LAB'S</span>
             <span class="nav-badge">PRO 2.5</span>
         </div>
@@ -427,6 +427,9 @@
     <!-- Dedicated Success Link View / Page -->
     <div id="successContainer" class="success-container hidden">
             <div class="success-card">
+                <div style="display: flex; justify-content: flex-start; margin-bottom: 8px;">
+                    <button type="button" id="topBackHomeBtn" class="back-edit-btn" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 12px;">⬅️ Back to Home</button>
+                </div>
                 <div class="success-icon">🎉</div>
                 <h1 class="success-title">Your Wish Link is Ready!</h1>
                 <p class="success-subtitle">Copy your clean direct link below or share directly via WhatsApp, Facebook, or Telegram. Zero ads, instant load!</p>
@@ -774,7 +777,7 @@
     <script src="/themes/nightgarden.js"></script>
     <script src="/themes/birthdaycake.js"></script>
     <script src="/cursorFx.js"></script>
-    <script src="/script.js?v=6"></script>
+    <script src="/script.js?v=7"></script>
 </body>
 
 </html>
