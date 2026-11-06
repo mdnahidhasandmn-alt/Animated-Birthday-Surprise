@@ -274,8 +274,8 @@ const server = http.createServer((req, res) => {
     function resolveStoredWishConfig(storedItem) {
         if (!storedItem) return null;
         if (typeof storedItem === 'object') return storedItem;
-        if (typeof storedItem === 'string' && storedItem.includes('?w=')) {
-            const rawW = storedItem.split('?w=')[1];
+        if (typeof storedItem === 'string' && (storedItem.includes('?w=') || storedItem.includes('#w='))) {
+            const rawW = storedItem.includes('?w=') ? storedItem.split('?w=')[1] : storedItem.split('#w=')[1];
             try {
                 const jsonStr = Buffer.from(decodeURIComponent(rawW), 'base64').toString('utf8');
                 return JSON.parse(jsonStr);
