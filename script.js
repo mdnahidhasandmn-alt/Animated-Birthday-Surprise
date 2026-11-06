@@ -120,7 +120,7 @@ const DEFAULT_CONFIG = {
     l3: "In your arms, I find both comfort and adventure. You are the calm in my storm and the spark that ignites my passion, turning every day into a delightful escapade.",
     lp: "For You 💖",
     li: IMAGE_PRESETS_ENVELOPE[0],
-    chTkTitle: "স্পেশাল ঈদ / বার্থডে সালামি গিফট 💸",
+    chTkTitle: "স্পেশাল গিফট বক্স 💸",
     tk1000: 2,
     tk500: 2,
     tk200: 1,
@@ -464,12 +464,9 @@ const THEME_REGISTRY = {
         showMockupTabs: false
     },
     crystalheart: {
-        name: "💎 Crystal Heart",
-        desc: "Luxury acrylic red rose heart box that opens to reveal customizable Bangladeshi Taka (৳) salami notes & chocolates.",
-        visibleFields: ['group-occasion', 'group-to', 'group-from', 'group-message', 'group-card-photo', 'crystalheart-gifts'],
-        labels: {
-            'inputMessage': 'Typed Love Letter / Wish Message'
-        },
+        name: "🎁 Gift",
+        desc: "Interactive gift box that opens to reveal customizable Bangladeshi Taka (৳) notes.",
+        visibleFields: ['crystalheart-gifts'],
         preview: 'view-prev-crystalheart',
         showMockupTabs: false
     },
@@ -548,6 +545,18 @@ function initCreator() {
             }
             if (el) el.style.display = 'block';
         });
+
+        // Hide or show Section 1 (general) & Section 2 (card) based on whether any of their fields are visible
+        const generalSec = document.querySelector('.form-section[data-section="general"]');
+        if (generalSec) {
+            const hasGeneral = themeDef.visibleFields.some(f => ['group-occasion', 'group-to', 'group-from'].includes(f));
+            generalSec.style.display = hasGeneral ? 'block' : 'none';
+        }
+        const cardSec = document.querySelector('.form-section[data-section="card"]');
+        if (cardSec) {
+            const hasCard = themeDef.visibleFields.some(f => ['group-message', 'group-card-photo'].includes(f));
+            cardSec.style.display = hasCard ? 'block' : 'none';
+        }
 
         // Customize field labels dynamically
         if (themeDef.labels) {
@@ -643,6 +652,7 @@ function initCreator() {
 
     // Render presets Main photo
     const presetsMainContainer = document.getElementById('presetsMain');
+    if (presetsMainContainer) presetsMainContainer.innerHTML = '';
     IMAGE_PRESETS_MAIN.forEach((url, i) => {
         const img = document.createElement('img');
         img.src = url;
@@ -659,6 +669,7 @@ function initCreator() {
 
     // Render presets Envelope photo
     const presetsEnvelopeContainer = document.getElementById('presetsEnvelope');
+    if (presetsEnvelopeContainer) presetsEnvelopeContainer.innerHTML = '';
     IMAGE_PRESETS_ENVELOPE.forEach((url, i) => {
         const img = document.createElement('img');
         img.src = url;
@@ -851,15 +862,6 @@ function initCreator() {
             config.lp = document.getElementById('inputPolaroidText').value || DEFAULT_CONFIG.lp;
             config.li = envelopePhoto;
         } else if (activeTheme === 'crystalheart') {
-            const mainImgTabEl = document.querySelector('[data-section="card"] .img-tab-btn.active');
-            const mainImgTab = mainImgTabEl ? mainImgTabEl.dataset.tab : 'preset-main';
-            let mainPhoto = selectedMainPhoto || DEFAULT_CONFIG.p;
-            if (mainImgTab === 'upload-main' || uploadedMainPhoto) {
-                mainPhoto = uploadedMainPhoto || mainPhoto;
-            } else if (mainImgTab === 'url-main') {
-                mainPhoto = document.getElementById('inputMainPhotoUrl').value || mainPhoto;
-            }
-            config.p = mainPhoto;
             config.chTkTitle = (document.getElementById('inputChTkTitle') || {}).value || DEFAULT_CONFIG.chTkTitle;
             config.tk1000 = Math.max(0, parseInt((document.getElementById('inputChTk1000') || {}).value || 0, 10) || 0);
             config.tk500 = Math.max(0, parseInt((document.getElementById('inputChTk500') || {}).value || 0, 10) || 0);
