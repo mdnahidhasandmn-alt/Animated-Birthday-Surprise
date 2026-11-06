@@ -330,6 +330,12 @@ const server = http.createServer((req, res) => {
     fs.readFile(filePath, (err, content) => {
         if (err) {
             if (err.code === 'ENOENT') {
+                const ext = path.extname(pathname);
+                if (ext && ext !== '.html') {
+                    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                    res.end('Not found');
+                    return;
+                }
                 // SPA fallback: serve index.html for unknown routes
                 fs.readFile(path.join(__dirname, 'index.html'), (err2, indexContent) => {
                     if (err2) {
