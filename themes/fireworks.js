@@ -16,11 +16,13 @@ function startFireworksAnimation(config) {
         canvas.style.left = '0';
         canvas.style.width = '100%';
         canvas.style.height = '100%';
-        canvas.style.pointerEvents = 'auto';
+        canvas.style.pointerEvents = 'none';
         canvas.style.zIndex = '2';
         document.getElementById('wishContainer').appendChild(canvas);
     }
     canvas.style.display = 'block';
+    canvas.style.opacity = '1';
+    canvas.style.transition = 'opacity 0.6s ease';
     const c = canvas.getContext('2d');
 
     let W = canvas.width = window.innerWidth;
@@ -54,19 +56,26 @@ function startFireworksAnimation(config) {
         }
     }
 
+    if (window.__fwAutoTimer) {
+        clearInterval(window.__fwAutoTimer);
+    }
+
+    // Launch initial fireworks immediately so the first screen blooms right away
+    createFirework(W * 0.25, H * 0.3);
+    setTimeout(() => {
+        if (canvas.getAttribute('data-stopped') !== 'true') {
+            createFirework(W * 0.78, H * 0.65);
+        }
+    }, 300);
+
     // Auto launch fireworks periodically
-    let autoLaunchTimer = setInterval(() => {
+    window.__fwAutoTimer = setInterval(() => {
         if (canvas.getAttribute('data-stopped') === 'true') {
-            clearInterval(autoLaunchTimer);
+            clearInterval(window.__fwAutoTimer);
             return;
         }
-        createFirework(Math.random() * W, Math.random() * (H * 0.6) + 100);
-    }, 800);
-
-    // Click to launch firework
-    canvas.addEventListener('pointerdown', (e) => {
-        createFirework(e.clientX, e.clientY);
-    });
+        createFirework(Math.random() * W, Math.random() * (H * 0.65) + 80);
+    }, 750);
 
     function animate() {
         if (canvas.getAttribute('data-stopped') === 'true') return;
