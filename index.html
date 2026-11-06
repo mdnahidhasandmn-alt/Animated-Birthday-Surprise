@@ -25,7 +25,7 @@
         }
     </script>
     <!-- Cache bust to avoid Render CDN issues after redeploy -->
-    <link rel="stylesheet" href="/style.css?v=7">
+    <link rel="stylesheet" href="/style.css?v=10">
 </head>
 
 <body>
@@ -307,6 +307,95 @@
                         </div>
                     </div>
 
+                    <!-- Section 3B: Crystal Heart - Bangladeshi Taka & Chocolates -->
+                    <div class="form-section" data-section="crystalheart-gifts" id="group-crystalheart-gifts" style="display: none;">
+                        <h3 class="section-title"><span class="section-num">3</span> 🌹 Rose Box: Bangladeshi Taka (৳) & Chocolates</h3>
+                        <div class="section-content">
+                            <p class="section-hint">Customize the Bangladeshi Taka (৳) salami notes and chocolates that pop out when your recipient taps to open the luxury Crystal Rose Heart Box!</p>
+
+                            <div class="input-group">
+                                <label for="inputChTkTitle">💸 Salami / Taka Gift Headline</label>
+                                <input type="text" id="inputChTkTitle" value="স্পেশাল সালামি ও চকলেট গিফট 💸🍫" placeholder="e.g., জন্মদিনের সালামি 💸 / Special Salami For You">
+                            </div>
+
+                            <div class="ch-editor-block">
+                                <div class="ch-editor-header">
+                                    <span>🇧🇩 Bangladeshi Taka Notes (৳)</span>
+                                    <span class="ch-total-badge" id="chTotalTkBadge">মোট: ৳৩,২০০</span>
+                                </div>
+                                <div class="ch-tk-grid">
+                                    <div class="ch-tk-item tk-1000">
+                                        <div class="ch-tk-note-preview">
+                                            <span class="tk-bank">বাংলাদেশ ব্যাংক</span>
+                                            <span class="tk-val">৳১০০০</span>
+                                        </div>
+                                        <label for="inputChTk1000">1000 Tk Notes</label>
+                                        <input type="number" id="inputChTk1000" min="0" max="50" value="2">
+                                    </div>
+                                    <div class="ch-tk-item tk-500">
+                                        <div class="ch-tk-note-preview">
+                                            <span class="tk-bank">বাংলাদেশ ব্যাংক</span>
+                                            <span class="tk-val">৳৫০০</span>
+                                        </div>
+                                        <label for="inputChTk500">500 Tk Notes</label>
+                                        <input type="number" id="inputChTk500" min="0" max="50" value="2">
+                                    </div>
+                                    <div class="ch-tk-item tk-200">
+                                        <div class="ch-tk-note-preview">
+                                            <span class="tk-bank">বাংলাদেশ ব্যাংক</span>
+                                            <span class="tk-val">৳২০০</span>
+                                        </div>
+                                        <label for="inputChTk200">200 Tk Notes</label>
+                                        <input type="number" id="inputChTk200" min="0" max="50" value="1">
+                                    </div>
+                                    <div class="ch-tk-item tk-100">
+                                        <div class="ch-tk-note-preview">
+                                            <span class="tk-bank">বাংলাদেশ ব্যাংক</span>
+                                            <span class="tk-val">৳১০০</span>
+                                        </div>
+                                        <label for="inputChTk100">100 Tk Notes</label>
+                                        <input type="number" id="inputChTk100" min="0" max="50" value="0">
+                                    </div>
+                                </div>
+                                <div class="input-group" style="margin-top: 12px; margin-bottom: 0;">
+                                    <label for="inputChTkCustom">✨ Custom Taka Note / Extra Amount (Optional, comma separated)</label>
+                                    <input type="text" id="inputChTkCustom" value="" placeholder="e.g., 5000, 50 (or leave empty)">
+                                </div>
+                            </div>
+
+                            <div class="ch-editor-block" style="margin-top: 16px;">
+                                <div class="ch-editor-header">
+                                    <span>🍫 Chocolates Inside Box</span>
+                                    <span style="font-size: 0.78rem; color: var(--text-muted);">Editable Items</span>
+                                </div>
+                                <div class="ch-choc-presets" id="chChocPresets">
+                                    <button type="button" class="ch-preset-chip" data-choc="Cadbury Dairy Milk Silk 🍫 x2">+ Dairy Milk Silk</button>
+                                    <button type="button" class="ch-preset-chip" data-choc="Ferrero Rocher Gold Box ✨ x1">+ Ferrero Rocher</button>
+                                    <button type="button" class="ch-preset-chip" data-choc="KitKat Love Edition ❤️ x3">+ KitKat</button>
+                                    <button type="button" class="ch-preset-chip" data-choc="Dark Chocolate Truffle 🍬 x2">+ Dark Truffle</button>
+                                    <button type="button" class="ch-preset-chip" data-choc="Kinder Joy Surprise 🥚 x2">+ Kinder Joy</button>
+                                    <button type="button" class="ch-preset-chip" data-choc="Swiss Toblerone Gold 🍯 x1">+ Toblerone</button>
+                                </div>
+                                <div class="input-group" style="margin-top: 10px;">
+                                    <label for="inputChChoc1">Chocolate Item 1</label>
+                                    <input type="text" id="inputChChoc1" value="Cadbury Dairy Milk Silk 🍫 x2" placeholder="e.g., Cadbury Dairy Milk Silk 🍫 x2">
+                                </div>
+                                <div class="input-group">
+                                    <label for="inputChChoc2">Chocolate Item 2</label>
+                                    <input type="text" id="inputChChoc2" value="Ferrero Rocher Gold Box ✨ x1" placeholder="e.g., Ferrero Rocher Gold Box ✨ x1">
+                                </div>
+                                <div class="input-group">
+                                    <label for="inputChChoc3">Chocolate Item 3</label>
+                                    <input type="text" id="inputChChoc3" value="KitKat Love Edition ❤️ x3" placeholder="e.g., KitKat Love Edition ❤️ x3">
+                                </div>
+                                <div class="input-group" style="margin-bottom: 0;">
+                                    <label for="inputChChoc4">Chocolate Item 4</label>
+                                    <input type="text" id="inputChChoc4" value="Dark Chocolate Truffle 🍬 x2" placeholder="e.g., Dark Chocolate Truffle 🍬 x2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="button" class="create-wish-btn" id="generateBtn">
                         <span class="btn-sparkle">✨</span> Create My Shareable Wish Link
                     </button>
@@ -415,6 +504,33 @@
                                     </div>
                                     <p class="mockup-el-status" id="prevElStatus">Loading periodic data...</p>
                                     <div class="mockup-el-btn">Launch Periodic Table</div>
+                                </div>
+                            </div>
+
+                            <!-- Preview 6: Crystal Heart Rose Box + Taka & Chocolates Mockup -->
+                            <div class="mockup-view" id="view-prev-crystalheart">
+                                <div class="mockup-ch-card">
+                                    <div class="mockup-ch-badge">🌹 Luxury Rose & Salami Box</div>
+                                    <h4 class="mockup-ch-to">For <span id="prevChTo">Sophia 💖</span></h4>
+                                    <div class="mockup-ch-mini-box">
+                                        <div class="mockup-ch-bow">🎀</div>
+                                        <div class="mockup-ch-glass">
+                                            <div class="mockup-ch-rose-heart">🌹🌹🌹<br>🌹🌹<br>🌹</div>
+                                        </div>
+                                        <div class="mockup-ch-drawer">
+                                            <span class="mockup-ch-ring">💍</span>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-ch-tk-title" id="prevChTkTitle">স্পেশাল সালামি ও চকলেট গিফট 💸🍫</div>
+                                    <div class="mockup-ch-tk-pills" id="prevChTkPills">
+                                        <span class="prev-tk-pill">৳১০০০ ×2</span>
+                                        <span class="prev-tk-pill">৳৫০০ ×2</span>
+                                        <span class="prev-tk-pill">৳২০০ ×1</span>
+                                    </div>
+                                    <div class="mockup-ch-choc-list" id="prevChChocList">
+                                        <span>🍫 Cadbury Dairy Milk Silk</span>
+                                        <span>✨ Ferrero Rocher Gold Box</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -771,13 +887,13 @@
     <script src="/themes/elementum.js"></script>
     <script src="/themes/hearttunnel.js"></script>
     <script src="/themes/fireworks.js?v=9"></script>
-    <script src="/themes/crystalheart.js"></script>
+    <script src="/themes/crystalheart.js?v=10"></script>
     <script src="/themes/coloravalanche.js"></script>
     <script src="/themes/cube.js"></script>
     <script src="/themes/nightgarden.js"></script>
     <script src="/themes/birthdaycake.js"></script>
     <script src="/cursorFx.js"></script>
-    <script src="/script.js?v=8"></script>
+    <script src="/script.js?v=10"></script>
 </body>
 
 </html>
