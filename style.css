@@ -4318,6 +4318,1150 @@ body.creator-mode {
     text-align: left;
 }
 
+/* ==========================================================================
+   CRYSTAL HEART THEME — LUXURY ROSE HEART BOX + BANGLADESHI TAKA & CHOCOLATES
+   ========================================================================== */
+
+.container:has(#chSurpriseStage) {
+    max-width: 650px;
+    width: 100%;
+    flex-direction: column;
+    max-height: 96vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    pointer-events: auto;
+    padding: 18px 16px 36px;
+}
+.container:has(#chSurpriseStage)::-webkit-scrollbar {
+    display: none;
+}
+
+.ch-surprise-stage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: auto;
+    z-index: 12;
+    position: relative;
+}
+
+.ch-box-scene {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 20px 18px;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), padding 0.65s ease;
+}
+
+.ch-box-scene.ch-scene-compact {
+    transform: scale(0.84);
+    padding: 14px 12px 4px;
+    margin-bottom: -10px;
+}
+
+.ch-warm-halo {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(220, 20, 55, 0.38) 0%, rgba(255, 170, 60, 0.22) 45%, transparent 72%);
+    filter: blur(22px);
+    pointer-events: none;
+    z-index: 0;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+.ch-warm-halo.active {
+    transform: scale(1.45);
+    opacity: 1;
+}
+
+/* 3D Luxury Acrylic & Mahogany Rose-Heart Gift Box (Matches Reference Photo) */
+.ch-luxury-cube {
+    position: relative;
+    width: 270px;
+    height: 280px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 5;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ch-luxury-cube:hover {
+    transform: translateY(-5px) scale(1.025);
+}
+.ch-luxury-cube:active {
+    transform: scale(0.97);
+}
+
+/* Warm Wooden Table Reflection Shadow Underneath Box */
+.ch-table-shadow {
+    position: absolute;
+    bottom: -18px;
+    left: -12px;
+    width: 305px;
+    height: 38px;
+    background: radial-gradient(ellipse at center, rgba(12, 2, 4, 0.88) 0%, rgba(120, 25, 15, 0.42) 52%, transparent 78%);
+    border-radius: 50%;
+    filter: blur(6px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Top Angled 3D Mahogany & Glass Lid */
+.ch-cube-top-lid {
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    width: 232px;
+    height: 34px;
+    background: linear-gradient(135deg, #4b1215 0%, #6d1d21 50%, #3a0c0e 100%);
+    transform: skewX(-42deg);
+    border: 3px solid #5a1619;
+    border-bottom: none;
+    box-shadow: inset 0 1px 2px rgba(255, 200, 180, 0.25);
+    z-index: 6;
+    transform-origin: top left;
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+}
+.ch-top-glass-pane {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(125deg, rgba(255, 255, 255, 0.28) 0%, rgba(180, 30, 50, 0.18) 55%, rgba(255, 255, 255, 0.12) 100%);
+    overflow: hidden;
+    position: relative;
+}
+.ch-glass-reflection {
+    position: absolute;
+    top: -10px;
+    left: 25%;
+    width: 45px;
+    height: 60px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: rotate(25deg);
+}
+
+/* Right-Side 3D Mahogany Wood Panel */
+.ch-cube-side-right {
+    position: absolute;
+    top: 19px;
+    right: 2px;
+    width: 31px;
+    height: 244px;
+    background: linear-gradient(180deg, #6e1f22 0%, #4d1316 55%, #340b0d 100%);
+    transform: skewY(-48deg);
+    border-right: 2px solid #85292d;
+    border-bottom: 3px solid #2b0709;
+    box-shadow: inset 2px 0 8px rgba(0, 0, 0, 0.45), 8px 12px 24px rgba(0, 0, 0, 0.55);
+    z-index: 4;
+    overflow: hidden;
+}
+.ch-wood-grain-overlay {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(0, 0, 0, 0.08) 3px,
+        rgba(0, 0, 0, 0.08) 7px
+    );
+}
+
+/* Front Face of Luxury Box */
+.ch-cube-front {
+    position: absolute;
+    top: 35px;
+    left: 4px;
+    width: 233px;
+    height: 245px;
+    background: #230609;
+    border-radius: 3px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), inset 0 0 0 2px #6a1b1f;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+}
+
+/* Upper Clear Acrylic Display Chamber */
+.ch-acrylic-chamber {
+    position: relative;
+    width: 100%;
+    height: 192px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 45%, #3b0810 0%, #160205 85%);
+}
+.ch-chamber-back-wall {
+    position: absolute;
+    inset: 8px;
+    background: radial-gradient(circle at 50% 35%, rgba(160, 15, 38, 0.25) 0%, rgba(15, 2, 5, 0.92) 90%);
+    z-index: 1;
+}
+.ch-chamber-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: linear-gradient(180deg, #1b0306 0%, #380910 100%);
+    border-top: 1px solid rgba(255, 120, 140, 0.15);
+    z-index: 1;
+}
+
+/* 3D Heart-Shaped Red Rose Box Inside Chamber */
+.ch-inner-rose-heart {
+    position: relative;
+    z-index: 2;
+    width: 192px;
+    height: 174px;
+    margin: 10px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ch-rose-heart-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.7));
+}
+
+/* Clear Front Acrylic Window & Specular Glass Reflections */
+.ch-front-acrylic-glass {
+    position: absolute;
+    inset: 7px;
+    z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(255, 220, 230, 0.08) 100%);
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+    overflow: hidden;
+}
+.ch-acrylic-shine-1 {
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 55%;
+    height: 170%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    transform: rotate(28deg);
+}
+.ch-acrylic-shine-2 {
+    position: absolute;
+    top: -20%;
+    right: 8%;
+    width: 18%;
+    height: 150%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+    transform: rotate(28deg);
+}
+
+/* Mahogany Wood Frame Pillars & Beams */
+.ch-mahogany-pillar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 11px;
+    background: linear-gradient(90deg, #3c0c0f 0%, #681c20 50%, #2f080a 100%);
+    z-index: 4;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+.ch-mahogany-pillar.left { left: 0; }
+.ch-mahogany-pillar.right { right: 0; }
+
+.ch-mahogany-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 9px;
+    background: linear-gradient(180deg, #742025 0%, #481014 60%, #2b0709 100%);
+    z-index: 4;
+}
+.ch-mahogany-beam.top { top: 0; }
+.ch-mahogany-beam.mid { bottom: 0; height: 8px; }
+
+/* Bottom Pull-Out Drawer with Gold Ring Handle */
+.ch-bottom-drawer-housing {
+    position: relative;
+    width: 100%;
+    height: 53px;
+    background: #1e0407;
+    border-left: 10px solid #4d1317;
+    border-right: 10px solid #4d1317;
+    border-bottom: 7px solid #3c0c0f;
+    z-index: 6;
+    perspective: 500px;
+}
+
+.ch-drawer-sliding-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ch-drawer-interior-peek {
+    position: absolute;
+    top: -18px;
+    left: 8px;
+    right: 8px;
+    height: 28px;
+    background: linear-gradient(180deg, #1b0408, #380912);
+    border: 1px solid rgba(255, 200, 100, 0.35);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 6px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    transition: opacity 0.5s ease 0.2s, transform 0.6s ease 0.2s;
+    z-index: 1;
+}
+.drawer-peek-note {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+.drawer-peek-note.n1 { background: linear-gradient(135deg, #6b21a8, #d97706); }
+.drawer-peek-note.n2 { background: linear-gradient(135deg, #047857, #0d9488); }
+.drawer-peek-note.n3 { background: linear-gradient(135deg, #b45309, #f59e0b); }
+.drawer-peek-choc { font-size: 0.9rem; }
+
+.ch-drawer-front-plate {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #982532 0%, #781823 55%, #560e16 100%);
+    border: 1px solid rgba(255, 150, 165, 0.28);
+    box-shadow: inset 0 2px 6px rgba(255, 190, 200, 0.2), 0 4px 10px rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.ch-drawer-bevel {
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(255, 180, 190, 0.16);
+    pointer-events: none;
+}
+
+/* Gold Ring Handle on Bottom Drawer (Matches Reference Image) */
+.ch-gold-pull-handle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+}
+.ch-gold-rosette {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff3b0 0%, #f59e0b 55%, #92400e 100%);
+    border: 1.5px solid #fef08a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.65);
+}
+.ch-gold-ring {
+    width: 20px;
+    height: 20px;
+    margin-top: -4px;
+    border-radius: 50%;
+    border: 3px solid #fbbf24;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7), inset 0 1px 2px #fef9c3;
+}
+
+/* Glossy Red Satin Ribbon & Multi-Loop Bow Assembly (Matches Reference Image) */
+.ch-satin-ribbon-assembly {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    pointer-events: none;
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.75s ease;
+}
+
+.ch-ribbon-top-cross {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    width: 234px;
+    height: 16px;
+    background: linear-gradient(90deg, #99081b 0%, #ff1e3a 30%, #c80b24 55%, #ff2a45 80%, #8f0618 100%);
+    transform: skewX(-42deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+.ch-ribbon-top-depth {
+    position: absolute;
+    top: 2px;
+    left: 122px;
+    width: 22px;
+    height: 34px;
+    background: linear-gradient(180deg, #a8081e 0%, #ff2440 50%, #99061a 100%);
+    transform: skewX(-42deg);
+}
+.ch-ribbon-side-right {
+    position: absolute;
+    top: 14px;
+    right: 11px;
+    width: 14px;
+    height: 232px;
+    background: linear-gradient(180deg, #e0112b 0%, #9e081c 60%, #750413 100%);
+    transform: skewY(-48deg);
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Draped Front Satin Ribbon Tails Over the Glass Window */
+.ch-ribbon-drape {
+    position: absolute;
+    top: 32px;
+    width: 28px;
+    height: 182px;
+    background: linear-gradient(180deg, #b80a21 0%, #ff2944 28%, #d40d28 62%, #ff334d 82%, #940619 100%);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.55), inset 0 0 4px rgba(255, 190, 200, 0.35);
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease;
+}
+.ch-ribbon-drape.left {
+    left: 18px;
+    transform: rotate(4deg);
+    transform-origin: top center;
+    clip-path: polygon(0 0, 100% 0, 92% 100%, 48% 92%, 4% 100%);
+}
+.ch-ribbon-drape.right {
+    left: 132px;
+    width: 31px;
+    height: 186px;
+    transform: rotate(-8deg);
+    transform-origin: top center;
+    clip-path: polygon(0 0, 100% 0, 96% 100%, 50% 93%, 6% 100%);
+}
+
+/* Multi-Loop Glossy Red Satin Bow at Top Center */
+.ch-satin-bow {
+    position: absolute;
+    top: -12px;
+    left: 66px;
+    width: 116px;
+    height: 50px;
+}
+.ch-bow-loop {
+    position: absolute;
+    top: 10px;
+    width: 54px;
+    height: 30px;
+    background: linear-gradient(135deg, #ff334d 0%, #c80b24 55%, #7d0414 100%);
+    border-radius: 50% 50% 45% 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 185, 195, 0.45);
+}
+.ch-bow-loop.back-left {
+    left: -6px;
+    top: 6px;
+    transform: rotate(-18deg) scale(0.92);
+    filter: brightness(0.85);
+}
+.ch-bow-loop.back-right {
+    right: -6px;
+    top: 6px;
+    transform: rotate(18deg) scale(0.92);
+    filter: brightness(0.85);
+}
+.ch-bow-loop.front-left {
+    left: 4px;
+    transform: rotate(-8deg);
+}
+.ch-bow-loop.front-right {
+    right: 4px;
+    border-radius: 50% 50% 50% 45%;
+    transform: rotate(8deg);
+}
+.ch-bow-knot {
+    position: absolute;
+    top: 15px;
+    left: 46px;
+    width: 24px;
+    height: 20px;
+    border-radius: 6px;
+    background: radial-gradient(circle at 40% 35%, #ff4d63 0%, #bd0921 65%, #730312 100%);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+/* Box Open State Animations when Tapped */
+.ch-luxury-cube.ch-open-active .ch-satin-ribbon-assembly {
+    transform: translateY(-85px) scale(1.08);
+    opacity: 0;
+}
+.ch-luxury-cube.ch-open-active .ch-cube-top-lid {
+    transform: skewX(-42deg) rotateX(65deg) translateY(-28px);
+    opacity: 0.45;
+}
+.ch-luxury-cube.ch-open-active .ch-inner-rose-heart {
+    transform: translateY(-10px) scale(1.07);
+}
+.ch-luxury-cube.ch-open-active .ch-drawer-sliding-box {
+    transform: translateY(22px) scale(1.04);
+}
+.ch-luxury-cube.ch-open-active .ch-drawer-interior-peek {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Flying Burst Items (Taka Notes & Chocolates popping out of the box) */
+.ch-fly-burst-layer {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 15;
+    pointer-events: none;
+}
+.ch-fly-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    border-radius: 8px;
+    padding: 6px 11px;
+    font-weight: 800;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.ch-fly-taka {
+    border: 1.5px solid rgba(255, 230, 140, 0.85);
+    color: #fff;
+    flex-direction: column;
+    gap: 1px;
+    padding: 5px 12px;
+}
+.ch-fly-taka .fly-tk-bank {
+    font-size: 0.54rem;
+    opacity: 0.9;
+    letter-spacing: 0.3px;
+}
+.ch-fly-taka .fly-tk-amount {
+    font-size: 0.92rem;
+    color: #fef08a;
+}
+.ch-fly-choc {
+    background: linear-gradient(135deg, #4c1d95, #7c3aed);
+    border: 1.5px solid #fcd34d;
+    color: #fff;
+}
+
+.ch-box-scene:has(.ch-open-active) .ch-fly-item {
+    animation: chFlyOutBurst 1.35s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
+    animation-delay: var(--delay, 0s);
+}
+@keyframes chFlyOutBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    }
+    45% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.1) rotate(var(--rot));
+    }
+    80% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--tx) * 1.06), calc(-50% + var(--ty) * 0.95)) scale(1) rotate(var(--rot));
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--tx) * 1.15), calc(-50% + var(--ty) * 0.7)) scale(0.85) rotate(var(--rot));
+    }
+}
+
+.ch-tap-instruction {
+    margin-top: 28px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #ffe4e6;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(225, 29, 72, 0.6);
+    animation: pulseText 1.6s infinite alternate;
+}
+
+/* Revealed Bangladeshi Taka (৳) & Chocolates Showcase */
+.ch-reveal-showcase {
+    width: 100%;
+    background: rgba(24, 6, 14, 0.82);
+    border: 1px solid rgba(255, 120, 150, 0.25);
+    border-radius: 26px;
+    padding: 24px 20px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+.ch-reveal-showcase.entering {
+    animation: cardEntrance 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.ch-showcase-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.ch-salami-pill {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #fde047;
+    background: rgba(225, 29, 72, 0.28);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    margin-bottom: 8px;
+}
+.ch-salami-headline {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 12px rgba(244, 63, 94, 0.5);
+}
+.ch-total-salami-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(245, 158, 11, 0.25) 100%);
+    border: 1px solid rgba(251, 191, 36, 0.5);
+}
+.ch-total-salami-banner .total-lbl {
+    font-size: 0.88rem;
+    color: #fef3c7;
+}
+.ch-total-salami-banner .total-val {
+    font-size: 1.08rem;
+    font-weight: 800;
+    color: #fde047;
+}
+
+.ch-gift-section {
+    margin-top: 18px;
+}
+.ch-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #fecdd3;
+    margin-bottom: 10px;
+    padding: 0 4px;
+}
+.ch-tap-hint {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #fda4af;
+    opacity: 0.85;
+}
+
+/* Bangladeshi Taka (BDT) Realistic Banknote Cards */
+.bdt-notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+}
+
+.bdt-banknote-card {
+    position: relative;
+    border-radius: 14px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+.bdt-banknote-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+}
+.bdt-banknote-card.note-pulse {
+    animation: chNotePulse 0.45s ease;
+}
+@keyframes chNotePulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.06) rotate(-1.5deg); }
+    100% { transform: scale(1); }
+}
+
+/* Note Denomination Color Themes */
+.bdt-note-1000 {
+    background: linear-gradient(135deg, #581c87 0%, #86198f 48%, #b45309 100%);
+    border: 1.5px solid rgba(253, 224, 71, 0.65);
+}
+.bdt-note-500 {
+    background: linear-gradient(135deg, #064e3b 0%, #0f766e 52%, #047857 100%);
+    border: 1.5px solid rgba(110, 231, 183, 0.6);
+}
+.bdt-note-200 {
+    background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #d97706 100%);
+    border: 1.5px solid rgba(253, 224, 71, 0.65);
+}
+.bdt-note-100 {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 52%, #0284c7 100%);
+    border: 1.5px solid rgba(147, 197, 253, 0.6);
+}
+.bdt-note-custom {
+    background: linear-gradient(135deg, #881337 0%, #be123c 50%, #b45309 100%);
+    border: 1.5px solid rgba(253, 224, 71, 0.7);
+}
+
+.bdt-note-inner {
+    position: relative;
+    border: 1px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: radial-gradient(circle at 80% 25%, rgba(255, 255, 255, 0.12) 0%, transparent 65%);
+    overflow: hidden;
+}
+.bdt-note-Watermark {
+    position: absolute;
+    right: 10px;
+    bottom: -8px;
+    font-size: 4.2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+.bdt-security-thread {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 34%;
+    width: 3px;
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(253, 224, 71, 0.65) 0px,
+        rgba(253, 224, 71, 0.65) 6px,
+        rgba(255, 255, 255, 0.15) 6px,
+        rgba(255, 255, 255, 0.15) 11px
+    );
+    pointer-events: none;
+}
+.bdt-note-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+.bdt-bank-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #fef9c3;
+}
+.bdt-corner-val {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #fde047;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.bdt-note-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0;
+}
+.bdt-emblem-circle {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(254, 240, 138, 0.28) 0%, rgba(0, 0, 0, 0.35) 100%);
+    border: 1.5px solid rgba(253, 224, 71, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    font-weight: 900;
+    color: #fef08a;
+    flex-shrink: 0;
+}
+.bdt-center-text {
+    display: flex;
+    flex-direction: column;
+}
+.bdt-bn-words {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+.bdt-en-words {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: rgba(254, 249, 195, 0.85);
+}
+.bdt-promise {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.72);
+    margin-top: 1px;
+}
+.bdt-note-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.bdt-serial {
+    font-size: 0.68rem;
+    font-family: monospace;
+    color: rgba(255, 255, 255, 0.82);
+}
+.bdt-count-badge {
+    background: rgba(0, 0, 0, 0.42);
+    border: 1px solid rgba(253, 224, 71, 0.5);
+    color: #fde047;
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 2px 9px;
+    border-radius: 999px;
+}
+
+/* Luxury Chocolates Showcase Grid */
+.ch-chocs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+}
+.ch-choc-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ch-choc-card:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+.ch-choc-foil-shine {
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 45%;
+    height: 180%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+    transform: rotate(25deg);
+    pointer-events: none;
+}
+.choc-style-silk {
+    background: linear-gradient(135deg, #3b0764 0%, #6b21a8 55%, #4c1d95 100%);
+    border: 1.5px solid rgba(253, 224, 71, 0.55);
+}
+.choc-style-ferrero {
+    background: linear-gradient(135deg, #713f12 0%, #a16207 52%, #ca8a04 100%);
+    border: 1.5px solid rgba(254, 240, 138, 0.7);
+}
+.choc-style-kitkat {
+    background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 55%, #dc2626 100%);
+    border: 1.5px solid rgba(254, 202, 202, 0.6);
+}
+.choc-style-truffle {
+    background: linear-gradient(135deg, #271206 0%, #451a03 55%, #78350f 100%);
+    border: 1.5px solid rgba(251, 191, 36, 0.55);
+}
+.choc-style-kinder {
+    background: linear-gradient(135deg, #991b1b 0%, #ea580c 55%, #d97706 100%);
+    border: 1.5px solid rgba(254, 215, 170, 0.65);
+}
+.choc-style-toblerone {
+    background: linear-gradient(135deg, #78350f 0%, #b45309 55%, #eab308 100%);
+    border: 1.5px solid rgba(254, 240, 138, 0.7);
+}
+
+.ch-choc-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.45rem;
+    flex-shrink: 0;
+}
+.ch-choc-info {
+    flex: 1;
+    min-width: 0;
+}
+.ch-choc-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fde047;
+    opacity: 0.9;
+}
+.ch-choc-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-top: 2px;
+}
+.ch-choc-qty {
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(253, 224, 71, 0.55);
+    color: #fef08a;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.ch-showcase-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 22px;
+}
+.ch-action-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 11px 20px;
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ch-action-btn:hover {
+    transform: translateY(-2px);
+}
+.ch-action-btn.primary {
+    background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(225, 29, 72, 0.45);
+}
+.ch-action-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fde047;
+    border: 1px solid rgba(253, 224, 71, 0.4);
+}
+
+/* Floating Tap Sparkle Particles */
+.ch-floating-burst-particle {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fde047;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+    animation: chParticleFloat 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes chParticleFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.4);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx) * 1.25), calc(-50% + var(--dy) * 1.35 - 20px)) scale(0.8);
+    }
+}
+
+/* Creator Form Controls for Crystal Heart (Taka & Chocolates Editor) */
+.ch-editor-block {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 14px;
+}
+.ch-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+.ch-total-badge {
+    background: linear-gradient(135deg, #059669, #d97706);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 11px;
+    border-radius: 999px;
+}
+.ch-tk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+.ch-tk-item {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.ch-tk-note-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    color: #fff;
+}
+.ch-tk-item.tk-1000 .ch-tk-note-preview { background: linear-gradient(135deg, #6b21a8, #b45309); }
+.ch-tk-item.tk-500 .ch-tk-note-preview { background: linear-gradient(135deg, #047857, #0f766e); }
+.ch-tk-item.tk-200 .ch-tk-note-preview { background: linear-gradient(135deg, #b45309, #d97706); }
+.ch-tk-item.tk-100 .ch-tk-note-preview { background: linear-gradient(135deg, #1d4ed8, #0284c7); }
+.ch-tk-note-preview .tk-bank { font-size: 0.65rem; opacity: 0.9; }
+.ch-tk-note-preview .tk-val { font-size: 0.92rem; color: #fde047; }
+
+.ch-choc-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.ch-preset-chip {
+    background: rgba(225, 29, 72, 0.18);
+    border: 1px solid rgba(244, 63, 94, 0.4);
+    color: #fda4af;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.ch-preset-chip:hover {
+    background: rgba(225, 29, 72, 0.35);
+    color: #fff;
+}
+
+/* Creator Phone Mockup Preview for Crystal Heart */
+.mockup-ch-card {
+    background: linear-gradient(160deg, #28060e 0%, #120307 100%);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    border-radius: 20px;
+    padding: 16px 14px;
+    text-align: center;
+    color: #fff;
+}
+.mockup-ch-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #fde047;
+    background: rgba(225, 29, 72, 0.28);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+}
+.mockup-ch-to {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: #fecdd3;
+}
+.mockup-ch-mini-box {
+    width: 120px;
+    margin: 0 auto 10px;
+    background: #3b0a11;
+    border: 3px solid #6b1b22;
+    border-radius: 8px;
+    padding: 8px 8px 4px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+.mockup-ch-bow {
+    font-size: 1.3rem;
+    margin-top: -16px;
+}
+.mockup-ch-glass {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 4px;
+    padding: 8px 4px;
+    margin-bottom: 6px;
+}
+.mockup-ch-rose-heart {
+    font-size: 0.85rem;
+    line-height: 1.15;
+}
+.mockup-ch-drawer {
+    background: #881d2a;
+    border-radius: 3px;
+    padding: 2px;
+    font-size: 0.75rem;
+}
+.mockup-ch-tk-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #fde047;
+    margin-bottom: 8px;
+}
+.mockup-ch-tk-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+.prev-tk-pill {
+    background: linear-gradient(135deg, #6b21a8, #b45309);
+    border: 1px solid rgba(253, 224, 71, 0.5);
+    color: #fef08a;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+.mockup-ch-choc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.7rem;
+    color: #fecdd3;
+}
+.mockup-ch-choc-list span {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+
 
 
 
