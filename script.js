@@ -852,6 +852,9 @@ function initCreator() {
         if (creatorContainer && successContainer) {
             creatorContainer.classList.add('hidden');
             successContainer.classList.remove('hidden');
+            if (window.history && window.history.pushState) {
+                window.history.pushState({ view: 'success' }, '', window.location.pathname);
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -907,6 +910,7 @@ function initCreator() {
 
     const backToEditBtn = document.getElementById('backToEditBtn') || document.getElementById('closeModalBtn');
     const homeBackBtn = document.getElementById('homeBackBtn');
+    const topBackHomeBtn = document.getElementById('topBackHomeBtn');
     const navLogo = document.getElementById('navLogo');
 
     function returnToCreatorHome() {
@@ -931,12 +935,22 @@ function initCreator() {
 
     if (backToEditBtn) backToEditBtn.addEventListener('click', returnToCreatorHome);
     if (homeBackBtn) homeBackBtn.addEventListener('click', returnToCreatorHome);
+    if (topBackHomeBtn) topBackHomeBtn.addEventListener('click', returnToCreatorHome);
     if (navLogo) {
         navLogo.addEventListener('click', (e) => {
             e.preventDefault();
             returnToCreatorHome();
         });
     }
+
+    window.addEventListener('popstate', () => {
+        const successContainer = document.getElementById('successContainer');
+        const adminContainer = document.getElementById('adminContainer');
+        if ((successContainer && !successContainer.classList.contains('hidden')) ||
+            (adminContainer && !adminContainer.classList.contains('hidden'))) {
+            returnToCreatorHome();
+        }
+    });
 
     copyBtn.addEventListener('click', () => {
         shareableLinkInput.select();
