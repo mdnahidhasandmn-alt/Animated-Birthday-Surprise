@@ -25,7 +25,7 @@
         }
     </script>
     <!-- Cache bust to avoid Render CDN issues after redeploy -->
-    <link rel="stylesheet" href="/style.css?v=13">
+    <link rel="stylesheet" href="/style.css?v=14">
 </head>
 
 <body>
@@ -527,16 +527,34 @@
                 <div class="form-box Login">
                     <h2 class="animation" style="--D:0; --S:21">Login</h2>
                     <form id="loginForm" onsubmit="return false;">
-                        <div class="input-box animation" style="--D:1; --S:22">
-                            <input type="text" id="loginUsername" required autocomplete="off">
-                            <label for="loginUsername">Username / Admin ID</label>
-                            <span class="box-icon-span">👤</span>
+                        <div class="input-box premium-field animation" style="--D:1; --S:22">
+                            <label for="loginUsername" class="premium-field-label">Username / Admin ID</label>
+                            <div class="premium-input-wrap">
+                                <input type="text" id="loginUsername" placeholder="Enter username or Admin ID" required autocomplete="username">
+                                <span class="box-icon-span" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="input-box animation" style="--D:2; --S:23">
-                            <input type="password" id="loginPassword" required autocomplete="off">
-                            <label for="loginPassword">Password</label>
-                            <span class="box-icon-span" id="toggleLoginPass" style="cursor: pointer;" title="Toggle Password Visibility">👁️</span>
+                        <div class="input-box premium-field animation" style="--D:2; --S:23">
+                            <label for="loginPassword" class="premium-field-label">Password</label>
+                            <div class="premium-input-wrap">
+                                <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                                <button type="button" class="box-icon-btn" id="toggleLoginPass" title="Show / Hide Password" aria-label="Show or Hide Password">
+                                    <svg id="eyeOpenIcon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <svg id="eyeClosedIcon" class="hidden" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
 
                         <p id="loginMsg" class="tcw-status-msg animation" style="--D:2.5; --S:23.5"></p>
@@ -830,7 +848,7 @@
     <script src="/themes/nightgarden.js"></script>
     <script src="/themes/birthdaycake.js"></script>
     <script src="/cursorFx.js"></script>
-    <script src="/script.js?v=13"></script>
+    <script src="/script.js?v=14"></script>
 </body>
 
 </html>
