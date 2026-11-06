@@ -197,8 +197,198 @@ function processImageUpload(file, callback) {
     reader.readAsDataURL(file);
 }
 
+function renderViewerFromDecoded(decodedData) {
+    let decoded = decodedData || {};
+    if (typeof decodedData === 'string') {
+        try {
+            decoded = decodeConfig(decodedData);
+        } catch (e) {
+            console.error("Failed to decode configuration, falling back to defaults.", e);
+            decoded = {};
+        }
+    }
+
+    SURPRISE_CONFIG = {
+        theme: decoded.theme || 'birthday',
+        occasionText: decoded.o || DEFAULT_CONFIG.o,
+        partnerName: decoded.t || DEFAULT_CONFIG.t,
+        senderName: decoded.f || DEFAULT_CONFIG.f,
+        message: decoded.m || DEFAULT_CONFIG.m,
+        photoUrl: decoded.p || DEFAULT_CONFIG.p,
+        letter1: decoded.l1 || DEFAULT_CONFIG.l1,
+        letter2: decoded.l2 || DEFAULT_CONFIG.l2,
+        letter3: decoded.l3 || DEFAULT_CONFIG.l3,
+        envelopePhotoText: decoded.lp || DEFAULT_CONFIG.lp,
+        envelopePhotoUrl: decoded.li || DEFAULT_CONFIG.li
+    };
+
+    document.documentElement.classList.add('wish-route');
+    document.body.classList.remove('creator-mode');
+    document.body.classList.add('wish-mode');
+
+    const topNavbar = document.getElementById('topNavbar');
+    if (topNavbar) topNavbar.classList.add('hidden');
+    const creatorContainer = document.getElementById('creatorContainer');
+    if (creatorContainer) creatorContainer.classList.add('hidden');
+    const loginContainer = document.getElementById('loginContainer');
+    if (loginContainer) loginContainer.classList.add('hidden');
+    const adminContainer = document.getElementById('adminContainer');
+    if (adminContainer) adminContainer.classList.add('hidden');
+    const successContainer = document.getElementById('successContainer');
+    if (successContainer) successContainer.classList.add('hidden');
+
+    if (SURPRISE_CONFIG.theme === 'heartbeat') {
+        document.getElementById('wishContainer').classList.add('hidden');
+        document.getElementById('roseContainer').classList.add('hidden');
+        document.getElementById('heartbeatContainer').classList.remove('hidden');
+
+        // Populate Heartbeat Viewer DOM
+        document.querySelector('#heartbeatContainer .card-title').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('hbM1').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('hbM2').innerHTML = `for <span id="hbM2Span">${SURPRISE_CONFIG.partnerName}</span> 💗`;
+        document.getElementById('hbLetterSign').innerText = `— coded with love by ${SURPRISE_CONFIG.senderName}`;
+
+        initBackground();
+        initHeartbeatTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'rose') {
+        document.getElementById('wishContainer').classList.add('hidden');
+        document.getElementById('heartbeatContainer').classList.add('hidden');
+        document.getElementById('elementumContainer').classList.add('hidden');
+        document.getElementById('roseContainer').classList.remove('hidden');
+
+        // Populate Rose Viewer DOM
+        document.getElementById('roseLoaderTitle').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('roseTagline').innerHTML = `${SURPRISE_CONFIG.message || 'i coded this for you'}`;
+
+        initBackground();
+        initRoseTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'elementum') {
+        document.getElementById('wishContainer').classList.add('hidden');
+        document.getElementById('heartbeatContainer').classList.add('hidden');
+        document.getElementById('roseContainer').classList.add('hidden');
+        document.getElementById('elementumContainer').classList.remove('hidden');
+
+        initBackground();
+        initElementumTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'hearttunnel') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initHearttunnelTheme) initHearttunnelTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'fireworks') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initFireworksTheme) initFireworksTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'crystalheart') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initCrystalheartTheme) initCrystalheartTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'coloravalanche') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initColoravalancheTheme) initColoravalancheTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'cube') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initCubeTheme) initCubeTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'nightgarden') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initNightgardenTheme) initNightgardenTheme(SURPRISE_CONFIG);
+    } else if (SURPRISE_CONFIG.theme === 'birthdaycake') {
+        document.getElementById('wishContainer').classList.remove('hidden');
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        initBackground();
+        if (window.initBirthdaycakeTheme) initBirthdaycakeTheme(SURPRISE_CONFIG);
+    } else {
+        document.getElementById('heartbeatContainer').classList.add('hidden');
+        document.getElementById('roseContainer').classList.add('hidden');
+        document.getElementById('elementumContainer').classList.add('hidden');
+        document.getElementById('wishContainer').classList.remove('hidden');
+
+        // Populate Viewer DOM
+        document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
+        document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
+        document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
+        document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
+        document.getElementById('mainCardPhoto').src = SURPRISE_CONFIG.photoUrl;
+
+        document.getElementById('letter1Text').innerText = SURPRISE_CONFIG.letter1;
+        document.getElementById('letter1Sig').innerText = SURPRISE_CONFIG.senderName;
+        
+        document.getElementById('letter2Text').innerText = SURPRISE_CONFIG.letter2;
+        document.getElementById('letter2Sig').innerText = SURPRISE_CONFIG.senderName;
+        
+        document.getElementById('letter3Text').innerText = SURPRISE_CONFIG.letter3;
+        document.getElementById('letter3Sig').innerText = SURPRISE_CONFIG.senderName;
+        
+        document.getElementById('envelopePhotoText').innerText = SURPRISE_CONFIG.envelopePhotoText;
+        document.getElementById('envelopePhoto').src = SURPRISE_CONFIG.envelopePhotoUrl;
+
+        initBackground();
+        initBirthdayTheme(SURPRISE_CONFIG);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if configuration is in hash (#w=) or query (?w=) — support both
+    // 1. Check preloaded server wish config (for instant /s/:code rendering with zero flash)
+    if (window.__PRELOADED_WISH__) {
+        renderViewerFromDecoded(window.__PRELOADED_WISH__);
+        return;
+    }
+
+    // 2. Check /s/:code short link route (fallback fetch without showing creator home page)
+    if (window.location.pathname.startsWith('/s/')) {
+        document.documentElement.classList.add('wish-route');
+        document.body.classList.add('wish-mode');
+        const topNavbar = document.getElementById('topNavbar');
+        if (topNavbar) topNavbar.classList.add('hidden');
+        const creatorContainer = document.getElementById('creatorContainer');
+        if (creatorContainer) creatorContainer.classList.add('hidden');
+
+        const code = window.location.pathname.substring(3).trim();
+        if (code) {
+            fetch(`/api/wish/${code}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.config) {
+                        renderViewerFromDecoded(data.config);
+                    }
+                })
+                .catch(err => {
+                    console.error('Error loading wish payload:', err);
+                });
+            return;
+        }
+    }
+
+    // 3. Check if configuration is in hash (#w=) or query (?w=) — support both
     let hashData = "";
     if (window.location.hash.startsWith('#w=')) {
         hashData = window.location.hash.substring(3);
@@ -211,167 +401,14 @@ document.addEventListener('DOMContentLoaded', () => {
     hashData = hashData.trim().replace(/\/+$/, '');
 
     if (hashData) {
-
         // --- VIEWER MODE ---
-        try {
-            const decoded = decodeConfig(hashData);
-            SURPRISE_CONFIG = {
-                theme: decoded.theme || 'birthday',
-                occasionText: decoded.o || DEFAULT_CONFIG.o,
-                partnerName: decoded.t || DEFAULT_CONFIG.t,
-                senderName: decoded.f || DEFAULT_CONFIG.f,
-                message: decoded.m || DEFAULT_CONFIG.m,
-                photoUrl: decoded.p || DEFAULT_CONFIG.p,
-                letter1: decoded.l1 || DEFAULT_CONFIG.l1,
-                letter2: decoded.l2 || DEFAULT_CONFIG.l2,
-                letter3: decoded.l3 || DEFAULT_CONFIG.l3,
-                envelopePhotoText: decoded.lp || DEFAULT_CONFIG.lp,
-                envelopePhotoUrl: decoded.li || DEFAULT_CONFIG.li
-            };
-        } catch (e) {
-            console.error("Failed to decode configuration, falling back to defaults.", e);
-            SURPRISE_CONFIG = {
-                theme: 'birthday',
-                occasionText: DEFAULT_CONFIG.o,
-                partnerName: DEFAULT_CONFIG.t,
-                senderName: DEFAULT_CONFIG.f,
-                message: DEFAULT_CONFIG.m,
-                photoUrl: DEFAULT_CONFIG.p,
-                letter1: DEFAULT_CONFIG.l1,
-                letter2: DEFAULT_CONFIG.l2,
-                letter3: DEFAULT_CONFIG.l3,
-                envelopePhotoText: DEFAULT_CONFIG.lp,
-                envelopePhotoUrl: DEFAULT_CONFIG.li
-            };
-        }
-
-        document.body.classList.add('wish-mode');
-        document.getElementById('creatorContainer').classList.add('hidden');
-
-        if (SURPRISE_CONFIG.theme === 'heartbeat') {
-            document.getElementById('wishContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.add('hidden');
-            document.getElementById('heartbeatContainer').classList.remove('hidden');
-
-            // Populate Heartbeat Viewer DOM
-            document.querySelector('#heartbeatContainer .card-title').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('hbM1').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('hbM2').innerHTML = `for <span id="hbM2Span">${SURPRISE_CONFIG.partnerName}</span> 💗`;
-            document.getElementById('hbLetterSign').innerText = `— coded with love by ${SURPRISE_CONFIG.senderName}`;
-
-            initBackground();
-            initHeartbeatTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'rose') {
-            document.getElementById('wishContainer').classList.add('hidden');
-            document.getElementById('heartbeatContainer').classList.add('hidden');
-            document.getElementById('elementumContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.remove('hidden');
-
-            // Populate Rose Viewer DOM
-            document.getElementById('roseLoaderTitle').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('roseTagline').innerHTML = `${SURPRISE_CONFIG.message || 'i coded this for you'}`;
-
-            initBackground();
-            initRoseTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'elementum') {
-            document.getElementById('wishContainer').classList.add('hidden');
-            document.getElementById('heartbeatContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.add('hidden');
-            document.getElementById('elementumContainer').classList.remove('hidden');
-
-            initBackground();
-            initElementumTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'hearttunnel') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initHearttunnelTheme) initHearttunnelTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'fireworks') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initFireworksTheme) initFireworksTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'crystalheart') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initCrystalheartTheme) initCrystalheartTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'coloravalanche') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initColoravalancheTheme) initColoravalancheTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'cube') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initCubeTheme) initCubeTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'nightgarden') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initNightgardenTheme) initNightgardenTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'birthdaycake') {
-            document.getElementById('wishContainer').classList.remove('hidden');
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            initBackground();
-            if (window.initBirthdaycakeTheme) initBirthdaycakeTheme(SURPRISE_CONFIG);
-        } else {
-            document.getElementById('heartbeatContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.add('hidden');
-            document.getElementById('elementumContainer').classList.add('hidden');
-            document.getElementById('wishContainer').classList.remove('hidden');
-
-            // Populate Viewer DOM
-            document.getElementById('occasionText').innerText = SURPRISE_CONFIG.occasionText;
-            document.getElementById('partnerName').innerText = SURPRISE_CONFIG.partnerName;
-            document.getElementById('senderName').innerText = SURPRISE_CONFIG.senderName;
-            document.getElementById('customMessage').innerText = SURPRISE_CONFIG.message;
-            document.getElementById('mainCardPhoto').src = SURPRISE_CONFIG.photoUrl;
-
-            document.getElementById('letter1Text').innerText = SURPRISE_CONFIG.letter1;
-            document.getElementById('letter1Sig').innerText = SURPRISE_CONFIG.senderName;
-            
-            document.getElementById('letter2Text').innerText = SURPRISE_CONFIG.letter2;
-            document.getElementById('letter2Sig').innerText = SURPRISE_CONFIG.senderName;
-            
-            document.getElementById('letter3Text').innerText = SURPRISE_CONFIG.letter3;
-            document.getElementById('letter3Sig').innerText = SURPRISE_CONFIG.senderName;
-            
-            document.getElementById('envelopePhotoText').innerText = SURPRISE_CONFIG.envelopePhotoText;
-            document.getElementById('envelopePhoto').src = SURPRISE_CONFIG.envelopePhotoUrl;
-
-            initBackground();
-            initBirthdayTheme(SURPRISE_CONFIG);
-        }
+        renderViewerFromDecoded(hashData);
     } else {
         // --- CREATOR MODE ---
         document.body.classList.add('creator-mode');
         document.getElementById('wishContainer').classList.add('hidden');
         document.getElementById('heartbeatContainer').classList.add('hidden');
         document.getElementById('roseContainer').classList.add('hidden');
-        document.getElementById('creatorContainer').classList.remove('hidden');
 
         initBackground();
         initCreator();
@@ -961,110 +998,7 @@ function initCreator() {
     let currentSession = JSON.parse(sessionStorage.getItem('lab_session') || 'null');
 
     function loadWishSurpriseConfig(configData) {
-        let config = configData;
-        if (typeof configData === 'string') {
-            try {
-                config = decodeConfig(configData);
-            } catch (e) {
-                console.error("Failed to decode wish config:", e);
-                config = {};
-            }
-        }
-
-        SURPRISE_CONFIG = {
-            theme: config.theme || 'birthday',
-            occasionText: config.o || DEFAULT_CONFIG.o,
-            partnerName: config.t || DEFAULT_CONFIG.t,
-            senderName: config.f || DEFAULT_CONFIG.f,
-            message: config.m || DEFAULT_CONFIG.m,
-            photoUrl: config.p || DEFAULT_CONFIG.p,
-            letter1: config.l1 || DEFAULT_CONFIG.l1,
-            letter2: config.l2 || DEFAULT_CONFIG.l2,
-            letter3: config.l3 || DEFAULT_CONFIG.l3,
-            envelopePhotoText: config.lp || DEFAULT_CONFIG.lp,
-            envelopePhotoUrl: config.li || DEFAULT_CONFIG.li
-        };
-
-        document.body.classList.add('wish-mode');
-        const topNavbar = document.getElementById('topNavbar');
-        if (topNavbar) topNavbar.classList.add('hidden');
-
-        if (creatorContainer) creatorContainer.classList.add('hidden');
-        if (loginContainer) loginContainer.classList.add('hidden');
-        if (adminContainer) adminContainer.classList.add('hidden');
-        if (successContainer) successContainer.classList.add('hidden');
-
-        if (SURPRISE_CONFIG.theme === 'heartbeat') {
-            document.getElementById('wishContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.add('hidden');
-            document.getElementById('heartbeatContainer').classList.remove('hidden');
-
-            const hbTitle = document.querySelector('#heartbeatContainer .card-title');
-            if (hbTitle) hbTitle.innerText = SURPRISE_CONFIG.occasionText;
-            const hbM1 = document.getElementById('hbM1');
-            if (hbM1) hbM1.innerText = SURPRISE_CONFIG.occasionText;
-            const hbM2 = document.getElementById('hbM2');
-            if (hbM2) hbM2.innerHTML = `for <span id="hbM2Span">${SURPRISE_CONFIG.partnerName}</span> 💗`;
-            const hbSign = document.getElementById('hbLetterSign');
-            if (hbSign) hbSign.innerText = `— coded with love by ${SURPRISE_CONFIG.senderName}`;
-
-            initBackground();
-            if (window.initHeartbeatTheme) initHeartbeatTheme(SURPRISE_CONFIG);
-        } else if (SURPRISE_CONFIG.theme === 'rose') {
-            document.getElementById('wishContainer').classList.add('hidden');
-            document.getElementById('heartbeatContainer').classList.add('hidden');
-            document.getElementById('elementumContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.remove('hidden');
-
-            const roseTitle = document.getElementById('roseLoaderTitle');
-            if (roseTitle) roseTitle.innerText = SURPRISE_CONFIG.occasionText;
-            const roseTag = document.getElementById('roseTagline');
-            if (roseTag) roseTag.innerHTML = `${SURPRISE_CONFIG.message || 'i coded this for you'}`;
-
-            initBackground();
-            if (window.initRoseTheme) initRoseTheme(SURPRISE_CONFIG);
-        } else {
-            // Birthday Theme (Default)
-            document.getElementById('heartbeatContainer').classList.add('hidden');
-            document.getElementById('roseContainer').classList.add('hidden');
-            document.getElementById('elementumContainer').classList.add('hidden');
-            document.getElementById('wishContainer').classList.remove('hidden');
-
-            const occEl = document.getElementById('occasionText');
-            if (occEl) occEl.innerText = SURPRISE_CONFIG.occasionText;
-            const pNameEl = document.getElementById('partnerName');
-            if (pNameEl) pNameEl.innerText = SURPRISE_CONFIG.partnerName;
-            const sNameEl = document.getElementById('senderName');
-            if (sNameEl) sNameEl.innerText = SURPRISE_CONFIG.senderName;
-            const msgEl = document.getElementById('customMessage');
-            if (msgEl) msgEl.innerText = SURPRISE_CONFIG.message;
-            
-            const mainCardPhotoEl = document.getElementById('mainCardPhoto');
-            if (mainCardPhotoEl) mainCardPhotoEl.src = SURPRISE_CONFIG.photoUrl;
-
-            const l1Text = document.getElementById('letter1Text');
-            if (l1Text) l1Text.innerText = SURPRISE_CONFIG.letter1;
-            const l1Sig = document.getElementById('letter1Sig');
-            if (l1Sig) l1Sig.innerText = SURPRISE_CONFIG.senderName;
-            
-            const l2Text = document.getElementById('letter2Text');
-            if (l2Text) l2Text.innerText = SURPRISE_CONFIG.letter2;
-            const l2Sig = document.getElementById('letter2Sig');
-            if (l2Sig) l2Sig.innerText = SURPRISE_CONFIG.senderName;
-            
-            const l3Text = document.getElementById('letter3Text');
-            if (l3Text) l3Text.innerText = SURPRISE_CONFIG.letter3;
-            const l3Sig = document.getElementById('letter3Sig');
-            if (l3Sig) l3Sig.innerText = SURPRISE_CONFIG.senderName;
-
-            const envText = document.getElementById('envelopePhotoText');
-            if (envText) envText.innerText = SURPRISE_CONFIG.envelopePhotoText;
-            const envelopePhotoEl = document.getElementById('envelopePhoto');
-            if (envelopePhotoEl) envelopePhotoEl.src = SURPRISE_CONFIG.envelopePhotoUrl;
-
-            initBackground();
-            if (window.initBirthdayTheme) initBirthdayTheme(SURPRISE_CONFIG);
-        }
+        renderViewerFromDecoded(configData);
     }
 
     function checkMandatoryAuth() {
