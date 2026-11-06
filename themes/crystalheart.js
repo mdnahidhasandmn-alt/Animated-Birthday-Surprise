@@ -86,7 +86,7 @@ function initCrystalHeartBoxExperience(config) {
     const notes = parseTakaNotes(config);
     const totalTaka = notes.reduce((sum, n) => sum + (n.amount * n.count), 0);
     const totalTakaBn = toBanglaDigits(totalTaka.toLocaleString('en-IN'));
-    const tkTitle = config.chTkTitle || 'স্পেশাল ঈদ / বার্থডে সালামি গিফট 💸';
+    const tkTitle = config.chTkTitle || 'স্পেশাল গিফট বক্স 💸';
 
     // Flying Taka notes burst out of the gift box when tapped
     const flyItemsHtml = [];
@@ -164,11 +164,8 @@ function initCrystalHeartBoxExperience(config) {
                 </div>
             </div>
 
-            <!-- Action Row to view Love Letter Card or Re-pop Box -->
+            <!-- Action Row to Re-pop Box -->
             <div class="ch-showcase-actions">
-                <button type="button" class="ch-action-btn primary" id="chShowCardBtn">
-                    💌 Read Special Birthday / Love Card
-                </button>
                 <button type="button" class="ch-action-btn secondary" id="chReplayPopBtn">
                     🔄 Open Gift Box Again
                 </button>
@@ -309,19 +306,6 @@ function initCrystalHeartBoxExperience(config) {
         chReplayPopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             triggerBoxOpen();
-        });
-    }
-
-    const chShowCardBtn = document.getElementById('chShowCardBtn');
-    if (chShowCardBtn && memoryCard) {
-        chShowCardBtn.addEventListener('click', () => {
-            playRoyalChime();
-            memoryCard.style.display = 'block';
-            memoryCard.classList.remove('hidden');
-            memoryCard.classList.add('entering');
-            const skipBtn = document.getElementById('skipTypingBtn');
-            if (skipBtn) skipBtn.style.display = 'none';
-            memoryCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     }
 }
