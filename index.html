@@ -11,9 +11,21 @@
     <style>
         .hidden { display: none !important; }
         body { background-color: #06020e; color: #f8f6fe; margin: 0; }
+        html.wish-route #topNavbar,
+        html.wish-route #creatorContainer,
+        html.wish-route #loginContainer,
+        html.wish-route #adminContainer,
+        html.wish-route #successContainer {
+            display: none !important;
+        }
     </style>
+    <script>
+        if (window.location.pathname.indexOf('/s/') === 0 || window.location.search.indexOf('w=') !== -1 || window.location.hash.indexOf('#w=') === 0) {
+            document.documentElement.classList.add('wish-route');
+        }
+    </script>
     <!-- Cache bust to avoid Render CDN issues after redeploy -->
-    <link rel="stylesheet" href="/style.css?v=5">
+    <link rel="stylesheet" href="/style.css?v=6">
 </head>
 
 <body>
@@ -762,7 +774,7 @@
     <script src="/themes/nightgarden.js"></script>
     <script src="/themes/birthdaycake.js"></script>
     <script src="/cursorFx.js"></script>
-    <script src="/script.js?v=5"></script>
+    <script src="/script.js?v=6"></script>
 </body>
 
 </html>
