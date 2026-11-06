@@ -22,18 +22,14 @@ function initAnimator() {
     const canvas = document.getElementById('balloonCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Populate images into balloon elements
+    // Populate images into balloon elements (use valid card & envelope photos)
     const imageSources = [
         SURPRISE_CONFIG.photoUrl,
-        SURPRISE_CONFIG.envelopePhotoUrl,
-        "https://images.unsplash.com/photo-1513272795190-0b7c527757ed?w=150&auto=format&fit=crop&q=80"
-    ];
+        SURPRISE_CONFIG.envelopePhotoUrl
+    ].filter(Boolean);
     const loadedImages = [];
     imageSources.forEach(src => {
         const img = new Image();
-        if (src && !src.startsWith('data:')) {
-            img.crossOrigin = "anonymous";
-        }
         img.src = src;
         loadedImages.push(img);
     });
@@ -116,6 +112,9 @@ function initAnimator() {
             } else {
                 this.width = 66;
                 this.height = 78;
+                this.radiusX = 33;
+                this.radiusY = 39;
+                this.hue = 340;
                 this.rotation = (Math.random() - 0.5) * 0.3;
                 this.rotSpeed = (Math.random() - 0.5) * 0.025;
                 this.img = loadedImages[Math.floor(Math.random() * loadedImages.length)];
@@ -319,8 +318,10 @@ function initAnimator() {
             const b = balloons[i];
             b.update();
             b.draw();
-            if (b.y < -b.radiusY * 2) {
-                balloons.splice(i, 1);
+            if (b.y < -100) {
+                const respawnX = Math.random() * (window.innerWidth - 100) + 50;
+                const respawnY = window.innerHeight + 70 + Math.random() * 100;
+                balloons[i] = new Balloon(respawnX, respawnY);
             }
         }
         if (balloons.length > 0 || popParticles.length > 0 || trailParticles.length > 0 || heartSparks.length > 0) {
@@ -342,6 +343,17 @@ function initAnimator() {
                     popParticles.push(new PopParticle(b.currentX, b.y, b.hue));
                 }
                 balloons.splice(i, 1);
+                setTimeout(() => {
+                    if (giftBox.classList.contains('open')) {
+                        const spawnX = Math.random() * (window.innerWidth - 100) + 50;
+                        const spawnY = window.innerHeight + 80;
+                        balloons.push(new Balloon(spawnX, spawnY));
+                        if (!isDrawingBalloons) {
+                            isDrawingBalloons = true;
+                            animateBalloons();
+                        }
+                    }
+                }, 500);
                 break;
             }
         }
