@@ -271,6 +271,21 @@ const server = http.createServer((req, res) => {
         res.end(JSON.stringify({ shortUrl, code }));
     }
 
+    function resolveStoredWishConfig(storedItem) {
+        if (!storedItem) return null;
+        if (typeof storedItem === 'object') return storedItem;
+        if (typeof storedItem === 'string' && storedItem.includes('?w=')) {
+            const rawW = storedItem.split('?w=')[1];
+            try {
+                const jsonStr = Buffer.from(decodeURIComponent(rawW), 'base64').toString('utf8');
+                return JSON.parse(jsonStr);
+            } catch (e) {
+                return { rawUrl: storedItem };
+            }
+        }
+        return { rawUrl: storedItem };
+    }
+
     // --- Wish config lookup API: /api/wish/:code ---
     if (pathname.startsWith('/api/wish/')) {
         const code = pathname.substring(10).trim();
@@ -282,37 +297,28 @@ const server = http.createServer((req, res) => {
             return;
         }
 
-        let config = null;
-        if (typeof storedItem === 'object') {
-            config = storedItem;
-        } else if (typeof storedItem === 'string' && storedItem.includes('?w=')) {
-            const rawW = storedItem.split('?w=')[1];
-            try {
-                const jsonStr = Buffer.from(decodeURIComponent(rawW), 'base64').toString('utf8');
-                config = JSON.parse(jsonStr);
-            } catch (e) {
-                config = { rawUrl: storedItem };
-            }
-        } else {
-            config = { rawUrl: storedItem };
-        }
+        const config = resolveStoredWishConfig(storedItem);
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, config, code }));
         return;
     }
 
-    // --- Direct Short Link Route: /s/:code (Serves index.html directly to prevent HTTP 431 header overflow) ---
+    // --- Direct Short Link Route: /s/:code (Serves index.html directly with preloaded wish config) ---
     if (pathname.startsWith('/s/') && !pathname.includes('.')) {
         const code = pathname.substring(3).trim();
         if (urlStore[code]) {
-            fs.readFile(path.join(__dirname, 'index.html'), (err, indexContent) => {
+            fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (err, indexContent) => {
                 if (err) {
                     res.writeHead(500);
                     res.end('Server Error');
                 } else {
+                    const preloadedConfig = resolveStoredWishConfig(urlStore[code]);
+                    const safeJson = JSON.stringify(preloadedConfig).replace(/</g, '\\u003c');
+                    const injectScript = `<script>window.__PRELOADED_WISH__ = ${safeJson}; document.documentElement.classList.add('wish-route');</script>\n</head>`;
+                    const finalHtml = indexContent.replace('</head>', injectScript);
                     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-                    res.end(indexContent);
+                    res.end(finalHtml);
                 }
             });
             return;
